@@ -2,7 +2,7 @@ Este trabalho consiste no desenvolvimento de uma plataforma de rede social simpl
 
 ---
 
-##Tecnologias
+## Tecnologias
 - HTML
 - CSS
 - Bootstrap
