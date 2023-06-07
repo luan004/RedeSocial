@@ -1,0 +1,2 @@
+INSERT INTO `users` (`id`, `name`, `user`, `pass`, `avatar`, `banner`) VALUES
+(2, 'Luan Gabriel', 'luan004', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'https://mundoconectado.com.br/uploads/2022/05/25/25658/cacto.jpg', 'https://i.pinimg.com/736x/e0/87/6d/e0876dbf66e40ab8fa55a38aee6ed671.jpg');
