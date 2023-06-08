@@ -9,13 +9,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav nav-pills ms-4 me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
+                    <a class="nav-link active" href="./feed">
                         <i class="fa fa-feed"></i>
                         Feed
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="./perfil?u=luan004">
                         <i class="fa fa-user"></i>
                         Meu Perfil
                     </a>
@@ -48,7 +48,7 @@
 <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form id="loginForm">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Entre na sua conta</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -56,11 +56,11 @@
                 <div class="modal-body">
                     <div class="mb-3 input-group">
                         <span class="input-group-text" id="basic-addon1">@</span>
-                        <input id="user" type="text" class="form-control" placeholder="NomeDeUsuario1" aria-label="Username" aria-describedby="basic-addon1">
+                        <input name="user" type="text" class="form-control" placeholder="NomeDeUsuario1" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     <div class="mb-3">
                         <label for="pass" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="pass" placeholder="********">
+                        <input type="password" class="form-control" name="pass" placeholder="********">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -72,5 +72,5 @@
     </div>
 </div>
 
-<script src="./js/pages/nav.js"></script>
+<script type="module" src="./js/pages/nav.js"></script>
 
