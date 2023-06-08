@@ -13,7 +13,12 @@ if (token != '' && token != null) {
         },
         success: function(response) {
             if (response.auth == true) {
-                //carregar feed  
+                console.log('logado');
+                //usuario logado
+                $('#userInfoBox').show();
+                $('#loginBtn').hide();
+            } else {
+                //usuario nao logado
             }
         }
     });

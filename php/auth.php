@@ -1,15 +1,15 @@
 <?php
     $token = $_POST['token'];
-
+    
     $hostdb = "localhost";
     $db = "tpwdb";
     $userdb = "root";
     $passworddb = "";
 
     $con = new mysqli($hostdb, $userdb, $passworddb, $db);
-    $query = $con->query("SELECT user_id FROM tokens WHERE token = '$token';");
+    $query = $con->query("SELECT user_id FROM sesstokens WHERE token = '$token';");
 
-    if($query->num_rows > 0){
+    if(@$query->num_rows > 0){
         $row = $query->fetch_array();
         $response = array(
             'auth' => true,
