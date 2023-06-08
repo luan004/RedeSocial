@@ -13,7 +13,7 @@ if (token != '' && token != null) {
         },
         success: function(response) {
             if (response.auth == true) {
-                window.location.href = 'home.html';
+                //carregar feed  
             }
         }
     });
