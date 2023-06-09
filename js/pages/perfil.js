@@ -1,6 +1,10 @@
 const params = new URLSearchParams(window.location.search);
 const user = params.get('u');
 
+if (user == null || user == '') {
+    window.location.href = 'feed.html';
+}
+
 if (user != null) {
     $("title").text('RedeSocial | @' + user);
 }

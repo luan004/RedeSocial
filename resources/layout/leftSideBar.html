@@ -1,0 +1,72 @@
+<div class="sticky-top d-flex flex-column" style="padding-top:20px">
+    <div class="card mb-4 p-4 shadow">
+        <div id="loginBox">
+            <button id="loginBtn" class="btn w-100 btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <i class="fa fa-user"></i>
+                Fazer Login
+            </button>
+            <span class="text-center">Não tem uma conta? <a href="#">Cadastre-se</a></span>
+        </div>
+        <div id="userBox" style="display: none;">
+            <div class="d-flex">
+                <img id="userBoxAvatar" width="42" height="42" src="https://placehold.co/42x42" class="rounded-circle me-2" alt="...">
+                <div class="d-grid">
+                    <span id="userBoxName" class="h6 mb-0 text-truncate"></span>
+                    <small id="userBoxUsername" class="text-body-secondary text-truncate"></small>
+                </div>
+                <a id="userBoxLogout" class="ms-auto" href="">Sair</a>
+            </div>
+        </div>
+    </div>
+    <div class="card p-4 shadow">
+        <nav class="nav nav-pills flex-column">
+            <a class="my-2 nav-link active" href="#">
+                <i class="fa fa-feed"></i>
+                Feed
+            </a>
+            <a class="my-2 nav-link" href="#">
+                <i class="fa fa-user"></i>
+                Meu Perfil
+            </a>
+            <a id="switchTheme" class="my-2 nav-link" href="#">
+                <i id="switchThemeIcon" class="fa"></i>
+                <span id="switchThemeText"></span>
+            </a>
+            <a class="my-2 nav-link" href="#">
+                <i class="fa fa-gear"></i>
+                Configurações
+            </a>
+        </nav>
+    </div>
+</div>
+
+
+<!-- MODAL -->
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="loginForm">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Entre na sua conta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <input name="user" type="text" class="form-control" placeholder="NomeDeUsuario1" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Senha</label>
+                        <input type="password" class="form-control" name="pass" placeholder="********">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p class="me-auto">Ainda não tem uma conta? <a href="">crie uma!</a></p>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="./js/pages/leftSideBar.js"></script>   

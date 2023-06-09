@@ -68,6 +68,7 @@ $('#loginForm').submit(function() {
                 document.cookie = "token="+response.token;
                 user.addClass('is-valid').removeClass('is-invalid');
                 pass.addClass('is-valid').removeClass('is-invalid');
+                window.location.reload();
             } else {
                 user.addClass('is-invalid').removeClass('is-valid');
                 pass.addClass('is-invalid').removeClass('is-valid');
@@ -75,4 +76,20 @@ $('#loginForm').submit(function() {
         }
     });
     return false;
+});
+
+$('#userBoxLogout').click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "php/logout.php",
+        dataType: "json",
+        data: {
+            token: token
+        },
+        success: function(response) {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+            window.location.reload();
+        }
+    });
 });

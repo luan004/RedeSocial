@@ -14,24 +14,52 @@
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous">
     </script>
-
-    
-
-    <script>
-        $(function(){
-            $("#nav").load("resources/layout/nav.html");
-        });
-    </script>
-
-
 </head>
 <body>
-    <div id="nav"></div>
-
     <div class="row mx-4 justify-content-center">
+        <!-- NAVEGAÇÃO HORIZONTAL -->
+        <div class="col-12 col-md-3">
+            <div class="sticky-top d-flex flex-column" style="padding-top:20px">
+                <div class="card mb-4 p-4">
+                    <div id="loginBox">
+                        <button id="loginBtn" class="btn w-100 btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fa fa-user"></i>
+                            Fazer Login
+                        </button>
+                        <span class="text-center">Não tem uma conta? <a href="#">Cadastre-se</a></span>
+                    </div>
+                    <div id="userBox" style="display: none;">
+                        <div class="d-flex">
+                            <img id="userBoxAvatar" width="42" height="42" src="https://placehold.co/42x42" class="rounded-circle me-2" alt="...">
+                            <div class="d-grid">
+                                <span id="userBoxName" class="h6 mb-0 text-truncate"></span>
+                                <small id="userBoxUsername" class="text-body-secondary text-truncate"></small>
+                            </div>
+                            <a id="userBoxLogout" class="ms-auto" href="">Sair</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-4">
+                    <nav class="nav nav-pills flex-column">
+                        <a class="my-2 nav-link active" href="#">
+                            <i class="fa fa-feed"></i>
+                            Feed
+                        </a>
+                        <a class="my-2 nav-link" href="#">
+                            <i class="fa fa-user"></i>
+                            Meu Perfil
+                        </a>
+                        <a class="my-2 nav-link" href="#">
+                            <i class="fa fa-gear"></i>
+                            Configurações
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
 
         <!-- PERFIL -->
-        <div class="col-12 col-md-7" style="padding-top:70px;">
+        <div class="col-12 col-md-4" style="padding-top:20px">
             <div class="card mb-4">
                 <div class="d-flex position-relative">
                     <img style="object-fit:cover;height:128px;" id="banner" src="https://placehold.co/512x128" class="card-img-top rounded" alt="...">
@@ -58,15 +86,7 @@
 
         <!-- RIGHT SIDEBAR -->
         <div class="col-12 col-md-3">
-            <div class="sticky-top d-flex flex-column" style="padding-top:70px">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h6>S</h6>   
-                    </div>
-                    <div class="card-body">
-                        
-                    </div>
-                </div>
+            <div class="sticky-top d-flex flex-column" style="padding-top:20px">
 
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between">

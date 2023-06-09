@@ -1,5 +1,5 @@
 <?php
-    $token = '47fb112ed6dc1582534a51e91b4226dff7fa5a6cd657d404e0c6c34ec6dc1629';
+    $token = $_POST['token'];
     
     $hostdb = "localhost";
     $db = "tpwdb";
@@ -7,7 +7,7 @@
     $passworddb = "";
 
     $con = new mysqli($hostdb, $userdb, $passworddb, $db);
-    $query = $con->query("DELETE FROM stokens WHERE token = '$token';");
+    $query = $con->query("DELETE FROM sesstokens WHERE token = '$token';");
 
     if ($query) {
         $response = array(
