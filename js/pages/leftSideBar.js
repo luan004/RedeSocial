@@ -37,6 +37,16 @@ if (token != '' && token != null) {
         }
     });
 }
+const theme = getCookie('theme');
+if (theme == 'light') {
+    $('html').attr('data-bs-theme', 'light');
+    $('#switchThemeIcon').addClass('fa-moon');
+    $('#switchThemeText').html('Tema Escuro');
+} else {
+    $('html').attr('data-bs-theme', 'dark');
+    $('#switchThemeIcon').addClass('fa-sun');
+    $('#switchThemeText').html('Tema Claro');
+}
 
 /* ------------------------------------------------ */
 $('#loginForm').submit(function() {
@@ -71,10 +81,12 @@ $('#switchTheme').click(function() {
         $('html').attr('data-bs-theme', 'light');
         $('#switchThemeIcon').removeClass('fa-sun').addClass('fa-moon');
         $('#switchThemeText').html('Tema Escuro');
+        document.cookie = "theme=light";
     } else {
         $('html').attr('data-bs-theme', 'dark');
         $('#switchThemeIcon').removeClass('fa-moon').addClass('fa-sun');
         $('#switchThemeText').html('Tema Claro');
+        document.cookie = "theme=dark";
     }
 });
 $('#userBoxLogout').click(function(e) {
