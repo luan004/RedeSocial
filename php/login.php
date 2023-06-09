@@ -1,16 +1,12 @@
 <?php
+    require_once('db.php');
+
     $user = $_POST['user'];
     $pass = $_POST['pass'];
     
-    $hostdb = "localhost";
-    $db = "tpwdb";
-    $userdb = "root";
-    $passworddb = "";
-
-    $con = new mysqli($hostdb, $userdb, $passworddb, $db);
     $query = $con->query("SELECT id, pass FROM users WHERE user = '$user';");
 
-    if($query->num_rows > 0){
+    if(@$query->num_rows > 0){
         $row = $query->fetch_array();
         if ($row[1] == $pass) {
             $token = bin2hex(random_bytes(32)); //token hexadecimal de 64 caracteres
@@ -31,7 +27,7 @@
     }
 
     header('Content-Type: application/json');
-    echo json_encode($response);
+    echo json_encode($response, JSON_PRETTY_PRINT);
     $con->close();
     exit;
 ?>

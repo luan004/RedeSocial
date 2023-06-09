@@ -1,16 +1,11 @@
 <?php
+    require_once('db.php');
+
     $id = $_POST['id'];
     
-    $hostdb = "localhost";
-    $db = "tpwdb";
-    $userdb = "root";
-    $passworddb = "";
+    $query = $con->query("SELECT name, user, avatar FROM users WHERE id = '$id';");
 
-    $con = new mysqli($hostdb, $userdb, $passworddb, $db);
-    $sql = "SELECT name, user, avatar FROM users WHERE id = '$id';";
-    $query = $con->query($sql);
-
-    if($query->num_rows > 0){
+    if(@$query->num_rows > 0){
         $row = $query->fetch_array();
         $response = array(
             'name' => $row[0],
@@ -20,7 +15,7 @@
     }
     
     header('Content-Type: application/json');
-    echo json_encode($response);
+    echo json_encode($response, JSON_PRETTY_PRINT);
     $con->close();
     exit;
 ?>

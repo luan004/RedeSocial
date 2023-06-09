@@ -1,12 +1,8 @@
 <?php
-    $token = $_POST['token'];
-    
-    $hostdb = "localhost";
-    $db = "tpwdb";
-    $userdb = "root";
-    $passworddb = "";
+    require_once('db.php');
 
-    $con = new mysqli($hostdb, $userdb, $passworddb, $db);
+    $token = $_POST['token'];
+
     $query = $con->query("DELETE FROM sesstokens WHERE token = '$token';");
 
     if ($query) {
@@ -20,7 +16,7 @@
     }
 
     header('Content-Type: application/json');
-    echo json_encode($response);
+    echo json_encode($response, JSON_PRETTY_PRINT);
     $con->close();
     exit;
 ?>

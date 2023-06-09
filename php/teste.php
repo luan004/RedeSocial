@@ -1,13 +1,9 @@
 <?php
+    require_once('db.php');
+
     $user = 'luan004';
     $pass = '123';
     
-    $hostdb = "localhost";
-    $db = "tpwdb";
-    $userdb = "root";
-    $passworddb = "";
-
-    $con = new mysqli($hostdb, $userdb, $passworddb, $db);
     $query = $con->query("SELECT id, pass FROM users WHERE user = '$user';");
 
     if($query->num_rows > 0){
@@ -31,7 +27,7 @@
     }
 
     header('Content-Type: application/json');
-    echo json_encode($response);
+    echo json_encode($response, JSON_PRETTY_PRINT);
     $con->close();
     exit;
 ?>
