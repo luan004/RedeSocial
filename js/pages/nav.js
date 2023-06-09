@@ -16,6 +16,7 @@ if (token != '' && token != null) {
                 console.log('logado');
                 //usuario logado
                 $('#userInfoBox').show();
+                
                 $('#loginBtn').hide();
             } else {
                 //usuario nao logado
