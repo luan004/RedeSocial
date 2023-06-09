@@ -1,5 +1,6 @@
 <?php
-    $token = '47fb112ed6dc1582534a51e91b4226dff7fa5a6cd657d404e0c6c34ec6dc1629';
+    $user = 'luan004';
+    $pass = '123';
     
     $hostdb = "localhost";
     $db = "tpwdb";
@@ -7,15 +8,25 @@
     $passworddb = "";
 
     $con = new mysqli($hostdb, $userdb, $passworddb, $db);
-    $query = $con->query("DELETE FROM stokens WHERE token = '$token';");
+    $query = $con->query("SELECT id, pass FROM users WHERE user = '$user';");
 
-    if ($query) {
-        $response = array(
-            'success' => true
-        );
+    if($query->num_rows > 0){
+        $row = $query->fetch_array();
+        if ($row[1] == $pass) {
+            $token = bin2hex(random_bytes(32)); //token hexadecimal de 64 caracteres
+            $con->query("INSERT INTO sesstokens (id, user_id, token) VALUES (null, '$row[0]', '$token');");
+            $response = array(
+                'auth' => true,
+                'token' => $token
+            );
+        } else {
+            $response = array(
+                'auth' => false
+            );
+        }
     } else {
         $response = array(
-            'success' => false
+            'auth' => 'unknown'
         );
     }
 
