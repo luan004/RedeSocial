@@ -39,17 +39,6 @@ if (token != '' && token != null) {
 }
 
 /* ------------------------------- */
-
-$('#switchTheme').click(function() {
-    if ($('html').attr('data-bs-theme') == 'dark') {
-        $('html').attr('data-bs-theme', 'light');
-        $('#switchThemeIcon').removeClass('fa-sun').addClass('fa-moon');
-    } else {
-        $('html').attr('data-bs-theme', 'dark');
-        $('#switchThemeIcon').removeClass('fa-moon').addClass('fa-sun');
-    }
-});
-
 $('#loginForm').submit(function() {
     var user = $('input[name="user"]');
     var pass = $('input[name="pass"]');
