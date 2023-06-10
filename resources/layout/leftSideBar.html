@@ -5,7 +5,7 @@
                 <i class="fa fa-user"></i>
                 Fazer Login
             </button>
-            <span class="text-center">Não tem uma conta? <a href="#">Cadastre-se</a></span>
+            <span class="text-center">Não tem uma conta? <a href="" data-bs-toggle="modal" data-bs-target="#registerModal">Cadastre-se</a></span>
         </div>
         <div id="userBox" style="display: none;">
             <div class="d-flex">
@@ -41,7 +41,7 @@
 </div>
 
 
-<!-- MODAL -->
+<!-- MODAL DE LOGIN -->
 <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -51,18 +51,75 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3 input-group">
-                        <span class="input-group-text" id="basic-addon1">@</span>
-                        <input name="user" type="text" class="form-control" placeholder="NomeDeUsuario1" aria-label="Username" aria-describedby="basic-addon1">
+                    <div class="mb-3">
+                        <label for="user" class="form-label">Usuário</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                            <input name="user" id="loginUser" type="text" class="form-control" placeholder="NomeDeUsuario1" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="pass" class="form-label">Senha</label>
-                        <input type="password" class="form-control" name="pass" placeholder="********">
+                        <input type="password" id="loginPass" class="form-control" name="pass" placeholder="********">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <p class="me-auto">Ainda não tem uma conta? <a href="">crie uma!</a></p>
                     <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE CADASTRO -->
+<div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="registerForm">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastre-se</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="user" class="form-label">Usuário</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                            <input id="registerUser" name="user" type="text" class="form-control" minlength="4" maxlength="16" placeholder="NomeDeUsuario1" aria-label="Username" aria-describedby="basic-addon1">
+                            <div id="userAlreadyExists" class="invalid-feedback">
+                                Esse usuário já está em uso.
+                            </div>
+                            <div id="userInvalid" class="invalid-feedback">
+                                O nome de usuário deve ter entre 4 e 32 caracteres, e pode conter letras, números e _ (underscore).
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nome</label>
+                        <input id="registerName" type="text" class="form-control" minlength="1" maxlength="64" name="name" placeholder="Nome Sobrenome">
+                        <div id="nameInvalid" class="invalid-feedback">
+                            O nome deve ter entre 1 e 64 caracteres.
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Senha</label>
+                        <input id="registerPass1" type="password" class="form-control" minlength="4" maxlength="32" name="pass" placeholder="********">
+                        <div id="passInvalid" class="invalid-feedback">
+                            A senha deve ter entre 8 e 32 caracteres, e pode conter apenas letras, números e _ (underscore).
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Confirme sua senha</label>
+                        <input id="registerPass2" type="password" class="form-control" name="pass" placeholder="********">
+                        <div id="passIsNotTheSame" class="invalid-feedback">
+                            As senhas não são iguais.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Cadastrar!</button>
                 </div>
             </form>
         </div>

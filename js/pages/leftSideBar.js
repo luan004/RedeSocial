@@ -75,8 +75,8 @@ dataAtual.setFullYear(dataAtual.getFullYear() + 1);
 var dataExpiracao = dataAtual.toUTCString();
 
 $('#loginForm').submit(function() {
-    var user = $('input[name="user"]');
-    var pass = $('input[name="pass"]');
+    const user = $('loginUser');
+    const pass = $('loginPass');
 
     /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
@@ -101,7 +101,55 @@ $('#loginForm').submit(function() {
     });
     return false;
 });
-$('#switchTheme').click(function() {
+$('#registerForm').submit(function() {
+    const name = $('#registerName');
+    const user = $('#registerUser');
+    const pass1 = $('#registerPass1');
+    const pass2 = $('#registerPass2');
+
+    /* COMUNICAÇÃO COM BACKEND */
+    $.ajax({
+        type: "POST",
+        url: "php/register.php",
+        dataType: "json",
+        data: {
+            name: name.val(),
+            user: user.val(),
+            pass1: pass1.val(),
+            pass2: pass2.val()
+        },
+        success: function(response) {
+            if (response.register == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "php/login.php",
+                    dataType: "json",
+                    data: {
+                        user: user.val(),
+                        pass: pass1.val()
+                    },
+                    success: function(response) {
+                        if (response.auth == true) {
+                            document.cookie = "token="+response.token + ";expires=" + dataExpiracao + ";path=/";
+                            window.location.reload();
+                        }
+                    }
+                });
+            } else {
+                $('#nameInvalid').hide();
+                $('#userInvalid').hide();
+                $('#passInvalid').hide();
+                $('#passIsNotTheSame').hide();
+                $('#userAlreadyExists').hide();
+
+                $('#'+response.error).show();
+            }
+        }
+    });
+    return false;
+});
+
+$('#switchTheme').click(function() { 
     if ($('html').attr('data-bs-theme') == 'dark') {
         $('html').attr('data-bs-theme', 'light');
         $('#switchThemeIcon').removeClass('fa-sun').addClass('fa-moon');

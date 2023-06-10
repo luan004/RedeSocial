@@ -1,10 +1,10 @@
 <?php
     require_once('db.php');
 
-    $name = 'Luan Gabriel de Souza';
-    $user = 'luangabrie l2';
-    $pass1 = '12342xxx8';
-    $pass2 = '12345678';
+    $name = $_POST['name'];
+    $user = $_POST['user'];
+    $pass1 = $_POST['pass1'];
+    $pass2 = $_POST['pass2'];
 
     if (strlen($name) <= 64 && strlen($name) >= 1) {
         if (strlen($pass1) <= 32 && strlen($pass1) >= 8 && preg_match('/^[a-zA-Z0-9_]+$/', $pass1)) {
