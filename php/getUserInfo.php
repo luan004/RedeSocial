@@ -1,16 +1,25 @@
 <?php
     require_once('db.php');
+    require_once('auth.php');
 
-    $id = $_POST['id'];
-    
+    $token = $_POST['token'];
+    $id = auth($token, $con);
+
     $query = $con->query("SELECT name, user, avatar FROM users WHERE id = '$id';");
 
-    if(@$query->num_rows > 0){
-        $row = $query->fetch_array();
+    if ($id != null) {
+        if(@$query->num_rows > 0){
+            $row = $query->fetch_array();
+            $response = array(
+                'auth' => true,
+                'name' => $row[0],
+                'user' => $row[1],
+                'avatar' => $row[2]
+            );
+        }
+    } else {
         $response = array(
-            'name' => $row[0],
-            'user' => $row[1],
-            'avatar' => $row[2]
+            'auth' => false
         );
     }
     

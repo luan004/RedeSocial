@@ -1,38 +1,32 @@
 import {
-    getCookie
-} from "../others/cookie.js";
+    getCookie,
+    logout
+} from "../others/functions.js";
 
 const token = getCookie('token');
 if (token != '' && token != null) {
+    $('#loginBox').hide();
+    $('#userBox').show();
+
     $.ajax({
         type: "POST",
-        url: "php/auth.php",
+        url: "php/getUserInfo.php",
         dataType: "json",
         data: {
             token: token
         },
         success: function(response) {
             if (response.auth == true) {
-                $('#loginBox').hide();
-                $('#userBox').show();
-
-                $.ajax({
-                    type: "POST",
-                    url: "php/getUserInfo.php",
-                    dataType: "json",
-                    data: {
-                        id: response.id
-                    },
-                    success: function(response) {
-                        $('#userBoxAvatar').attr('src', response.avatar);
-                        $('#userBoxName').html(response.name);
-                        $('#userBoxUsername').html('@'+response.user);
-
-                        /* Caixa de postagem */
-                        $('#postBoxUser').html('@'+response.user);
-                        $('#postBoxAvatar').attr('src', response.avatar);
-                    }
-                });
+                console.log(response.name);
+                $('#userBoxAvatar').attr('src', response.avatar);
+                $('#userBoxName').html(response.name);
+                $('#userBoxUsername').html('@'+response.user);
+    
+                /* Caixa de postagem */
+                $('#postBoxUser').html('@'+response.user);
+                $('#postBoxAvatar').attr('src', response.avatar);
+            } else {
+                logout(token);
             }
         }
     });
@@ -91,16 +85,5 @@ $('#switchTheme').click(function() {
 });
 $('#userBoxLogout').click(function(e) {
     e.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: "php/logout.php",
-        dataType: "json",
-        data: {
-            token: token
-        },
-        success: function(response) {
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-            window.location.reload();
-        }
-    });
+    logout(token);
 });
