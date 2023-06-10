@@ -3,8 +3,29 @@ import {
     logout
 } from "../others/functions.js";
 
+var page = window.location.pathname;
+var tab;
+
+switch (true) {
+  case page.includes('explore'):
+    tab = 'explore';
+    break;
+  case page.includes('feed'):
+    tab = 'feed';
+    break;
+  case page.includes('settings'):
+    tab = 'settings';
+    break;
+}
+
+if (tab) {
+  document.getElementById(tab).classList.add('active');
+}
+
+/* ------------------------------------------------ */
+
 const token = getCookie('token');
-if (token != '' && token != null) {
+if (token != null) {
     $('#loginBox').hide();
     $('#userBox').show();
 
@@ -17,10 +38,14 @@ if (token != '' && token != null) {
         },
         success: function(response) {
             if (response.auth == true) {
-                console.log(response.name);
+                /* Caixa do usuário sidebar esquerda */
                 $('#userBoxAvatar').attr('src', response.avatar);
                 $('#userBoxName').html(response.name);
                 $('#userBoxUsername').html('@'+response.user);
+
+                /* Abas disponiveis apenas a usuarios logados */
+                $('#settings').show();	
+                $('#feed').show();
     
                 /* Caixa de postagem */
                 $('#postBoxUser').html('@'+response.user);
@@ -31,6 +56,7 @@ if (token != '' && token != null) {
         }
     });
 }
+
 const theme = getCookie('theme');
 if (theme == 'light') {
     $('html').attr('data-bs-theme', 'light');
@@ -43,6 +69,11 @@ if (theme == 'light') {
 }
 
 /* ------------------------------------------------ */
+/* Data de Expiração do Cookie */
+var dataAtual = new Date();
+dataAtual.setFullYear(dataAtual.getFullYear() + 1);
+var dataExpiracao = dataAtual.toUTCString();
+
 $('#loginForm').submit(function() {
     var user = $('input[name="user"]');
     var pass = $('input[name="pass"]');
@@ -58,7 +89,7 @@ $('#loginForm').submit(function() {
         },
         success: function(response) {
             if (response.auth == true) {
-                document.cookie = "token="+response.token;
+                document.cookie = "token="+response.token + ";expires=" + dataExpiracao + ";path=/";
                 user.addClass('is-valid').removeClass('is-invalid');
                 pass.addClass('is-valid').removeClass('is-invalid');
                 window.location.reload();
@@ -75,12 +106,12 @@ $('#switchTheme').click(function() {
         $('html').attr('data-bs-theme', 'light');
         $('#switchThemeIcon').removeClass('fa-sun').addClass('fa-moon');
         $('#switchThemeText').html('Tema Escuro');
-        document.cookie = "theme=light";
+        document.cookie = "theme=light"+ ";expires=" + dataExpiracao + ";path=/";
     } else {
         $('html').attr('data-bs-theme', 'dark');
         $('#switchThemeIcon').removeClass('fa-moon').addClass('fa-sun');
         $('#switchThemeText').html('Tema Claro');
-        document.cookie = "theme=dark";
+        document.cookie = "theme=dark"+ ";expires=" + dataExpiracao + ";path=/";
     }
 });
 $('#userBoxLogout').click(function(e) {

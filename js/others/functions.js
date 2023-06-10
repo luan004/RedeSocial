@@ -12,7 +12,8 @@ export function getCookie(name) {
 
 /* Realizar logout */
 export function logout(token) {
-    /* Apaga o token do banco */
+    /* Apaga o token do cookie */
+    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
     $.ajax({
         type: "POST",
         url: "php/logout.php",
@@ -21,7 +22,5 @@ export function logout(token) {
             token: token
         }
     });
-    /* Apaga o token do cookie */
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    window.location.reload();
+    document.location.reload();
 }
