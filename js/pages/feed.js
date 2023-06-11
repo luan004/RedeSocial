@@ -56,26 +56,26 @@ $.ajax({
                                     <small class="ms-auto align-middle">@${response2.user}</small>
                                 </div>`;
 
-                        if (post.image != null) {
-                            postStr += `<img src="${post.image}" class="card-img-top" alt="...">`;
-                        }
+                            if (post.image != null) {
+                                postStr += `<img src="${post.image}" alt="...">`;
+                            }
 
-                        postStr += `
-                            <div class="card-text p-3">
-                                <p class="card-text">
-                                    ${post.text}
-                                </p>
-                            </div>
-                            <div class="card-footer d-flex">
-                                <button class="btn btn-sm btn-outline-primary">
-                                    <i class="fa fa-thumbs-up"></i>
-                                    ${post.likes}
-                                </button>
-                                <small class="text-body-secondary ms-auto">
-                                    ${post.dt}
-                                </small>
-                            </div>
-                        </div>`;
+                            postStr += `
+                                <div class="card-text p-3">
+                                    <p class="card-text">
+                                        ${post.text}
+                                    </p>
+                                </div>
+                                <div class="card-footer d-flex">
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fa fa-thumbs-up"></i>
+                                        ${post.likes}
+                                    </button>
+                                    <small class="text-body-secondary ms-auto">
+                                        ${post.dt}
+                                    </small>
+                                </div>
+                            </div>`;
                         $('#postsFeed').append(postStr);
                     });
                 })

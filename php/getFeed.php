@@ -15,7 +15,7 @@
         exit;
     }
 
-    $query = $con->query("SELECT * FROM posts ORDER BY dt ASC LIMIT 20;");
+    $query = $con->query("SELECT * FROM posts ORDER BY dt DESC LIMIT 20;");
 
     $num = 1;
     $json = array(
