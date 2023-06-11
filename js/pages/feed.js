@@ -56,7 +56,7 @@ $.ajax({
                                     <small class="ms-auto align-middle">@${response2.user}</small>
                                 </div>`;
 
-                            if (post.image != null) {
+                            if (post.image != "" && post.image != null) {
                                 postStr += `<img src="${post.image}" alt="...">`;
                             }
 
