@@ -10,6 +10,11 @@
     if ($id != null) {
         if(@$query->num_rows > 0){
             $row = $query->fetch_array();
+
+            if ($row[2] == null) {
+                $row[2] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row[1];
+            }
+            
             $response = array(
                 'auth' => true,
                 'name' => $row[0],
