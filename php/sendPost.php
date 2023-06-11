@@ -7,9 +7,9 @@
     $token = $_POST['token'];
     $id = auth($token, $con); */
 
-    $text = 'dsfadsfads';
+    $text = 'um novo post';
     $image = null;
-    $token = '1fa3cde6421efb37202bf24bf63f178db4dd57b3e99f9804e36c3e7b82e280ee';
+    $token = '7be639d7a79df0ee349a683df6b796890064342ca3cb3cbbb746eb6610a47458';
     $id = auth($token, $con);
 
     header('Content-Type: application/json');
