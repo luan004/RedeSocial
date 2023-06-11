@@ -5,15 +5,14 @@ import {
 
 var page = window.location.pathname;
 var tab;
-
 switch (true) {
-  case page.includes('explore'):
+  case page.includes('/explore'):
     tab = 'explore';
     break;
-  case page.includes('feed'):
+  case page.includes('/feed'):
     tab = 'feed';
     break;
-  case page.includes('settings'):
+  case page.includes('/settings'):
     tab = 'settings';
     break;
 }
@@ -75,8 +74,8 @@ dataAtual.setFullYear(dataAtual.getFullYear() + 1);
 var dataExpiracao = dataAtual.toUTCString();
 
 $('#loginForm').submit(function() {
-    const user = $('loginUser');
-    const pass = $('loginPass');
+    const user = $('#loginUser');
+    const pass = $('#loginPass');
 
     /* COMUNICAÇÃO COM BACKEND */
     $.ajax({

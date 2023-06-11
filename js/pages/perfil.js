@@ -15,8 +15,7 @@ $.ajax({
     url: "php/getPerfil.php",
     dataType: "json",
     data: {
-        user: user,
-        pass: 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'
+        user: user
     },
     success: function(response) {
         if (response.exists == true) {
@@ -27,7 +26,7 @@ $.ajax({
         } else {
             $("#username").html();
             $("#name").html('Essa conta não existe');
-            $("#avatar").attr("src", "./resources/images/avatar.webp");
+            $("#avatar").attr("src", "https://ui-avatars.com/api/background=0D8ABC&color=fff?name=@");
             $("#banner").attr("src", "./resources/images/banner.jpg");
         }
     }

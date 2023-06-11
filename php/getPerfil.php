@@ -10,6 +10,9 @@
         if ($row[1] == null) {
             $row[1] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$user;
         }
+        if ($row[2] == null) {
+            $row[2] = './resources/images/banner.jpg';
+        }
         $response = array(
             'exists' => true,
             'name' => $row[0],
