@@ -27,7 +27,7 @@ $.ajax({
     success: function(response) {
         if (response.auth == true) {
             var num = 1;
-            while (num < response.count) {
+            while (num < response.count+1) {
                 const post = response['p'+num];
                 console.log(response.count);
 
@@ -71,7 +71,7 @@ $.ajax({
                                         <span class="align-middle h6">${response2.name}</span>
                                         <small class="ms-auto align-middle">@${response2.user}</small>
                                     </div>
-                                    <img src="${response2.image}" class="card-img-top" alt="...">
+                                    <img src="${post.image}" class="card-img-top" alt="...">
                                     <div class="card-text p-3">
                                         <p class="card-text">
                                             ${post.text}
