@@ -1,7 +1,7 @@
 import {
     getCookie,
     calcularTempoDecorrido
-} from "../others/functions.js";
+} from "../utils.js";
 
 const token = getCookie('token');
 $.ajax({

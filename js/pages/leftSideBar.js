@@ -1,7 +1,7 @@
 import {
     getCookie,
     logout
-} from "../others/functions.js";
+} from "../utils.js";
 
 var page = window.location.pathname;
 var tab;

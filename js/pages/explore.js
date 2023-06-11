@@ -1,3 +1,7 @@
+import {
+    calcularTempoDecorrido
+} from "../utils.js";
+
 $.ajax({
     type: "POST",
     url: "php/getLastPosts.php",
@@ -32,7 +36,7 @@ $.ajax({
                             ${post.likes}
                         </button>
                         <small class="text-body-secondary ms-auto">
-                            ${post.dt}
+                            ${calcularTempoDecorrido(post.dt)}
                         </small>
                     </div>
                 </div>`;
