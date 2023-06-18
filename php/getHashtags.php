@@ -1,7 +1,7 @@
 <?php
     require_once('db.php');
 
-    $query = $con->query("SELECT text FROM posts");
+    $query = $con->query("SELECT text FROM posts WHERE text LIKE '%#%' AND DATE(dt) = CURDATE()");
 
     if ($query->num_rows) {
         $wordCount = array();

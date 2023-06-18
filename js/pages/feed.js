@@ -39,6 +39,12 @@ $('#sendPostForm').submit(function(e) {
                 }
             }
         });
+    } else {
+        $('#postText').addClass('is-invalid');
+        setTimeout(() => {
+            $('#postText').removeClass('is-invalid');
+        }
+        , 2000);
     }
 });
 

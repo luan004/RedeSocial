@@ -26,6 +26,14 @@ CREATE TABLE posts(
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE followers (
+    follower_id INT,
+    user_id INT,
+    FOREIGN KEY (follower_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    PRIMARY KEY (follower_id, user_id)
+);
+
 
 /* INSERT --------------------- */
 INSERT INTO `posts`(
@@ -42,4 +50,4 @@ INSERT INTO `posts`(
     null,
     0,
     NOW()
-)
+);
