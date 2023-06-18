@@ -29,8 +29,8 @@
 
         <!-- EDIÇÃO DE PERFIL -->
         <div class="col-12 col-md-4" style="padding-top:20px">
-            <div class="card mb-4">
-                <h6 class="mt-2 text-center">
+            <div class="card mb-4 p-4">
+                <h6 class="mb-4 text-center">
                     <i class="fa fa-user-edit"></i>
                     Edição de perfil
                 </h6>
@@ -41,19 +41,32 @@
                     </div>
                 </div>
                 <div class="card-body mt-2">
-                    <input id="name" type="text" class="d-block w-100 rounded bg-transparent border-0">
+                    <input id="name" type="text" class="h5 mb-0 mt-2 d-block w-100 rounded bg-transparent border-0">
                     <small id="user" class="text-body-secondary me-auto" id="username">@s</small>
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card p-4">
                 <h6 class="mt-2 text-center">
                     <i class="fa fa-lock"></i>
                     Alterar senha
                 </h6>
-                <div class="form-control">
-                    <input class="form-control" type="text">
+                <div class="my-2">
+                    <label for="pass" class="form-label">Senha Antiga</label>
+                    <input type="password" id="oldPass" class="form-control" name="pass" placeholder="********">
                 </div>
+                <div class="my-2">
+                    <label for="pass" class="form-label">Senha Antiga</label>
+                    <input type="password" id="newPass" class="form-control" name="pass" placeholder="********">
+                </div>
+                <div class="my-2">
+                    <label for="pass" class="form-label">Senha Antiga</label>
+                    <input type="password" id="newPass2" class="form-control" name="pass" placeholder="********">
+                </div>
+                <button class="btn btn-primary mt-2">
+                    <i class="fa fa-"></i>
+                    Aplicar
+                </button>
             </div>
         </div>
 

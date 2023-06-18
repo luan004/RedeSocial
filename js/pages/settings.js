@@ -3,6 +3,11 @@ import {
 } from "../utils.js";
 
 const token = getCookie("token");
+
+if (!token) {
+    window.location.href = "explore";
+}
+
 $.ajax({
     type: "POST",
     url: "php/getProfileToEdit.php",
