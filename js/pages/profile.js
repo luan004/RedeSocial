@@ -1,6 +1,7 @@
 import {
     getCookie,
-    calcularTempoDecorrido
+    calcularTempoDecorrido,
+    realcarHashtags
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -75,7 +76,7 @@ $.ajax({
                 postStr += `
                     <div class="card-text p-3">
                         <p class="card-text">
-                            ${post.text}
+                            ${realcarHashtags(post.text)}
                         </p>
                     </div>
                     <div class="card-footer d-flex">

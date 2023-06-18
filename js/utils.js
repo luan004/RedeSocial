@@ -25,6 +25,18 @@ export function logout(token) {
     document.location.reload();
 }
 
+export function realcarHashtags(texto) {
+    // Expressão regular para encontrar hashtags
+    var regex = /#[^\s#]+/g;
+  
+    // Substituir as hashtags pela tag <span> com estilo de cor azul
+    var textoFormatado = texto.replace(regex, function(match) {
+      return '<span style="color: blue;">' + match + '</span>';
+    });
+  
+    return textoFormatado;
+}  
+
 export function calcularTempoDecorrido(dataPostagem) {
     const dataAtual = new Date();
     const dataPost = new Date(dataPostagem);
