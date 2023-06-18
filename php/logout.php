@@ -1,11 +1,13 @@
 <?php
     require_once('db.php');
 
-    $token = $_POST['token'];
+    $token = '$_POST['token']';
 
-    $query = $con->query("DELETE FROM sesstokens WHERE token = '$token';");
+    $stmt = $con->prepare("DELETE FROM sesstokens WHERE token = ?");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
 
-    if ($query) {
+    if ($stmt->affected_rows > 0) {
         $response = array(
             'success' => true
         );
@@ -17,6 +19,7 @@
 
     header('Content-Type: application/json');
     echo json_encode($response, JSON_PRETTY_PRINT);
+    $stmt->close();
     $con->close();
     exit;
 ?>

@@ -3,31 +3,35 @@
 
     $user = $_POST['user'];
     $pass = $_POST['pass'];
-    
-    $query = $con->query("SELECT id, pass FROM users WHERE user = '$user';");
 
-    if(@$query->num_rows > 0){
-        $row = $query->fetch_array();
-        if ($row[1] == $pass) {
-            $token = bin2hex(random_bytes(32)); //token hexadecimal de 64 caracteres
-            $con->query("INSERT INTO sesstokens (id, user_id, token) VALUES (null, '$row[0]', '$token');");
-            $response = array(
-                'auth' => true,
-                'token' => $token
-            );
-        } else {
-            $response = array(
-                'auth' => false
-            );
-        }
-    } else {
+    $stmt = $con->prepare("SELECT id FROM users WHERE user = ? AND pass = ?");
+    $stmt->bind_param("ss", $user, $pass);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if($stmt->num_rows == 1){
+        $stmt->bind_result($id);
+        $stmt->fetch();
+
+        $token = bin2hex(random_bytes(32)); //token hexadecimal de 64 caracteres
+
+        $stmt2 = $con->prepare("INSERT INTO sesstokens (id, user_id, token) VALUES (null, ?, ?)");
+        $stmt2->bind_param("is", $id, $token);
+        $stmt2->execute();
+
         $response = array(
-            'auth' => 'unknown'
+            'auth' => true,
+        );
+    }
+    else{
+        $response = array(
+            'auth' => false
         );
     }
 
     header('Content-Type: application/json');
     echo json_encode($response, JSON_PRETTY_PRINT);
+    $stmt->close();
     $con->close();
     exit;
 ?>

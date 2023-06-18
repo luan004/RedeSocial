@@ -1,8 +1,27 @@
 <?php
-    $hostdb = "localhost";
-    $db = "tpwdb";
-    $userdb = "root";
-    $passworddb = "";
+    define(
+        'DB_SERVER',
+        'localhost'
+    );
 
-    $con = new mysqli($hostdb, $userdb, $passworddb, $db);
+    define(
+        'DB_USERNAME',
+        'root'
+    );
+
+    define(
+        'DB_PASSWORD',
+        ''
+    );
+
+    define(
+        'DB_NAME',
+        'tpwdb'
+    );
+
+    $con = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+    if ($con->connect_error) {
+        die("Database connection failed: " . $con->connect_error);
+    }
 ?>
