@@ -41,6 +41,11 @@
     
     $json = array_slice($json, 0, 10);
 
+    $json = array(
+        'success' => true,
+        'data' => $json
+    );
+
     header('Content-Type: application/json');
     echo json_encode($json, JSON_PRETTY_PRINT);
     $con->close();

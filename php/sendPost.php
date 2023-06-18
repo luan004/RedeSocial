@@ -2,14 +2,9 @@
     require_once('db.php');
     require_once('auth.php');
 
-/*     $text = $_POST['text'];
+    $text = $_POST['text'];
     $image = $_POST['image'];
     $token = $_POST['token'];
-    $id = auth($token, $con); */
-
-    $text = 'um novo post';
-    $image = null;
-    $token = '7be639d7a79df0ee349a683df6b796890064342ca3cb3cbbb746eb6610a47458';
     $id = auth($token, $con);
 
     header('Content-Type: application/json');

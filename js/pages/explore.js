@@ -4,6 +4,24 @@ import {
 
 $.ajax({
     type: "POST",
+    url: "php/getHashtags.php",
+    dataType: "json",
+    success: function(response) {
+        if (response.success == true) {
+            response.data.forEach(element => {
+                $("#hashtags2").append(`
+                    <li class="list-group-item">
+                        <span>${element['word']}</span>
+                        <small class="float-end">${element['count']}</small>
+                    </li>
+                `);
+            });
+        }
+    }
+});
+
+$.ajax({
+    type: "POST",
     url: "php/getLastPosts.php",
     dataType: "json",
     success: function(response) {

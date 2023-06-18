@@ -18,6 +18,30 @@ $.ajax({
     }
 });
 
+$('#sendPostForm').submit(function(e) {
+    e.preventDefault();
+    const text = $('#postText').val();
+    const image = null;
+
+    if (text != "") {
+        $.ajax({
+            type: "POST",
+            url: "php/sendPost.php",
+            dataType: "json",
+            data: {
+                token: token,
+                text: text,
+                image: image
+            },
+            success: function(response) {
+                if (response) {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+});
+
 $.ajax({
     type: "POST",
     url: "php/getFeed.php",
