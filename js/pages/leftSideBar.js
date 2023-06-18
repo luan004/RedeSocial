@@ -41,6 +41,8 @@ if (token != null) {
                 $('#userBoxAvatar').attr('src', response.avatar);
                 $('#userBoxName').html(response.name);
                 $('#userBoxUsername').html('@'+response.user);
+                $('#userBoxAvatarLink').attr('href', 'profile?u='+response.user);
+                $('#userBoxLink').attr('href', 'profile?u='+response.user);
 
                 /* Abas disponiveis apenas a usuarios logados */
                 $('#settings').show();	

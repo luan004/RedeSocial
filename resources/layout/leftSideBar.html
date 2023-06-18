@@ -1,5 +1,6 @@
 <div class="sticky-top d-flex flex-column" style="padding-top:20px">
     <div class="card mb-4 p-4 shadow">
+        <!-- CAIXA DE LOGIN -->
         <div id="loginBox">
             <button id="loginBtn" class="btn w-100 btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">
                 <i class="fa fa-user"></i>
@@ -7,13 +8,16 @@
             </button>
             <span class="text-center">Não tem uma conta? <a href="" data-bs-toggle="modal" data-bs-target="#registerModal">Cadastre-se</a></span>
         </div>
+        <!-- CAIXA DE USUARIO -->
         <div id="userBox" style="display: none;">
             <div class="d-flex">
-                <img id="userBoxAvatar" width="42" height="42" src="https://placehold.co/42x42" class="rounded-circle me-2" alt="...">
-                <div class="d-grid">
+                <a id="userBoxAvatarLink" href="">
+                    <img id="userBoxAvatar" width="42" height="42" src="https://placehold.co/42x42" class="rounded-circle me-2" alt="...">
+                </a>
+                <a id="userBoxLink" href="" style="text-decoration: none;" class="d-grid">
                     <span id="userBoxName" class="h6 mb-0 text-truncate"></span>
                     <small id="userBoxUsername" class="text-body-secondary text-truncate"></small>
-                </div>
+                </a>
                 <a id="userBoxLogout" class="ms-auto" href="">Sair</a>
             </div>
         </div>

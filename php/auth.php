@@ -1,6 +1,4 @@
 <?php
-    require_once('db.php');
-
     function auth($token, $con) {
         $query = $con->query("SELECT user_id FROM sesstokens WHERE token = '$token';");
 

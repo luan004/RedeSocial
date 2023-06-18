@@ -1,7 +1,11 @@
 <?php
     require_once('db.php');
+    require_once('auth2.php');
 
     $user = $_POST['user'];
+    $token = $_POST['token'];
+
+    $userFromToken = auth($token, $con, 'user');
 
     $query = $con->query("SELECT name, avatar, banner FROM users WHERE user = '$user';");
 
@@ -13,12 +17,23 @@
         if ($row[2] == null) {
             $row[2] = './resources/images/banner.jpg';
         }
-        $response = array(
-            'exists' => true,
-            'name' => $row[0],
-            'avatar' => $row[1],
-            'banner' => $row[2]
-        );
+        if ($userFromToken == $user) {
+            $response = array(
+                'exists' => true,
+                'name' => $row[0],
+                'avatar' => $row[1],
+                'banner' => $row[2],
+                'isSelf' => true
+            );
+        } else {
+            $response = array(
+                'exists' => true,
+                'name' => $row[0],
+                'avatar' => $row[1],
+                'banner' => $row[2],
+                'isSelf' => false
+            );
+        }
     } else {
         $response = array(
             'exists' => false
