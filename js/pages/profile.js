@@ -43,3 +43,14 @@ $.ajax({
         }
     }
 });
+
+$.ajax({
+    type: "POST",
+    url: "php/getPostsFromUser.php",
+    dataType: "json",
+    data: {
+        user: user
+    },
+    success: function(response) {
+    }
+});
