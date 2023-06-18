@@ -41,5 +41,5 @@ INSERT INTO `posts`(
     'Esse é o primeiro post dessa rede social!',
     null,
     0,
-    STR_TO_DATE('2023-06-11 02:44:55', '%Y-%m-%d %H:%i:%s')
+    NOW()
 )
