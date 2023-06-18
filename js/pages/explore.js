@@ -2,25 +2,6 @@ import {
     calcularTempoDecorrido
 } from "../utils.js";
 
-/* CARREGAR LISTA DE HASHTAGS */
-$.ajax({
-    type: "POST",
-    url: "php/getHashtags.php",
-    dataType: "json",
-    success: function(response) {
-        if (response.success == true) {
-            response.data.forEach(element => {
-                $("#hashtags2").append(`
-                    <li class="list-group-item">
-                        <span>${element['word']}</span>
-                        <small class="float-end">${element['count']}</small>
-                    </li>
-                `);
-            });
-        }
-    }
-});
-
 /* CARREGAR O FEED */
 $.ajax({
     type: "POST",
