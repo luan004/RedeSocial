@@ -1,11 +1,11 @@
 <?php
     require_once('db.php');
-    require_once('auth.php');
+    require_once('utils.php');
 
     $text = $_POST['text'];
     $image = $_POST['image'];
     $token = $_POST['token'];
-    $id = auth($token, $con);
+    $id = auth($token, $con, 'id');
 
     header('Content-Type: application/json');
     if ($id != null) {
