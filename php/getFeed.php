@@ -1,9 +1,9 @@
 <?php
     require_once('db.php');
-    require_once('auth.php');
+    require_once('utils.php');
 
     $token = $_POST['token'];
-    $id = auth($token, $con);
+    $id = auth($token, $con, 'id');
 
     if ($id == null) {
         $json = array(

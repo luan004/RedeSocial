@@ -1,6 +1,5 @@
 <?php
     require_once('db.php');
-    require_once('auth.php');
 
     $query = $con->query("SELECT * FROM posts ORDER BY dt DESC LIMIT 20;");
 

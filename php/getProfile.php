@@ -1,6 +1,6 @@
 <?php
     require_once('db.php');
-    require_once('auth2.php');
+    require_once('utils.php');
 
     $user = $_POST['user'];
     $token = $_POST['token'];

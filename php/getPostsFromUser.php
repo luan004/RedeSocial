@@ -1,9 +1,8 @@
 <?php
     require_once('db.php');
-    require_once('auth2.php');
+    require_once('utils.php');
 
-    //$user = $_POST['user'];
-    $user = 'luan004';
+    $user = $_POST['user'];
     $id = getIdFromUser($user, $con);
 
     $query = $con->query("SELECT * FROM posts WHERE user_id = '$id' ORDER BY dt DESC LIMIT 20;");
