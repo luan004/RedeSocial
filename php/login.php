@@ -21,6 +21,7 @@
 
         $response = array(
             'auth' => true,
+            'token' => $token
         );
     }
     else{

@@ -1,7 +1,7 @@
 <?php
     require_once('db.php');
 
-    $token = '$_POST['token']';
+    $token = $_POST['token'];
 
     $stmt = $con->prepare("DELETE FROM sesstokens WHERE token = ?");
     $stmt->bind_param("s", $token);

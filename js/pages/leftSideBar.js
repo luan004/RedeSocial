@@ -163,6 +163,7 @@ $('#switchTheme').click(function() {
         document.cookie = "theme=dark"+ ";expires=" + dataExpiracao + ";path=/";
     }
 });
+
 $('#userBoxLogout').click(function(e) {
     e.preventDefault();
     logout(token);
