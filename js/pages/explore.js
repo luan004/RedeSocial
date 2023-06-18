@@ -2,6 +2,7 @@ import {
     calcularTempoDecorrido
 } from "../utils.js";
 
+/* CARREGAR LISTA DE HASHTAGS */
 $.ajax({
     type: "POST",
     url: "php/getHashtags.php",
@@ -20,6 +21,7 @@ $.ajax({
     }
 });
 
+/* CARREGAR O FEED */
 $.ajax({
     type: "POST",
     url: "php/getLastPosts.php",
