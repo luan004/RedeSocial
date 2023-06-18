@@ -31,7 +31,7 @@ export function realcarHashtags(texto) {
   
     // Substituir as hashtags pela tag <span> com estilo de cor azul
     var textoFormatado = texto.replace(regex, function(match) {
-      return '<span style="color: blue;">' + match + '</span>';
+      return '<b style="color: #0d6efd;">' + match + '</b>';
     });
   
     return textoFormatado;
