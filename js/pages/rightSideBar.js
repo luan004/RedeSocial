@@ -5,14 +5,19 @@ $.ajax({
     dataType: "json",
     success: function(response) {
         if (response.success == true) {
-            response.data.forEach(element => {
-                $("#rightHashtags").append(`
-                    <li class="list-group-item">
-                        <span>${element['word']}</span>
-                        <small class="float-end">${element['count']}</small>
-                    </li>
-                `);
-            });
+
+            if (response.data[0] != false) {
+                response.data.forEach(element => {
+                    $("#rightHashtags").append(`
+                        <li class="list-group-item">
+                            <span>${element['word']}</span>
+                            <small class="float-end">${element['count']}</small>
+                        </li>
+                    `);
+                });
+            } else {
+                $("#hashtags").hide();
+            }
         }
     }
 });
