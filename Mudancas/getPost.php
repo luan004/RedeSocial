@@ -32,7 +32,7 @@
             'dt' => $dt
         );
 
-        $stmt3 = $con->prepare("SELECT user_id, text, dt FROM comments WHERE post_id = ?");
+        $stmt3 = $con->prepare("SELECT user_id, text, dt FROM comments WHERE post_id = ? ORDER BY dt DESC");
         $stmt3->bind_param("i", $id);
         $stmt3->execute();
         $stmt3->store_result();
