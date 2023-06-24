@@ -34,8 +34,35 @@ CREATE TABLE followers (
     PRIMARY KEY (follower_id, user_id)
 );
 
+CREATE TABLE comments (
+	id int PRIMARY KEY AUTO_INCREMENT,
+    post_id int,
+    user_id int,
+    text varchar(100) NOT NULL,
+    dt DATETIME NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
 
 /* INSERT --------------------- */
+INSERT INTO `users`(
+    `id`,
+    `name`,
+    `user`,
+    `pass`,
+    `avatar`,
+    `banner`,
+    `dt`
+) VALUES (
+    null,
+    'Admin',
+    'admin',
+    'admin',
+    'https://i.imgur.com/1qZ0QZB.png',
+    'https://i.imgur.com/1qZ0QZB.png',
+    NOW()
+);
+
 INSERT INTO `posts`(
     `id`,
     `user_id`,
@@ -45,9 +72,23 @@ INSERT INTO `posts`(
     `dt`
 ) VALUES (
     null,
-    4,
-    'Esse é o primeiro post dessa rede social!',
-    null,
+    1,
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nunc ultricies nunc, vitae ultricies nisl nunc eget nunc. Sed euismod, nisl eget aliquam ultricies, nunc nunc ultricies nunc, vitae ultricies nisl nunc eget nunc.',
+    'https://i.imgur.com/1qZ0QZB.png',
     0,
+    NOW()
+);
+
+INSERT INTO `comments`(
+    `id`,
+    `post_id`,
+    `user_id`,
+    `text`,
+    `dt`
+) VALUES (
+    null,
+    1,
+    1,
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nunc ultricies nunc, vitae ultricies nisl nunc eget nunc. Sed euismod, nisl eget aliquam ultricies, nunc nunc ultricies nunc, vitae ultricies nisl nunc eget nunc.',
     NOW()
 );

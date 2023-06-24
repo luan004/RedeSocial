@@ -29,6 +29,10 @@
         if ($row2['avatar'] == null) {
             $row2['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row2['user'];
         }
+        /* get comments number */
+        $query3 = $con->query("SELECT id FROM comments WHERE post_id = '".$row['id']."';");
+        $row3 = $query3->fetch_assoc();
+
         $post = array(
             'id' => $row['id'],
             'user' => $row2['user'],
@@ -37,8 +41,25 @@
             'text' => $row['text'],
             'image' => $row['image'],
             'likes' => $row['likes'],
+            'comments' => $query3->num_rows,
             'dt' => $row['dt']
         );
+
+        if ($row['user_id'] == $id) {
+            $post = array_merge(
+                $post,
+                array(
+                    'ismy' => true
+                )
+            );
+        } else {
+            $post = array_merge(
+                $post,
+                array(
+                    'ismy' => false
+                )
+            );
+        }
 
         $json = array_merge(
             $json,

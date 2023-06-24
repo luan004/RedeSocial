@@ -11,7 +11,8 @@
         if(@$query->num_rows > 0){
             $row = $query->fetch_array();
             $response = array(
-                'auth' => true
+                'auth' => true,
+                'id' => $row['id']
             );
         }
     } else {
