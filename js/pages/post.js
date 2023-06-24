@@ -33,7 +33,7 @@ $.ajax({
                 }
                 $.ajax({
                     type: "POST",
-                    url: "php/commentPost.php",
+                    url: "php/sendComment.php",
                     dataType: "json",
                     data: {
                         postId: postId,
