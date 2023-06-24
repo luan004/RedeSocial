@@ -5,6 +5,9 @@ import {
 } from "../utils.js";
 
 const token = getCookie('token');
+if (!token) {
+    window.location.href = "explore";
+}
 $.ajax({
     type: "POST",
     url: "php/isAuth.php",
@@ -76,15 +79,29 @@ $.ajax({
 
                 postStr += `
                     <div class="card-text p-3">
-                        <p class="card-text">
+                        <a href="post?p=${post.id}" style="text-decoration: none;color:inherit" class="card-text">
                             ${realcarHashtags(post.text)}
-                        </p>
+                        </a>
                     </div>
                     <div class="card-footer d-flex">
                         <button class="btn btn-sm btn-outline-primary">
                             <i class="fa fa-thumbs-up"></i>
                             ${post.likes}
                         </button>
+                        <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
+                            <i class="fa fa-comment"></i>
+                            ${post.comments}
+                        </a>`;
+
+                if (post.ismy == true) {
+                    postStr += `
+                        <button value="${post.id}" class="btnPostApagar btn btn-sm btn-outline-danger ms-2">
+                            <i class="fa fa-trash"></i>
+                            Apagar
+                        </button>`;
+                }
+
+                postStr += `
                         <small class="text-body-secondary ms-auto">
                             ${calcularTempoDecorrido(post.dt)}
                         </small>
@@ -95,4 +112,22 @@ $.ajax({
             }
         }
     }
+}); 
+
+$(document).on('click', '.btnPostApagar', function() {
+    const postId = $(this).val();
+    $.ajax({
+        type: "POST",
+        url: "php/deletePost.php",
+        dataType: "json",
+        data: {
+            token: token,
+            postId: postId
+        },
+        success: function(response) {
+            if (response) {
+                window.location.reload();
+            }
+        }
+    });
 });
