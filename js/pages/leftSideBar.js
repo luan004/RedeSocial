@@ -13,7 +13,7 @@ import {
 loadTheme();
 sidebarTabs();
 
-/* ROTA PROTEGIDA */
+/* AUTH */
 const token = getCookie('token');
 auth(function(id) {
     $('#loginBox').hide();
@@ -46,16 +46,14 @@ auth(function(id) {
     logout();
 }, token);
 
-/* ------------------------------------------------ */
-
+/* LOGIN ACCOUNT FORM */
 $('#loginForm').submit(function() {
     const user = $('#loginUser');
     const pass = $('#loginPass');
 
-    /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
         type: "POST",
-        url: "php/api/login.php", /* CAMINHO */
+        url: "php/api/login.php",
         dataType: "json",
         data: {
             user: user.val(),
@@ -75,13 +73,13 @@ $('#loginForm').submit(function() {
     });
     return false;
 });
+/* REGISTER ACCOUNT FORM */
 $('#registerForm').submit(function() {
     const name = $('#registerName');
     const user = $('#registerUser');
     const pass1 = $('#registerPass1');
     const pass2 = $('#registerPass2');
 
-    /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
         type: "POST",
         url: "php/api/register.php",
@@ -122,6 +120,7 @@ $('#registerForm').submit(function() {
     return false;
 });
 
+/* CHANGE THEME BUTTON */
 $('#switchTheme').click(function() { 
     if ($('html').attr('data-bs-theme') == 'dark') {
         $('html').attr('data-bs-theme', 'light');
@@ -135,7 +134,7 @@ $('#switchTheme').click(function() {
         document.cookie = "theme=dark"+ ";expires=" + cookieExpire() + ";path=/";
     }
 });
-
+/* LOGOUT ACCOUNT BUTTON */
 $('#userBoxLogout').click(function(e) {
     e.preventDefault();
     logout(token);
