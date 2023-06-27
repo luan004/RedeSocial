@@ -33,9 +33,16 @@
             // Cria um novo usuário
             $userObj = new User(null, $name, $user, $pass, null, null);
             $userDAO->createUser($userObj);
+
+            $response = array(
+                'register' => true
+            );
             
             $conn->close();
             break;
     }
     
+    header('Content-Type: application/json');
+    echo json_encode($response, JSON_PRETTY_PRINT);
+    exit;
 ?>

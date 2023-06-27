@@ -82,7 +82,7 @@ $('#loginForm').submit(function() {
     /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
         type: "POST",
-        url: ".php/api/login.php",
+        url: ".php/api/login.php", /* CAMINHO */
         dataType: "json",
         data: {
             user: user.val(),
@@ -111,19 +111,18 @@ $('#registerForm').submit(function() {
     /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
         type: "POST",
-        url: "php/register.php",
+        url: ".php/api/register.php",
         dataType: "json",
         data: {
             name: name.val(),
             user: user.val(),
-            pass1: pass1.val(),
-            pass2: pass2.val()
+            pass: pass1.val()
         },
         success: function(response) {
             if (response.register == true) {
                 $.ajax({
                     type: "POST",
-                    url: "php/login.php",
+                    url: ".php/api/login.php",
                     dataType: "json",
                     data: {
                         user: user.val(),
