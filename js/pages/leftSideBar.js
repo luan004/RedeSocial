@@ -1,8 +1,8 @@
 import {
     getCookie,
+    setCookie,
     sidebarTabs,
-    loadTheme,
-    cookieExpire
+    loadTheme
 } from "../utils.js";
 
 import {
@@ -44,7 +44,6 @@ auth(function(id) {
 }, function() {
     //
 }, token);
-cookieExpire();
 /* LOGIN ACCOUNT FORM */
 $('#loginForm').submit(function() {
     const user = $('#loginUser');
@@ -60,7 +59,8 @@ $('#loginForm').submit(function() {
         },
         success: function(response) {
             if (response.auth == true) {
-                document.cookie = "token="+response.token + ";expires=" + cookieExpire() + ";path=/";
+                setCookie('token', response.token);
+                //document.cookie = "token="+response.token + ";expires=" + cookieExpire() + ";path=/";
                 user.addClass('is-valid').removeClass('is-invalid');
                 pass.addClass('is-valid').removeClass('is-invalid');
                 window.location.reload();
@@ -100,7 +100,8 @@ $('#registerForm').submit(function() {
                     },
                     success: function(response) {
                         if (response.auth == true) {
-                            document.cookie = "token="+response.token + ";expires=" + cookieExpire() + ";path=/";
+                            setCookie('token', response.token);
+                            //document.cookie = "token="+response.token + ";expires=" + cookieExpire() + ";path=/";
                             window.location.reload();
                         }
                     }
@@ -125,12 +126,14 @@ $('#switchTheme').click(function() {
         $('html').attr('data-bs-theme', 'light');
         $('#switchThemeIcon').removeClass('fa-sun').addClass('fa-moon');
         $('#switchThemeText').html('Tema Escuro');
-        document.cookie = "theme=light"+ ";expires=" + cookieExpire() + ";path=/";
+        setCookie('theme', 'light');
+        //document.cookie = "theme=light"+ ";expires=" + cookieExpire() + ";path=/";
     } else {
         $('html').attr('data-bs-theme', 'dark');
         $('#switchThemeIcon').removeClass('fa-moon').addClass('fa-sun');
         $('#switchThemeText').html('Tema Claro');
-        document.cookie = "theme=dark"+ ";expires=" + cookieExpire() + ";path=/";
+        setCookie('theme', 'dark');
+        //document.cookie = "theme=dark"+ ";expires=" + cookieExpire() + ";path=/";
     }
 });
 /* LOGOUT ACCOUNT BUTTON */

@@ -79,6 +79,10 @@ export function loadTheme() {
     }
 }
 
-export function cookieExpire() {
-    return new Date().setFullYear(new Date().getFullYear() + 1);
+export function setCookie(name, value) {
+    var expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1); // Adiciona 1 ano à data atual
+    var expires = "expires=" + expirationDate.toUTCString();
+
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
