@@ -66,5 +66,19 @@
             }
         
         }
+
+        public function auth($token) {
+            $stmt = $this->conn->prepare("SELECT * FROM sesstokens WHERE token = ?");
+            $stmt->bind_param("s", $token);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result->num_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 ?>

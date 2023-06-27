@@ -1,79 +1,52 @@
 import {
     getCookie,
-    logout
+    sidebarTabs,
+    loadTheme,
+    cookieExpire
 } from "../utils.js";
 
-var page = window.location.pathname;
-var tab;
-switch (true) {
-  case page.includes('/explore'):
-    tab = 'explore';
-    break;
-  case page.includes('/feed'):
-    tab = 'feed';
-    break;
-  case page.includes('/settings'):
-    tab = 'settings';
-    break;
-}
+import {
+    auth,
+    logout
+} from "../data.js";
 
-if (tab) {
-  document.getElementById(tab).classList.add('active');
-}
+loadTheme();
+sidebarTabs();
 
-/* ------------------------------------------------ */
-
+/* ROTA PROTEGIDA */
 const token = getCookie('token');
-if (token != null) {
+auth(function(id) {
     $('#loginBox').hide();
     $('#userBox').show();
 
+    console.log(id);
     $.ajax({
         type: "POST",
-        url: "php/api/getUserInfo.php",
+        url: "php/api/getUser.php",
         dataType: "json",
         data: {
-            token: token
+            opt: 'id',
+            val: id
         },
         success: function(response) {
-            if (response.auth == true) {
-                /* Caixa do usuário sidebar esquerda */
-                $('#userBoxAvatar').attr('src', response.avatar);
-                $('#userBoxName').html(response.name);
-                $('#userBoxUsername').html('@'+response.user);
-                $('#userBoxAvatarLink').attr('href', 'profile?u='+response.user);
-                $('#userBoxLink').attr('href', 'profile?u='+response.user);
-
-                /* Abas disponiveis apenas a usuarios logados */
-                $('#settings').show();	
-                $('#feed').show();
+            $('#userBoxAvatar').attr('src', response.avatar);
+            $('#userBoxName').html(response.name);
+            $('#userBoxUsername').html('@'+response.user);
+            $('#userBoxAvatarLink').attr('href', 'profile?u='+response.user);
+            $('#userBoxLink').attr('href', 'profile?u='+response.user);
     
-                /* Caixa de postagem */
-                $('#postBoxUser').html('@'+response.user);
-                $('#postBoxAvatar').attr('src', response.avatar);
-            } else {
-                logout(token);
-            }
+            $('#settings').show();	
+            $('#feed').show();
+    
+            $('#postBoxUser').html('@'+response.user);
+            $('#postBoxAvatar').attr('src', response.avatar);
         }
     });
-}
-
-const theme = getCookie('theme');
-if (theme == 'light') {
-    $('html').attr('data-bs-theme', 'light');
-    $('#switchThemeIcon').addClass('fa-moon');
-    $('#switchThemeText').html('Tema Escuro');
-} else {
-    $('html').attr('data-bs-theme', 'dark');
-    $('#switchThemeIcon').addClass('fa-sun');
-    $('#switchThemeText').html('Tema Claro');
-}
+}, function() {
+    logout();
+}, token);
 
 /* ------------------------------------------------ */
-/* Data de Expiração do Cookie */
-var dataAtual = new Date();
-dataAtual.setFullYear(dataAtual.getFullYear() + 1);
-var dataExpiracao = dataAtual.toUTCString();
 
 $('#loginForm').submit(function() {
     const user = $('#loginUser');
@@ -90,7 +63,7 @@ $('#loginForm').submit(function() {
         },
         success: function(response) {
             if (response.auth == true) {
-                document.cookie = "token="+response.token + ";expires=" + dataExpiracao + ";path=/";
+                document.cookie = "token="+response.token + ";expires=" + cookieExpire() + ";path=/";
                 user.addClass('is-valid').removeClass('is-invalid');
                 pass.addClass('is-valid').removeClass('is-invalid');
                 window.location.reload();
@@ -130,7 +103,7 @@ $('#registerForm').submit(function() {
                     },
                     success: function(response) {
                         if (response.auth == true) {
-                            document.cookie = "token="+response.token + ";expires=" + dataExpiracao + ";path=/";
+                            document.cookie = "token="+response.token + ";expires=" + cookieExpire() + ";path=/";
                             window.location.reload();
                         }
                     }
@@ -154,12 +127,12 @@ $('#switchTheme').click(function() {
         $('html').attr('data-bs-theme', 'light');
         $('#switchThemeIcon').removeClass('fa-sun').addClass('fa-moon');
         $('#switchThemeText').html('Tema Escuro');
-        document.cookie = "theme=light"+ ";expires=" + dataExpiracao + ";path=/";
+        document.cookie = "theme=light"+ ";expires=" + cookieExpire() + ";path=/";
     } else {
         $('html').attr('data-bs-theme', 'dark');
         $('#switchThemeIcon').removeClass('fa-moon').addClass('fa-sun');
         $('#switchThemeText').html('Tema Claro');
-        document.cookie = "theme=dark"+ ";expires=" + dataExpiracao + ";path=/";
+        document.cookie = "theme=dark"+ ";expires=" + cookieExpire() + ";path=/";
     }
 });
 

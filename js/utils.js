@@ -1,4 +1,3 @@
-/* Pegar o valor de um cookie */
 export function getCookie(name) {
     const cookies = document.cookie.split(';');
         for(let i = 0; i < cookies.length; i++) {
@@ -9,22 +8,6 @@ export function getCookie(name) {
         }
     return null;
 }
-
-/* Realizar logout */
-export function logout(token) {
-    /* Apaga o token do cookie */
-    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
-    $.ajax({
-        type: "POST",
-        url: "php/logout.php",
-        dataType: "json",
-        data: {
-            token: token
-        }
-    });
-    document.location.reload();
-}
-
 export function realcarHashtags(texto) {
     // Expressão regular para encontrar hashtags
     var regex = /#[^\s#]+/g;
@@ -62,4 +45,40 @@ export function calcularTempoDecorrido(dataPostagem) {
     } else {
         return `há ${anos} anos`;
     }
+}
+
+export function sidebarTabs() {
+    var page = window.location.pathname;
+    var tab;
+    switch (true) {
+    case page.includes('/explore'):
+        tab = 'explore';
+        break;
+    case page.includes('/feed'):
+        tab = 'feed';
+        break;
+    case page.includes('/settings'):
+        tab = 'settings';
+        break;
+    }
+    if (tab) {
+    document.getElementById(tab).classList.add('active');
+    }
+}
+
+export function loadTheme() {
+    const theme = getCookie('theme');
+    if (theme == 'light') {
+        $('html').attr('data-bs-theme', 'light');
+        $('#switchThemeIcon').addClass('fa-moon');
+        $('#switchThemeText').html('Tema Escuro');
+    } else {
+        $('html').attr('data-bs-theme', 'dark');
+        $('#switchThemeIcon').addClass('fa-sun');
+        $('#switchThemeText').html('Tema Claro');
+    }
+}
+
+export function cookieExpire() {
+    return new Date().setFullYear(new Date().getFullYear() + 1);
 }
