@@ -1,13 +1,12 @@
 <?php
     require_once('../connection/Conn.php');
     require_once('../dao/UserDAO.php');
+    require_once('../dao/SesstokenDAO.php');
     require_once('../models/User.php');
+    require_once('../models/Sesstoken.php');
 
-    //$user = $_POST['user'];
-    //$pass = $_POST['pass'];
-
-    $user = 'luan004';
-    $pass = '123';
+    $user = $_POST['user'];
+    $pass = $_POST['pass'];
 
     $conn = new Conn();
     $userDAO = new UserDAO($conn);
@@ -16,8 +15,13 @@
     if ($userObj && $userObj->getPass() === $pass) {
         $token = bin2hex(random_bytes(32)); //token hexadecimal de 64 caracteres
         
+        $sesstokenDAO = new SesstokenDAO($conn);
+        $sesstoken = new Sesstoken(null, $userObj->getId(), $token);
+        $sesstokenDAO->createSesstoken($sesstoken);
+
         $response = array(
-            'status' => 'success'
+            'auth' => true,
+            'token' => $sesstoken->getToken()
         );
     } else {
         $response = array(
