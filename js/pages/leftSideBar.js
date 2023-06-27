@@ -82,7 +82,7 @@ $('#loginForm').submit(function() {
     /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
         type: "POST",
-        url: "php/login.php",
+        url: ".php/api/login.php",
         dataType: "json",
         data: {
             user: user.val(),
