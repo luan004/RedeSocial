@@ -20,5 +20,35 @@
 
             $stmt->close();
         }
+
+        public function deleteSesstoken($sesstoken) {
+            $id = $sesstoken->getId();
+
+            $stmt = $this->conn->prepare("DELETE FROM sesstokens WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        public function getSesstokenByToken($token) {
+            $stmt = $this->conn->prepare("SELECT * FROM sesstokens WHERE token = ?");
+            $stmt->bind_param("s", $token);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $sesstoken = new Sesstoken(
+                    $row['id'],
+                    $row['user_id'],
+                    $row['token']
+                );
+                $stmt->close();
+                return $sesstoken;
+            } else {
+                $stmt->close();
+                return false;
+            }
+        }
     }
 ?>

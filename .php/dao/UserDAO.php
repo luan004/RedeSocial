@@ -45,33 +45,6 @@
             $stmt->execute();
             $stmt->close();
         }
-    
-        public function searchUserById($id) {
-            $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-    
-            $result = $stmt->get_result();
-    
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-    
-                $id = $row["id"];
-                $name = $row["name"];
-                $username = $row["user"];
-                $password = $row["pass"];
-                $avatar = $row["avatar"];
-                $banner = $row["banner"];
-    
-                $user = new User($id, $name, $username, $password, $avatar, $banner);
-    
-                $stmt->close();
-                $this->conn->close();
-    
-                return $user;
-            }
-            $stmt->close();
-        }
 
         public function getUserByUsername($username) {
             $stmt = $this->conn->prepare("SELECT * FROM users WHERE user = ?");
