@@ -44,7 +44,7 @@ auth(function(id) {
 }, function() {
     //
 }, token);
-
+cookieExpire();
 /* LOGIN ACCOUNT FORM */
 $('#loginForm').submit(function() {
     const user = $('#loginUser');
