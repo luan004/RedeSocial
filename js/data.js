@@ -17,7 +17,6 @@ export function auth(ifTrue, ifFalse, token) {
 }
 
 export function logout(token) {
-    /* Apaga o token do cookie */
     document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
     $.ajax({
         type: "POST",
