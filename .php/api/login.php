@@ -3,19 +3,26 @@
     require_once('../dao/UserDAO.php');
     require_once('../models/User.php');
 
-    $user = $_POST['user'];
-    $pass = $_POST['pass'];
+    //$user = $_POST['user'];
+    //$pass = $_POST['pass'];
+
+    $user = 'luan004';
+    $pass = '123';
 
     $conn = new Conn();
     $userDAO = new UserDAO($conn);
     $userObj = $userDAO->getUserByUsername($user);
 
     if ($userObj && $userObj->getPass() === $pass) {
-        // Login bem-sucedido
-        echo "Login realizado com sucesso. Bem-vindo, " . $userObj->getName() . "!";
+        $token = bin2hex(random_bytes(32)); //token hexadecimal de 64 caracteres
+        
+        $response = array(
+            'status' => 'success'
+        );
     } else {
-        // Credenciais inválidas
-        echo "Usuário ou senha inválidos.";
+        $response = array(
+            'status' => 'error'
+        );
     }
 
     $conn->close();
