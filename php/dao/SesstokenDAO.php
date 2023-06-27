@@ -50,35 +50,5 @@
                 return false;
             }
         }
-
-        public function exists($token) {
-            $stmt = $this->conn->prepare("SELECT * FROM sesstokens WHERE token = ?");
-            $stmt->bind_param("s", $token);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $stmt->close();
-                return true;
-            } else {
-                $stmt->close();
-                return false;
-            }
-        
-        }
-
-        public function auth($token) {
-            $stmt = $this->conn->prepare("SELECT * FROM sesstokens WHERE token = ?");
-            $stmt->bind_param("s", $token);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $stmt->close();
-
-            if ($result->num_rows > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
     }
 ?>

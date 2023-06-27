@@ -9,7 +9,6 @@
     $token = $_POST['token'];
 
     $conn = new Conn();
-
     $sesstokenDAO = new SesstokenDAO($conn);
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
 

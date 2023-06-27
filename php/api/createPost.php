@@ -11,23 +11,22 @@
 
     $conn = new Conn();
     $sesstokenDAO = new SesstokenDAO($conn);
+    $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
 
-    if ($sesstokenDAO->exists($token)) {
-        if ($text != null || $image != null) {
-            $post = new Post(
-                null,
-                $sesstokenDAO->getSesstokenByToken($token)->getUserId(),
-                $text,
-                $image,
-                0,
-                null
-            );
-            $postDAO = new PostDAO($conn);
-            $postDAO->create($post);
-            $response = array(
-                'success' => true
-            );
-        }
+    if ($sesstoken && $text != null || $image != null) {
+        $post = new Post(
+            null,
+            $sesstokenDAO->getSesstokenByToken($token)->getUserId(),
+            $text,
+            $image,
+            0,
+            null
+        );
+        $postDAO = new PostDAO($conn);
+        $postDAO->create($post);
+        $response = array(
+            'success' => true
+        );
     } else {
         $response = array(
             'success' => false

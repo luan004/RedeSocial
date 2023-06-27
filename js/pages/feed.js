@@ -10,7 +10,7 @@ if (!token) {
 }
 $.ajax({
     type: "POST",
-    url: "php/isAuth.php",
+    url: "php/api/auth.php",
     dataType: "json",
     data: {
         token: token
