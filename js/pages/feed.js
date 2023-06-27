@@ -30,7 +30,7 @@ $('#sendPostForm').submit(function(e) {
     if (text != "") {
         $.ajax({
             type: "POST",
-            url: "php/sendPost.php",
+            url: "php/api/sendPost.php",
             dataType: "json",
             data: {
                 token: token,

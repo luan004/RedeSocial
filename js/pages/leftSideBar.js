@@ -30,7 +30,7 @@ if (token != null) {
 
     $.ajax({
         type: "POST",
-        url: "php/getUserInfo.php",
+        url: "php/api/getUserInfo.php",
         dataType: "json",
         data: {
             token: token
@@ -82,7 +82,7 @@ $('#loginForm').submit(function() {
     /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
         type: "POST",
-        url: ".php/api/login.php", /* CAMINHO */
+        url: "php/api/login.php", /* CAMINHO */
         dataType: "json",
         data: {
             user: user.val(),
@@ -111,7 +111,7 @@ $('#registerForm').submit(function() {
     /* COMUNICAÇÃO COM BACKEND */
     $.ajax({
         type: "POST",
-        url: ".php/api/register.php",
+        url: "php/api/register.php",
         dataType: "json",
         data: {
             name: name.val(),
