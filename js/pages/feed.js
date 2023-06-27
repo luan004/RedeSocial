@@ -26,16 +26,15 @@ $('#sendPostForm').submit(function(e) {
     e.preventDefault();
     const text = $('#postText').val();
     const image = null;
-
     if (text != "") {
         $.ajax({
             type: "POST",
-            url: "php/api/sendPost.php",
+            url: "php/api/createPost.php",
             dataType: "json",
             data: {
-                token: token,
                 text: text,
-                image: image
+                image: image,
+                token: token
             },
             success: function(response) {
                 if (response) {
@@ -116,15 +115,17 @@ $.ajax({
 
 $(document).on('click', '.btnPostApagar', function() {
     const postId = $(this).val();
+    console.log(postId)
     $.ajax({
         type: "POST",
-        url: "php/deletePost.php",
+        url: "php/api/deletePost.php",
         dataType: "json",
         data: {
-            token: token,
-            postId: postId
+            postId: postId,
+            token: token
         },
         success: function(response) {
+            console.log('response')
             if (response) {
                 window.location.reload();
             }

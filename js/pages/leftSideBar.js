@@ -19,7 +19,6 @@ auth(function(id) {
     $('#loginBox').hide();
     $('#userBox').show();
 
-    console.log(id);
     $.ajax({
         type: "POST",
         url: "php/api/getUser.php",
@@ -43,7 +42,7 @@ auth(function(id) {
         }
     });
 }, function() {
-    logout();
+    //
 }, token);
 
 /* LOGIN ACCOUNT FORM */

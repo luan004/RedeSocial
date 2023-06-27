@@ -10,7 +10,6 @@
     $token = $_POST['token'];
 
     $conn = new Conn();
-    
     $sesstokenDAO = new SesstokenDAO($conn);
 
     if ($sesstokenDAO->exists($token)) {
@@ -24,7 +23,7 @@
                 null
             );
             $postDAO = new PostDAO($conn);
-            $postDAO->insert($post);
+            $postDAO->create($post);
             $response = array(
                 'success' => true
             );

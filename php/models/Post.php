@@ -2,16 +2,16 @@
     class Post {
         /* ATRIBUTOS */
         private $id;
-        private $user;
+        private $userId;
         private $text;
         private $image;
         private $likes;
         private $dt;
 
         /* CONSTRUTOR */
-        public function __construct($id, $user, $text, $image, $likes, $dt) {
+        public function __construct($id, $userId, $text, $image, $likes, $dt) {
             $this->id = $id;
-            $this->user = $user;
+            $this->userId = $userId;
             $this->text = $text;
             $this->image = $image;
             $this->likes = $likes;
@@ -22,8 +22,8 @@
         public function getId() {
             return $this->id;
         }
-        public function getUser() {
-            return $this->user;
+        public function getUserId() {
+            return $this->userId;
         }
         public function getText() {
             return $this->text;
@@ -42,8 +42,8 @@
         public function setId($id) {
             $this->id = $id;
         }
-        public function setUser($user) {
-            $this->user = $user;
+        public function setUserId($userId) {
+            $this->userId = $userId;
         }
         public function setText($text) {
             $this->text = $text;

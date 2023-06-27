@@ -6,8 +6,8 @@
             $this->conn = $conn;
         }
 
-        public function insert($post) {
-            $user = $post->getUser();
+        public function create($post) {
+            $user = $post->getUserId();
             $text = $post->getText();
             $image = $post->getImage();
             $likes = $post->getLikes();
@@ -23,6 +23,40 @@
 
             $stmt->close();
         }
+
+        public function delete($post) {
+            $id = $post->getId();
+
+            $sql = "DELETE FROM posts WHERE id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+
+            $stmt->close();
+        }
         
+        public function getPostById($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $post = new Post(
+                    $row['id'],
+                    $row['user_id'],
+                    $row['text'],
+                    $row['image'],
+                    $row['likes'],
+                    $row['dt']
+                );
+                $stmt->close();
+                return $post;
+            } else {
+                $stmt->close();
+                return false;
+            }
+        }
     }
 ?>
