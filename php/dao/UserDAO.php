@@ -54,6 +54,9 @@
         
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
+                if ($row['avatar'] == null) {
+                    $row['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row['user'];
+                }
                 $user = new User(
                     $row['id'],
                     $row['name'],
@@ -76,6 +79,9 @@
         
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
+                if ($row['avatar'] == null) {
+                    $row['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row['user'];
+                }
                 $user = new User(
                     $row['id'],
                     $row['name'],
