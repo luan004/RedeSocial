@@ -44,6 +44,14 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE likes (
+    user_id int,
+    post_id int,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id),
+    PRIMARY KEY (user_id, post_id)
+);
+
 /* INSERT --------------------- */
 INSERT INTO `users`(
     `id`,
