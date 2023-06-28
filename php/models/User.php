@@ -1,3 +1,15 @@
+<!--
+CREATE TABLE users (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(64) NOT NULL,
+    user varchar(32) NOT NULL,
+    pass varchar(64) NOT NULL,
+    avatar varchar(200),
+    banner varchar(200),
+    dt datetime
+);
+-->
+
 <?php
     class User {
         /* ATRIBUTOS */

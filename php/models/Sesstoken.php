@@ -1,5 +1,15 @@
+<!--
+CREATE TABLE sesstokens (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    user_id int,
+    token varchar(64),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+-->
+
 <?php
     class Sesstoken {
+        /* ATRIBUTOS */
         private $id;
         private $userId;
         private $token;
