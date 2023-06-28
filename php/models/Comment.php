@@ -1,15 +1,3 @@
-<!-- 
-CREATE TABLE comments (
-    id int PRIMARY KEY AUTO_INCREMENT,
-    post_id int,
-    user_id int,
-    text varchar(100) NOT NULL,
-    dt DATETIME NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
- -->
-
 <?php
     class Comment {
         /* ATRIBUTOS */

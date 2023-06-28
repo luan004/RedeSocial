@@ -1,13 +1,3 @@
-<!-- 
-CREATE TABLE followers (
-    follower_id INT,
-    followed_id INT,
-    FOREIGN KEY (follower_id) REFERENCES users(id),
-    FOREIGN KEY (followed_id) REFERENCES users(id),
-    PRIMARY KEY (follower_id, user_id)
-);
- -->
-
 <?php
     class Follow {
         /* ATRIBUTOS */

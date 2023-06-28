@@ -1,15 +1,3 @@
-<!--
-CREATE TABLE posts(
-    id int PRIMARY KEY AUTO_INCREMENT,
-    user_id int,
-    text varchar(280),
-    image varchar(190),
-    likes int not null,
-    dt DATETIME not null,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
--->
-
 <?php
     class Post {
         /* ATRIBUTOS */

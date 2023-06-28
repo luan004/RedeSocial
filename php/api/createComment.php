@@ -1,0 +1,45 @@
+<?php
+    require_once('../connection/Conn.php');
+    require_once('../dao/SesstokenDAO.php');
+    require_once('../dao/CommentDAO.php');
+    require_once('../dao/PostDAO.php');
+    require_once('../models/Sesstoken.php');
+    require_once('../models/Comment.php');
+    require_once('../models/Post.php');
+    
+    $text = '';
+    $postId = 5;
+    $token = '';
+
+    $conn = new Conn();
+
+    $sesstokenDAO = new SesstokenDAO($conn);
+    $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
+
+    $postDAO = new PostDAO($conn);
+    $post = $postDAO->getPostById($postId);
+
+    if ($sesstoken && $post && $text != '' && $text != null) {
+        $comment = new Comment(
+            null,
+            $post->getId(),
+            $sesstoken->getUserId(),
+            $text,
+            null
+        );
+        $commentDAO = new CommentDAO($conn);
+        $commentDAO->create($comment);
+        $response = array(
+            'success' => true
+        );
+    } else {
+        $response = array(
+            'success' => false
+        );
+    }
+
+    $conn->close();
+    header('Content-Type: application/json');
+    echo json_encode($response, JSON_PRETTY_PRINT);
+    exit;
+?>

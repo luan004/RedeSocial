@@ -11,7 +11,6 @@
             $text = $post->getText();
             $image = $post->getImage();
             $likes = $post->getLikes();
-            $dt = $post->getDt();
 
             $sql = "INSERT INTO posts (user_id, text, image, likes, dt) VALUES (?, ?, ?, ?, NOW())";
             $stmt = $this->conn->prepare($sql);
