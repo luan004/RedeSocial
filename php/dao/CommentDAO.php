@@ -6,7 +6,7 @@
             $this->conn = $conn;
         }
 
-        public function createComment(Comment $comment) {
+        public function create(Comment $comment) {
             $postId = $comment->getPostId();
             $userId = $comment->getUserId();
             $text = $comment->getText();

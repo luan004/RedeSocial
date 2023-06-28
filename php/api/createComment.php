@@ -7,9 +7,9 @@
     require_once('../models/Comment.php');
     require_once('../models/Post.php');
     
-    $text = '';
-    $postId = 5;
-    $token = '';
+    $text = $_POST['text'];
+    $postId = $_POST['postId'];
+    $token = $_POST['token'];
 
     $conn = new Conn();
 

@@ -6,7 +6,7 @@
             $this->conn = $conn;
         }
 
-        public function create($post) {
+        public function create(Post $post) {
             $user = $post->getUserId();
             $text = $post->getText();
             $image = $post->getImage();
@@ -23,7 +23,7 @@
             $stmt->close();
         }
 
-        public function delete($post) {
+        public function delete(Post $post) {
             $id = $post->getId();
 
             $sql = "DELETE FROM posts WHERE id = ?";
