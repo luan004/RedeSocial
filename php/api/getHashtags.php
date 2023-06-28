@@ -5,11 +5,9 @@
 
     if ($query->num_rows) {
         $wordCount = array();
-
         while ($row = $query->fetch_object()) {
             $text = $row->text;
             $words = explode(" ", $text);
-
             foreach ($words as $word) {
                 if (!empty($word) && substr($word, 0, 1) === "#") {
                     if (array_key_exists($word, $wordCount)) {
@@ -20,9 +18,7 @@
                 }
             }
         }
-
         $json = array();
-
         foreach ($wordCount as $word => $count) {
             $json[] = array(
                 'word' => $word,

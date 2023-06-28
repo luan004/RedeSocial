@@ -1,7 +1,7 @@
 var page = window.location.pathname;
 $.ajax({
     type: "POST",
-    url: "php/getHashtags.php",
+    url: "php/api/getHashtags.php",
     dataType: "json",
     success: function(response) {
         if (response.success == true) {
