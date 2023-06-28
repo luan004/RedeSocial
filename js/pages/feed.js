@@ -115,7 +115,6 @@ $.ajax({
 
 $(document).on('click', '.btnPostApagar', function() {
     const postId = $(this).val();
-    console.log(postId)
     $.ajax({
         type: "POST",
         url: "php/api/deletePost.php",
@@ -126,6 +125,24 @@ $(document).on('click', '.btnPostApagar', function() {
         },
         success: function(response) {
             console.log('response')
+            if (response) {
+                window.location.reload();
+            }
+        }
+    });
+});
+
+$(document).on('click', '.btnPostLike', function() {
+    const postId = $(this).val();
+    $.ajax({
+        type: "POST",
+        url: "php/api/likePost.php",
+        dataType: "json",
+        data: {
+            postId: postId,
+            token: token
+        },
+        success: function(response) {
             if (response) {
                 window.location.reload();
             }

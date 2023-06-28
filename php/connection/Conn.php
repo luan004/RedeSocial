@@ -25,6 +25,14 @@
         public function getConn() {
             return $this->conn;
         }
+
+        public function error() {
+            return $this->conn->error;
+        }
+
+        public function errno() {
+            return $this->conn->errno;
+        }
         
         public function close() {
             $this->conn->close();
