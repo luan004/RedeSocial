@@ -21,7 +21,7 @@
     $likeDAO = new LikeDAO($conn);
     
     if ($sesstoken && $post) {
-        $like = $likeDAO->getLikeByUserIdAndPostId($sesstoken->getUserId(), $post->getId());
+        $like = $likeDAO->getLikeByUserAndPost($sesstoken->getUserId(), $post->getId());
     }
 
     if ($sesstoken && $post && $like == null) {

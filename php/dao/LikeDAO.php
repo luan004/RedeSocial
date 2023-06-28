@@ -26,7 +26,7 @@
             $stmt->execute();
         }
 
-        public function getLikeByUserIdAndPostId($userId, $postId) {
+        public function getLikeByUserAndPost($userId, $postId) {
             $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("ss", $userId, $postId);
