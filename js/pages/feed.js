@@ -54,17 +54,6 @@ $('#sendPostForm').submit(function(e) {
 
 $.ajax({
     type: "POST",
-    url: "php/api/getPosts.php",
-    dataType: "json",
-    data: {
-        token: token
-    },
-    success: function(response) {
-    }
-});
-
-$.ajax({
-    type: "POST",
     url: "php/getFeed.php",
     dataType: "json",
     data: {

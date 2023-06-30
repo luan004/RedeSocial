@@ -1,27 +1,10 @@
 import {
     calcularTempoDecorrido,
     realcarHashtags,
-    setCookie,
     getCookie
 } from "../utils.js";
 
-/* VERIFICAR SE O USUÁRIO ESTÁ LOGADO */
 const token = getCookie('token');
-if (token) {
-    $.ajax({
-        type: "POST",
-        url: "php/api/auth.php",
-        dataType: "json",
-        data: {
-            token: token
-        },
-        success: function(response) {
-            if (response.auth == true) {
-                setCookie('userId', response.userId);
-            }
-        }
-    });
-}
 
 /* CARREGAR O FEED */
 $.ajax({
@@ -29,6 +12,7 @@ $.ajax({
     url: "php/api/getPosts.php",
     dataType: "json",
     data: {
+        feed: false,
         token: token
     },
     success: function(response) {

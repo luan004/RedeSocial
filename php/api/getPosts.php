@@ -11,7 +11,8 @@
 
     $conn = new Conn();
 
-    $token = null;
+    $feed = false;
+    $token = '6ba4b2c5f0a7779c83bbc565aa9df955081f0d7aa7ece736e05563bfb8a730b5';
 
     $sesstokenDAO = new SesstokenDAO($conn);
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
@@ -20,11 +21,17 @@
     $userDAO = new UserDAO($conn);
 
     if ($sesstoken) {
+        $userId = $sesstoken->getUserId();
+    } else {
+        $userId = false;
+    }
+
+    if ($feed && $sesstoken) {
         $response = array(
             'type' => 'feed'
         );
     } else {
-        $response = $postDAO->getAllPosts();
+        $response = $postDAO->getAllPosts($userId);
     }
 
     $conn->close();

@@ -46,7 +46,7 @@
             $stmt->close();
         }
         
-        public function getAllPosts() {
+        public function getAllPosts($reqUserId) {
             $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC");
             $stmt->execute();
             $result = $stmt->get_result();
@@ -74,7 +74,8 @@
                         'text' => $row['text'],
                         'image' => $row['image'],
                         'likes' => $row['likes'],
-                        'dt' => $row['dt']
+                        'ismy' => $reqUserId == $row['user_id'],
+                        'dt' => $row['dt'],
                     );
                     array_push($posts, $post);
                 }
