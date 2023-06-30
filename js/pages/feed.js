@@ -94,7 +94,7 @@ $.ajax({
 
                 if (post.ismy == true) {
                     postStr += `
-                        <button value="${post.id}" class="btnPostApagar btn btn-sm btn-outline-danger ms-2">
+                        <button value="${post.id}" class="btnPostDelete btn btn-sm btn-outline-danger ms-2">
                             <i class="fa fa-trash"></i>
                             Apagar
                         </button>`;
@@ -113,7 +113,7 @@ $.ajax({
     }
 }); 
 
-$(document).on('click', '.btnPostApagar', function() {
+$(document).on('click', '.btnPostDelete', function() {
     const postId = $(this).val();
     $.ajax({
         type: "POST",
