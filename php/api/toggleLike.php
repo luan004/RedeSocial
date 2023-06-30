@@ -24,8 +24,19 @@
         $like = $likeDAO->getLikeByUserAndPost($sesstoken->getUserId(), $post->getId());
     }
 
-    if ($sesstoken && $post && $like != null) {
-        $likeDAO->delete($like);
+    if ($sesstoken && $post) {
+        if ($like == null) {
+            //create like
+            $like = new Like(
+                $sesstoken->getUserId(),
+                $post->getId()
+            );
+            $likeDAO->create($like);
+        } else {
+            //delete like
+            $likeDAO->delete($like);
+        }
+
         $response = array(
             'success' => true
         );

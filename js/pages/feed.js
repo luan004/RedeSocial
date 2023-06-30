@@ -83,7 +83,7 @@ $.ajax({
                         </a>
                     </div>
                     <div class="card-footer d-flex">
-                        <button class="btn btn-sm btn-outline-primary">
+                        <button value="${post.id}" class="btnPostLike btn btn-sm btn-outline-primary">
                             <i class="fa fa-thumbs-up"></i>
                             ${post.likes}
                         </button>
@@ -136,14 +136,14 @@ $(document).on('click', '.btnPostLike', function() {
     const postId = $(this).val();
     $.ajax({
         type: "POST",
-        url: "php/api/likePost.php",
+        url: "php/api/toggleLike.php",
         dataType: "json",
         data: {
             postId: postId,
             token: token
         },
         success: function(response) {
-            if (response) {
+            if (response.success == true) {
                 window.location.reload();
             }
         }
