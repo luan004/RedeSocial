@@ -45,7 +45,20 @@ $.ajax({
                     <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
                             <i class="fa fa-comment"></i>
                             //
-                        </a>
+                    </a>`;
+
+                if (post.ismy == true) {
+                    postStr += `
+                        <button value="${post.id}" class="btnPostEdit btn btn-sm btn-outline-secondary ms-2">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button value="${post.id}" class="btnPostDelete btn btn-sm btn-outline-danger ms-2">
+                            <i class="fa fa-trash"></i>
+                        </button>`;
+                        
+                }
+
+                postStr += `
                     <small class="text-body-secondary ms-auto">
                         ${calcularTempoDecorrido(post.dt)}
                     </small>
