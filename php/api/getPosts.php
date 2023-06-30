@@ -20,10 +20,9 @@
     $postDAO = new PostDAO($conn);
     $userDAO = new UserDAO($conn);
 
+    $userId = null;
     if ($sesstoken) {
         $userId = $sesstoken->getUserId();
-    } else {
-        $userId = false;
     }
 
     if ($feed && $sesstoken) {

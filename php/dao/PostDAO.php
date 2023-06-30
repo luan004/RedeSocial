@@ -64,9 +64,9 @@
                     if ($row2['avatar'] == null) $row2['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row2['user'];
 
                     $post = array(
-                        'postId' => $row['id'],
+                        'id' => $row['id'],
                         'user' =>  array(
-                            'userId' => $row['user_id'],
+                            'id' => $row['user_id'],
                             'name' => $row2['name'],
                             'user' => $row2['user'],
                             'avatar' => $row2['avatar']

@@ -42,6 +42,10 @@ $.ajax({
                         <i class="fa fa-thumbs-up"></i>
                         ${post.likes}
                     </button>
+                    <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
+                            <i class="fa fa-comment"></i>
+                            //
+                        </a>
                     <small class="text-body-secondary ms-auto">
                         ${calcularTempoDecorrido(post.dt)}
                     </small>
