@@ -46,6 +46,50 @@
             $stmt->close();
         }
         
+        public function getAllPosts() {
+            $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $posts = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    // get user info
+                    $stmt = $this->conn->prepare("SELECT name, user, avatar FROM users WHERE id = ?");
+                    $stmt->bind_param("i", $row['user_id']);
+                    $stmt->execute();
+                    $result2 = $stmt->get_result();
+                    $row2 = $result2->fetch_assoc();
+
+                    if ($row2['avatar'] == null) $row2['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row2['user'];
+
+                    $post = array(
+                        'postId' => $row['id'],
+                        'user' =>  array(
+                            'userId' => $row['user_id'],
+                            'name' => $row2['name'],
+                            'user' => $row2['user'],
+                            'avatar' => $row2['avatar']
+                        ),
+                        'text' => $row['text'],
+                        'image' => $row['image'],
+                        'likes' => $row['likes'],
+                        'dt' => $row['dt']
+                    );
+                    array_push($posts, $post);
+                }
+                $stmt->close();
+                return array(
+                    'type' => 'allPosts',
+                    'count' => $result->num_rows,
+                    'posts' => $posts
+                );
+            } else {
+                $stmt->close();
+                return false;
+            }
+        }
+        
         public function getPostById($id) {
             $stmt = $this->conn->prepare("SELECT * FROM posts WHERE id = ?");
             $stmt->bind_param("i", $id);

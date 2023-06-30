@@ -5,6 +5,7 @@ import {
 } from "../utils.js";
 
 const token = getCookie('token');
+console.log(token);
 if (!token) {
     window.location.href = "explore";
 }
@@ -48,6 +49,17 @@ $('#sendPostForm').submit(function(e) {
             $('#postText').removeClass('is-invalid');
         }
         , 2000);
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "php/api/getPosts.php",
+    dataType: "json",
+    data: {
+        token: token
+    },
+    success: function(response) {
     }
 });
 

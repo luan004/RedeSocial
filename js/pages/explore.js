@@ -1,10 +1,75 @@
 import {
     calcularTempoDecorrido,
-    realcarHashtags
+    realcarHashtags,
+    setCookie,
+    getCookie
 } from "../utils.js";
+
+/* VERIFICAR SE O USUÁRIO ESTÁ LOGADO */
+const token = getCookie('token');
+if (token) {
+    $.ajax({
+        type: "POST",
+        url: "php/api/auth.php",
+        dataType: "json",
+        data: {
+            token: token
+        },
+        success: function(response) {
+            if (response.auth == true) {
+                setCookie('userId', response.userId);
+            }
+        }
+    });
+}
 
 /* CARREGAR O FEED */
 $.ajax({
+    type: "POST",
+    url: "php/api/getPosts.php",
+    dataType: "json",
+    data: {
+        token: token
+    },
+    success: function(response) {
+        for (var i = 0; i < response.count; i++) {
+            const post = response.posts[i];
+            
+            var postStr = `
+            <div class="card mb-4 shadow">
+                <div class="card-header">
+                    <img src="${post.user.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
+                    <span class="align-middle h6">${post.user.name}</span>
+                    <small class="ms-auto align-middle">@${post.user.user}</small>
+                </div>`;
+
+            if (post.image != "" && post.image != null) {
+                postStr += `<img src="${post.image}" alt="...">`;
+            }
+
+            postStr += `
+                <div class="card-text p-3">
+                    <p class="card-text">
+                        ${realcarHashtags(post.text)}
+                    </p>
+                </div>
+                <div class="card-footer d-flex">
+                    <button class="btn btn-sm btn-outline-primary">
+                        <i class="fa fa-thumbs-up"></i>
+                        ${post.likes}
+                    </button>
+                    <small class="text-body-secondary ms-auto">
+                        ${calcularTempoDecorrido(post.dt)}
+                    </small>
+                </div>
+            </div>`;
+            $("#lastPosts").append(postStr);
+        }
+            
+    }
+});
+
+/* $.ajax({
     type: "POST",
     url: "php/getLastPosts.php",
     dataType: "json",
@@ -48,3 +113,4 @@ $.ajax({
         }
     }
 });
+ */
