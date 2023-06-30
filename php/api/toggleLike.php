@@ -19,12 +19,9 @@
     $post = $postDAO->getPostById($postId);
     
     $likeDAO = new LikeDAO($conn);
-    
-    if ($sesstoken && $post) {
-        $like = $likeDAO->getLikeByUserAndPost($sesstoken->getUserId(), $post->getId());
-    }
 
     if ($sesstoken && $post) {
+        $like = $likeDAO->getLikeByUserAndPost($sesstoken->getUserId(), $post->getId());
         if ($like == null) {
             //create like
             $like = new Like(
@@ -32,14 +29,18 @@
                 $post->getId()
             );
             $likeDAO->create($like);
+            $response = array(
+                'success' => true,
+                'liked' => true
+            );
         } else {
             //delete like
             $likeDAO->delete($like);
+            $response = array(
+                'success' => true,
+                'liked' => false
+            );
         }
-
-        $response = array(
-            'success' => true
-        );
     } else {
         $response = array(
             'success' => false

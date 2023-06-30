@@ -85,7 +85,7 @@ $.ajax({
                     <div class="card-footer d-flex">
                         <button value="${post.id}" class="btnPostLike btn btn-sm btn-outline-primary">
                             <i class="fa fa-thumbs-up"></i>
-                            ${post.likes}
+                            <span>${post.likes}</span>
                         </button>
                         <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
                             <i class="fa fa-comment"></i>
@@ -133,7 +133,9 @@ $(document).on('click', '.btnPostDelete', function() {
 });
 
 $(document).on('click', '.btnPostLike', function() {
+    const btn = $(this);
     const postId = $(this).val();
+    const likeNum = $(this).children('span').text();
     $.ajax({
         type: "POST",
         url: "php/api/toggleLike.php",
@@ -143,8 +145,14 @@ $(document).on('click', '.btnPostLike', function() {
             token: token
         },
         success: function(response) {
-            if (response.success == true) {
-                window.location.reload();
+            if (response.success == true && response.liked == true) {
+                btn.children('span').text(parseInt(likeNum)+1);
+                btn.addClass('btn-primary');
+                btn.removeClass('btn-outline-primary');
+            } else if (response.success == true && response.liked == false) {
+                btn.children('span').text(parseInt(likeNum)-1);
+                btn.addClass('btn-outline-primary');
+                btn.removeClass('btn-primary');
             }
         }
     });
