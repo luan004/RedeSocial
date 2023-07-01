@@ -12,7 +12,7 @@
     $conn = new Conn();
 
     $feed = false;
-    $token = '6ba4b2c5f0a7779c83bbc565aa9df955081f0d7aa7ece736e05563bfb8a730b5';
+    $token = $_POST['token'];
 
     $sesstokenDAO = new SesstokenDAO($conn);
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
