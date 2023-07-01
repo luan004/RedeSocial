@@ -28,11 +28,9 @@ $.ajax({
                     <span class="align-middle h6">${post.user.name}</span>
                     <small class="ms-auto align-middle">@${post.user.user}</small>
                 </div>`;
-
             if (post.image != "" && post.image != null) {
                 postStr += `<img src="${post.image}" alt="...">`;
             }
-
             postStr += `
                 <div class="card-text p-3">
                     <p class="card-text">
@@ -40,7 +38,6 @@ $.ajax({
                     </p>
                 </div>
                 <div class="card-footer d-flex" value="${post.id}">`;
-
                 if (post.iliked == true) {
                     postStr += `
                     <button class="btnPostLike btn btn-sm btn-primary" actived>
@@ -54,7 +51,6 @@ $.ajax({
                         <span>${post.likes}</span>
                     </button>`;
                 }
-
                 postStr += `
                     <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
                             <i class="fa fa-comment"></i>
@@ -67,10 +63,8 @@ $.ajax({
                         </button>
                         <button class="btnPostDelete btn btn-sm btn-outline-danger ms-2">
                             <i class="fa fa-trash"></i>
-                        </button>`;
-                        
+                        </button>`; 
                 }
-
                 postStr += `
                     <small class="text-body-secondary ms-auto">
                         ${calcularTempoDecorrido(post.dt)}
@@ -86,8 +80,8 @@ $.ajax({
 
 $(document).on('click', '.btnPostDelete', function() {
     console.log('postId');
-    //const postId = $(this).parent().attr('value');
-    /* $.ajax({
+    const postId = $(this).parent().attr('value');
+    $.ajax({
         type: "POST",
         url: "php/api/deletePost.php",
         dataType: "json",
@@ -101,7 +95,7 @@ $(document).on('click', '.btnPostDelete', function() {
                 window.location.reload();
             }
         }
-    }); */
+    });
 });
 
 $(document).on('click', '.btnPostLike', function() {
@@ -130,4 +124,4 @@ $(document).on('click', '.btnPostLike', function() {
             }
         }
     });
-});
+});  

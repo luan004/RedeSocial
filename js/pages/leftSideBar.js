@@ -92,7 +92,7 @@ $('#registerForm').submit(function() {
             if (response.register == true) {
                 $.ajax({
                     type: "POST",
-                    url: ".php/api/login.php",
+                    url: "php/api/login.php",
                     dataType: "json",
                     data: {
                         user: user.val(),
