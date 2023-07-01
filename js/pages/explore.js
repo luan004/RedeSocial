@@ -58,9 +58,6 @@ $.ajax({
                     </a>`;
                 if (post.ismy == true) {
                     postStr += `
-                        <button class="btnPostEdit btn btn-sm btn-outline-secondary ms-2">
-                            <i class="fa fa-pencil"></i>
-                        </button>
                         <button class="btnPostDelete btn btn-sm btn-outline-danger ms-2">
                             <i class="fa fa-trash"></i>
                         </button>`; 
