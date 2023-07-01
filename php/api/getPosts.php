@@ -26,8 +26,6 @@
         $userId = $sesstoken->getUserId();
     }
 
-    echo $userId;
-
     if ($feed && $sesstoken) {
         $response = array(
             'type' => 'feed'

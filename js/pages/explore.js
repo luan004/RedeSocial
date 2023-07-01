@@ -14,7 +14,7 @@ $.ajax({
     dataType: "json",
     data: {
         feed: false,
-        token: null
+        token: token
     },
     success: function(response) {
         console.log('response');
@@ -58,7 +58,7 @@ $.ajax({
                 postStr += `
                     <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
                             <i class="fa fa-comment"></i>
-                            //
+                            ${post.comments}
                     </a>`;
                 if (post.ismy == true) {
                     postStr += `
@@ -131,49 +131,3 @@ $(document).on('click', '.btnPostLike', function() {
         }
     });
 });
-
-/* $.ajax({
-    type: "POST",
-    url: "php/getLastPosts.php",
-    dataType: "json",
-    success: function(response) {
-        if (response.count > 0) {
-            var num = 1;
-            while (num < response.count+1) {
-                const post = response['p'+num];
-                
-                var postStr = `
-                <div class="card mb-4 shadow">
-                    <div class="card-header">
-                        <img src="${post.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
-                        <span class="align-middle h6">${post.name}</span>
-                        <small class="ms-auto align-middle">@${post.user}</small>
-                    </div>`;
-
-                if (post.image != "" && post.image != null) {
-                    postStr += `<img src="${post.image}" alt="...">`;
-                }
-
-                postStr += `
-                    <div class="card-text p-3">
-                        <p class="card-text">
-                            ${realcarHashtags(post.text)}
-                        </p>
-                    </div>
-                    <div class="card-footer d-flex">
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="fa fa-thumbs-up"></i>
-                            ${post.likes}
-                        </button>
-                        <small class="text-body-secondary ms-auto">
-                            ${calcularTempoDecorrido(post.dt)}
-                        </small>
-                    </div>
-                </div>`;
-                $("#lastPosts").append(postStr);
-                num++;
-            }
-        }
-    }
-});
- */

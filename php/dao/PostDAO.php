@@ -69,6 +69,13 @@
                     $stmt->execute();
                     $result3 = $stmt->get_result();
                     $likes = $result3->num_rows;
+
+                    // get comments count
+                    $stmt = $this->conn->prepare("SELECT * FROM comments WHERE post_id = ?");
+                    $stmt->bind_param("i", $row['id']);
+                    $stmt->execute();
+                    $result4 = $stmt->get_result();
+                    $comments = $result4->num_rows;
                     
                     // check if a liked
                     $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ? AND user_id = ?");
@@ -87,6 +94,7 @@
                         'text' => $row['text'],
                         'image' => $row['image'],
                         'likes' => $likes,
+                        'comments' => $comments,
                         'ismy' => $reqUserId == $row['user_id'],
                         'iliked' => $result4->num_rows > 0,
                         'dt' => $row['dt'],
