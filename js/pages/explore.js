@@ -5,7 +5,6 @@ import {
 } from "../utils.js";
 
 const token = getCookie('token');
-console.log(token);
 
 /* CARREGAR O FEED */
 $.ajax({
@@ -13,11 +12,10 @@ $.ajax({
     url: "php/api/getPosts.php",
     dataType: "json",
     data: {
-        feed: false,
+        feed: true,
         token: token
     },
     success: function(response) {
-        console.log('response');
         for (var i = 0; i < response.count; i++) {
             const post = response.posts[i];
             
@@ -76,7 +74,6 @@ $.ajax({
 
 
 $(document).on('click', '.btnPostDelete', function() {
-    console.log('postId');
     const postId = $(this).parent().attr('value');
     $.ajax({
         type: "POST",
@@ -100,7 +97,6 @@ $(document).on('click', '.btnPostLike', function() {
     const postId = btn.parent().attr('value');
     const likeNum = btn.children('span').text();
 
-    console.log(likeNum);
     $.ajax({
         type: "POST",
         url: "php/api/toggleLike.php",
