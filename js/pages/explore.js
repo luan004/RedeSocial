@@ -5,6 +5,7 @@ import {
 } from "../utils.js";
 
 const token = getCookie('token');
+console.log(token);
 
 /* CARREGAR O FEED */
 $.ajax({
@@ -13,9 +14,10 @@ $.ajax({
     dataType: "json",
     data: {
         feed: false,
-        token: token
+        token: null
     },
     success: function(response) {
+        console.log('response');
         for (var i = 0; i < response.count; i++) {
             const post = response.posts[i];
             
@@ -37,22 +39,33 @@ $.ajax({
                         ${realcarHashtags(post.text)}
                     </p>
                 </div>
-                <div class="card-footer d-flex">
-                    <button class="btn btn-sm btn-outline-primary">
+                <div class="card-footer d-flex" value="${post.id}">`;
+
+                if (post.iliked == true) {
+                    postStr += `
+                    <button class="btnPostLike btn btn-sm btn-primary" actived>
                         <i class="fa fa-thumbs-up"></i>
-                        ${post.likes}
-                    </button>
+                        <span>${post.likes}</span>
+                    </button>`;
+                } else {
+                    postStr += `
+                    <button class="btnPostLike btn btn-sm btn-outline-primary" actived>
+                        <i class="fa fa-thumbs-up"></i>
+                        <span>${post.likes}</span>
+                    </button>`;
+                }
+
+                postStr += `
                     <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
                             <i class="fa fa-comment"></i>
                             //
                     </a>`;
-
                 if (post.ismy == true) {
                     postStr += `
-                        <button value="${post.id}" class="btnPostEdit btn btn-sm btn-outline-secondary ms-2">
+                        <button class="btnPostEdit btn btn-sm btn-outline-secondary ms-2">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button value="${post.id}" class="btnPostDelete btn btn-sm btn-outline-danger ms-2">
+                        <button class="btnPostDelete btn btn-sm btn-outline-danger ms-2">
                             <i class="fa fa-trash"></i>
                         </button>`;
                         
@@ -68,6 +81,55 @@ $.ajax({
         }
             
     }
+});
+
+
+$(document).on('click', '.btnPostDelete', function() {
+    console.log('postId');
+    //const postId = $(this).parent().attr('value');
+    /* $.ajax({
+        type: "POST",
+        url: "php/api/deletePost.php",
+        dataType: "json",
+        data: {
+            postId: postId,
+            token: token
+        },
+        success: function(response) {
+            console.log('response')
+            if (response) {
+                window.location.reload();
+            }
+        }
+    }); */
+});
+
+$(document).on('click', '.btnPostLike', function() {
+    const btn = $(this);
+    const postId = btn.parent().attr('value');
+    const likeNum = btn.children('span').text();
+
+    console.log(likeNum);
+    $.ajax({
+        type: "POST",
+        url: "php/api/toggleLike.php",
+        dataType: "json",
+        data: {
+            postId: postId,
+            token: token
+        },
+        success: function(response) {
+            if (response.success == true && response.liked == true) {
+                btn.children('span').text(parseInt(likeNum)+1);
+                btn.addClass('btn-primary');
+                btn.removeClass('btn-outline-primary');
+            } else if (response.success == true && response.liked == false) {
+                btn.children('span').text(parseInt(likeNum)-1);
+                btn.addClass('btn-outline-primary');
+                btn.removeClass('btn-primary');
+            }
+        }
+    });
 });
 
 /* $.ajax({

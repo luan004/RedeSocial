@@ -63,6 +63,19 @@
 
                     if ($row2['avatar'] == null) $row2['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row2['user'];
 
+                    // get likes count
+                    $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ?");
+                    $stmt->bind_param("i", $row['id']);
+                    $stmt->execute();
+                    $result3 = $stmt->get_result();
+                    $likes = $result3->num_rows;
+                    
+                    // check if a liked
+                    $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ? AND user_id = ?");
+                    $stmt->bind_param("ii", $row['id'], $reqUserId);
+                    $stmt->execute();
+                    $result4 = $stmt->get_result();
+
                     $post = array(
                         'id' => $row['id'],
                         'user' =>  array(
@@ -73,8 +86,9 @@
                         ),
                         'text' => $row['text'],
                         'image' => $row['image'],
-                        'likes' => $row['likes'],
+                        'likes' => $likes,
                         'ismy' => $reqUserId == $row['user_id'],
+                        'iliked' => $result4->num_rows > 0,
                         'dt' => $row['dt'],
                     );
                     array_push($posts, $post);

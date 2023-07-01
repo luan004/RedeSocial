@@ -12,6 +12,7 @@
     $conn = new Conn();
 
     $feed = false;
+    //$token = '3c25e15131cc7e06c664acaf3e6508a51b0ff7ab5101778b42a4b88d5fe3dd8b';
     $token = $_POST['token'];
 
     $sesstokenDAO = new SesstokenDAO($conn);
@@ -24,6 +25,8 @@
     if ($sesstoken) {
         $userId = $sesstoken->getUserId();
     }
+
+    echo $userId;
 
     if ($feed && $sesstoken) {
         $response = array(
