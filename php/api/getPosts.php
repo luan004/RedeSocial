@@ -3,11 +3,7 @@
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/PostDAO.php');
     require_once('../dao/UserDAO.php');
-    require_once('../dao/LikeDAO.php');
-    require_once('../models/Post.php');
     require_once('../models/Sesstoken.php');
-    require_once('../models/User.php');
-    require_once('../models/Like.php');
 
     $conn = new Conn();
 
