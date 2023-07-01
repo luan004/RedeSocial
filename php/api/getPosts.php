@@ -7,8 +7,8 @@
 
     $conn = new Conn();
 
-    $feed = true;
-    $token = '28ad38f46f6f8e166ad7cbbfc7b1d6be724c09163d2c20b4cae77f1c62272d0d';
+    $feed = $_POST['feed'];
+    $token = $_POST['token'];
 
     $sesstokenDAO = new SesstokenDAO($conn);
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
@@ -21,7 +21,7 @@
         $userId = $sesstoken->getUserId();
     }
 
-    if ($feed && $sesstoken) {
+    if ($feed == 'true' && $sesstoken) {
         $response = $postDAO->getFeed($userId);
     } else {
         $response = $postDAO->getAllPosts($userId);

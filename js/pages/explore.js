@@ -6,13 +6,12 @@ import {
 
 const token = getCookie('token');
 
-/* CARREGAR O FEED */
 $.ajax({
     type: "POST",
     url: "php/api/getPosts.php",
     dataType: "json",
     data: {
-        feed: true,
+        feed: false,
         token: token
     },
     success: function(response) {
@@ -68,10 +67,8 @@ $.ajax({
             </div>`;
             $("#lastPosts").append(postStr);
         }
-            
     }
 });
-
 
 $(document).on('click', '.btnPostDelete', function() {
     const postId = $(this).parent().attr('value');
@@ -117,4 +114,4 @@ $(document).on('click', '.btnPostLike', function() {
             }
         }
     });
-});  
+});
