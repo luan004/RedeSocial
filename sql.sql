@@ -28,10 +28,10 @@ CREATE TABLE posts(
 
 CREATE TABLE followers (
     follower_id INT,
-    user_id INT,
+    followed_id INT,
     FOREIGN KEY (follower_id) REFERENCES users(id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    PRIMARY KEY (follower_id, user_id)
+    FOREIGN KEY (followed_id) REFERENCES users(id),
+    PRIMARY KEY (follower_id, followed_id)
 );
 
 CREATE TABLE comments (
