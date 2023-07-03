@@ -207,5 +207,31 @@
                 return false;
             }
         }
+        public function getPostsByUserId($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY dt DESC");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $posts = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $post = new Post(
+                        $row['id'],
+                        $row['user_id'],
+                        $row['text'],
+                        $row['image'],
+                        $row['likes'],
+                        $row['dt']
+                    );
+                    array_push($posts, $post);
+                }
+                $stmt->close();
+                return $posts;
+            } else {
+                $stmt->close();
+                return false;
+            }
+        }
     }
 ?>
