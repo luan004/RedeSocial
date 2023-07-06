@@ -19,7 +19,6 @@
             $sesstokenDAO->getSesstokenByToken($token)->getUserId(),
             $text,
             $image,
-            0,
             null
         );
         $postDAO = new PostDAO($conn);

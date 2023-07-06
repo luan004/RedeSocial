@@ -10,11 +10,10 @@
             $user = $post->getUserId();
             $text = $post->getText();
             $image = $post->getImage();
-            $likes = $post->getLikes();
 
-            $sql = "INSERT INTO posts (user_id, text, image, likes, dt) VALUES (?, ?, ?, ?, NOW())";
+            $sql = "INSERT INTO posts (user_id, text, image, dt) VALUES (?, ?, ?, NOW())";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ssss", $user, $text, $image, $likes);
+            $stmt->bind_param("sss", $user, $text, $image);
             $stmt->execute();
 
             $id = $stmt->insert_id;
