@@ -138,3 +138,21 @@ export function genPostHTML(post) {
 
     return postStr;
 }
+
+export function deletePost(postId, token) {
+    console.log(postId);
+    $.ajax({
+        type: "POST",
+        url: "php/api/deletePost.php",
+        dataType: "json",
+        data: {
+            postId: postId,
+            token: token
+        },
+        success: function(response) {
+            if (response) {
+                window.location.reload();
+            }
+        }
+    });
+}

@@ -2,7 +2,8 @@ import {
     calcularTempoDecorrido,
     realcarHashtags,
     getCookie,
-    genPostHTML
+    genPostHTML,
+    deletePost
 } from "../utils.js";
 
 const token = getCookie('token');
@@ -26,21 +27,7 @@ $.ajax({
 
 $(document).on('click', '.btnPostDelete', function() {
     const postId = $(this).parent().attr('value');
-    $.ajax({
-        type: "POST",
-        url: "php/api/deletePost.php",
-        dataType: "json",
-        data: {
-            postId: postId,
-            token: token
-        },
-        success: function(response) {
-            console.log('response')
-            if (response) {
-                window.location.reload();
-            }
-        }
-    });
+    deletePost(postId, token);
 });
 
 $(document).on('click', '.btnPostLike', function() {

@@ -5,8 +5,8 @@
     require_once('../models/Post.php');
     require_once('../models/Sesstoken.php');
 
-    $postId = $_POST['postId'];
     $token = $_POST['token'];
+    $postId = $_POST['postId'];
 
     $conn = new Conn();
     $sesstokenDAO = new SesstokenDAO($conn);

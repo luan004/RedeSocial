@@ -28,7 +28,7 @@
         $response = array(
             'type' => 'feed'
         );
-    } elseif ($type == 'user') {
+    } elseif ($type == 'user' && $_POST['user']) {
         $user = $userDAO->getUserByUsername($_POST['user']);
         if ($user) {
             $response = $postDAO->getPostsByUserId($user->getId(), $userId);

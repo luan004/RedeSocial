@@ -2,7 +2,8 @@ import {
     getCookie,
     calcularTempoDecorrido,
     realcarHashtags,
-    genPostHTML
+    genPostHTML,
+    deletePost
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -27,7 +28,6 @@ $.ajax({
         token: token
     },
     success: function(response) {
-        console.log(response);
         if (response.success == true) {
             /* Usuário encontrado */
             $("#username").html('@'+user);
@@ -70,4 +70,9 @@ $.ajax({
             $("#profilePosts").append(genPostHTML(post));
         }
     }
+});
+
+$(document).on('click', '.btnPostDelete', function() {
+    const postId = $(this).parent().attr('value');
+    deletePost(postId, token);
 });

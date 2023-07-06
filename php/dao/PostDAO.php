@@ -183,7 +183,34 @@
                 return false;
             }
         }
-        
+        public function getPostById($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
+            //get likes num
+            $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result2 = $stmt->get_result();
+            $likes = $result2->num_rows;
+
+            //create post object
+            $post = new Post(
+                $row['id'],
+                $row['user_id'],
+                $row['text'],
+                $row['image'],
+                $likes,
+                $row['dt']
+            );
+
+            $stmt->close();
+            return $post;
+        }
+
         public function getPostsByUserId($id, $reqUserId) {
             $stmt = $this->conn->prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY dt DESC");
             $stmt->bind_param("i", $id);
