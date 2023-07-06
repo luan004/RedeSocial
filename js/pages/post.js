@@ -12,15 +12,16 @@ if (postId == null || postId == '') {
 }
 
 const token = getCookie('token');
-/* $.ajax({
+$.ajax({
     type: "POST",
-    url: "php/getUserInfo.php",
+    url: "php/api/getUser.php",
     dataType: "json",
     data: {
-        token: token
+        opt: 'token',
+        val: token
     },
     success: function(response) {
-        if (response.auth == true) {
+        if (response.success == true) {
             $('#userComment').show();
             $('#userUser').html('@'+response.user);
             $('#userAvatar').attr('src', response.avatar);
@@ -31,7 +32,8 @@ const token = getCookie('token');
                 if (text == '') {
                     return;
                 }
-                $.ajax({
+                // SEND COMMENT
+                /* $.ajax({
                     type: "POST",
                     url: "php/sendComment.php",
                     dataType: "json",
@@ -47,11 +49,11 @@ const token = getCookie('token');
                             alert(response.error);
                         }
                     }
-                });
+                }); */
             });
         }
     }
-}); */
+});
 
 $.ajax({
     type: "POST",
