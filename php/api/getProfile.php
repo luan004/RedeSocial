@@ -9,7 +9,7 @@
 
     $conn = new Conn();
 
-    $userName = 'admin';
+    $userName = 'Admin';
 
     $userDAO = new UserDAO($conn);
     $user = $userDAO->getUserByUserName($userName);
@@ -19,6 +19,7 @@
         $posts = $postDAO->getPostsByUserId($user->getId());
         $response = array(
             'success' => true,
+            'id' => $user->getId(),
             'name' => $user->getName(),
             'user' => $user->getUser(),
             'avatar' => $user->getAvatar(),

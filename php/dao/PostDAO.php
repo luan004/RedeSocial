@@ -216,18 +216,60 @@
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $post = new Post(
-                        $row['id'],
-                        $row['user_id'],
-                        $row['text'],
-                        $row['image'],
-                        $row['likes'],
-                        $row['dt']
+                    // get user info
+                    $stmt = $this->conn->prepare("SELECT name, user, avatar FROM users WHERE id = ?");
+                    $stmt->bind_param("i", $row['user_id']);
+                    $stmt->execute();
+                    $result2 = $stmt->get_result();
+                    $row2 = $result2->fetch_assoc();
+
+                    if ($row2['avatar'] == null) $row2['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row2['user'];
+
+                    // get likes count
+                    $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ?");
+                    $stmt->bind_param("i", $row['id']);
+                    $stmt->execute();
+                    $result3 = $stmt->get_result();
+                    $likes = $result3->num_rows;
+
+                    // get comments count
+                    $stmt = $this->conn->prepare("SELECT * FROM comments WHERE post_id = ?");
+                    $stmt->bind_param("i", $row['id']);
+                    $stmt->execute();
+                    $result4 = $stmt->get_result();
+                    $comments = $result4->num_rows;
+                    
+                    // check if a liked
+                    $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ? AND user_id = ?");
+                    $stmt->bind_param("ii", $row['id'], $reqUserId);
+                    $stmt->execute();
+                    $result4 = $stmt->get_result();
+
+                    $post = array(
+                        'id' => $row['id'],
+                        'user' =>  array(
+                            'id' => $row['user_id'],
+                            'name' => $row2['name'],
+                            'user' => $row2['user'],
+                            'avatar' => $row2['avatar']
+                        ),
+                        'text' => $row['text'],
+                        'image' => $row['image'],
+                        'likes' => $likes,
+                        'comments' => $comments,
+                        'ismy' => $reqUserId == $row['user_id'],
+                        'iliked' => $result4->num_rows > 0,
+                        'dt' => $row['dt'],
                     );
                     array_push($posts, $post);
                 }
                 $stmt->close();
-                return $posts;
+                return array(
+                    'type' => 'user',
+                    'user' => $id,
+                    'count' => $result->num_rows,
+                    'posts' => $posts
+                );
             } else {
                 $stmt->close();
                 return false;

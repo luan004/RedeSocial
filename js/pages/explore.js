@@ -11,8 +11,7 @@ $.ajax({
     url: "php/api/getPosts.php",
     dataType: "json",
     data: {
-        feed: false,
-        token: token
+        type: 'explore'
     },
     success: function(response) {
         for (var i = 0; i < response.count; i++) {
