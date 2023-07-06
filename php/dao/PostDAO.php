@@ -188,19 +188,22 @@
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
 
-            //create post object
-            $post = new Post(
-                $row['id'],
-                $row['user_id'],
-                $row['text'],
-                $row['image'],
-                $row['dt']
-            );
-
-            $stmt->close();
-            return $post;
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $post = new Post(
+                    $row['id'],
+                    $row['user_id'],
+                    $row['text'],
+                    $row['image'],
+                    $row['dt']
+                );
+                $stmt->close();
+                return $post;
+            } else {
+                $stmt->close();
+                return false;
+            }
         }
 
         public function getPostsByUserId($id, $reqUserId) {

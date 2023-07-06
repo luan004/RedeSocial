@@ -29,9 +29,6 @@
         public function getImage() {
             return $this->image;
         }
-        public function getLikes() {
-            return $this->likes;
-        }
         public function getDt() {
             return $this->dt;
         }
@@ -48,9 +45,6 @@
         }
         public function setImage($image) {
             $this->image = $image;
-        }
-        public function setLikes($likes) {
-            $this->likes = $likes;
         }
         public function setDt($dt) {
             $this->dt = $dt;
