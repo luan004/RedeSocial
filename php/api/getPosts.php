@@ -9,10 +9,7 @@
 
     $conn = new Conn();
 
-    //$feed = $_POST['feed'];
-    //$token = $_POST['token'];
-
-    $type = $_POST['type']; 
+    $type = $_POST['type'];
     $token = $_POST['token'];
 
     $sesstokenDAO = new SesstokenDAO($conn);
@@ -32,8 +29,14 @@
             'type' => 'feed'
         );
     } elseif ($type == 'user') {
-        $user = $userDAO->getUserByUsername($_POST['user']);
-        $response = $postDAO->getPostsByUserId($user->getId());
+        $user = $userDAO->getUserByUsername('admin');
+        if ($user) {
+            $response = $postDAO->getPostsByUserId($user->getId());
+        } else {
+            $response = array(
+                'success' => false
+            );
+        }
     } elseif ($type == 'all') {
         $response = $postDAO->getAllPosts($userId);
     } else {
