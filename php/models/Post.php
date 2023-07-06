@@ -5,16 +5,14 @@
         private $userId;
         private $text;
         private $image;
-        private $likes;
         private $dt;
 
         /* CONSTRUTOR */
-        public function __construct($id, $userId, $text, $image, $likes, $dt) {
+        public function __construct($id, $userId, $text, $image, $dt) {
             $this->id = $id;
             $this->userId = $userId;
             $this->text = $text;
             $this->image = $image;
-            $this->likes = $likes;
             $this->dt = $dt;
         }
 
