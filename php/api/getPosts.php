@@ -29,9 +29,9 @@
             'type' => 'feed'
         );
     } elseif ($type == 'user') {
-        $user = $userDAO->getUserByUsername('admin');
+        $user = $userDAO->getUserByUsername($_POST['user']);
         if ($user) {
-            $response = $postDAO->getPostsByUserId($user->getId());
+            $response = $postDAO->getPostsByUserId($user->getId(), $userId);
         } else {
             $response = array(
                 'success' => false

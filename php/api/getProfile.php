@@ -9,23 +9,29 @@
 
     $conn = new Conn();
 
-    $userName = 'Admin';
+    $userName = $_POST['user'];
+    $token = $_POST['token']; 
 
     $userDAO = new UserDAO($conn);
     $user = $userDAO->getUserByUserName($userName);
 
+    $sesstokenDAO = new SesstokenDAO($conn);
+    $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
+    $userId = null;
+    if ($sesstoken) {
+        $userId = $sesstoken->getUserId();
+    }
+
     if ($user) {
-        $postDAO = new PostDAO($conn);
-        $posts = $postDAO->getPostsByUserId($user->getId());
         $response = array(
             'success' => true,
+            'isme' => $user->getId() == $userId,
             'id' => $user->getId(),
             'name' => $user->getName(),
             'user' => $user->getUser(),
             'avatar' => $user->getAvatar(),
             'banner' => $user->getBanner(),
-            'color' => '#ffffff',
-            'posts' => $posts
+            'color' => '#ffffff'
         );
     } else {
         $response = array(

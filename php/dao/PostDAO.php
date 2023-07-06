@@ -184,30 +184,7 @@
             }
         }
         
-        public function getPostById($id) {
-            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE id = ?");
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $post = new Post(
-                    $row['id'],
-                    $row['user_id'],
-                    $row['text'],
-                    $row['image'],
-                    $row['likes'],
-                    $row['dt']
-                );
-                $stmt->close();
-                return $post;
-            } else {
-                $stmt->close();
-                return false;
-            }
-        }
-        public function getPostsByUserId($id) {
+        public function getPostsByUserId($id, $reqUserId) {
             $stmt = $this->conn->prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY dt DESC");
             $stmt->bind_param("i", $id);
             $stmt->execute();
@@ -266,7 +243,6 @@
                 $stmt->close();
                 return array(
                     'type' => 'user',
-                    'user' => $id,
                     'count' => $result->num_rows,
                     'posts' => $posts
                 );
