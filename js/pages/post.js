@@ -69,7 +69,7 @@ $.ajax({
             $('#postUser').html('@'+response.user.user);
             $('#postDt').html(calcularTempoDecorrido(response.dt));
             $('#postText').html(realcarHashtags(response.text));
-            //$('#postLikes').html(response.likes);
+            $('#postLikes').html(response.likes);
             //$('#postCommentsNum').html(response.commentsNum);
 
             for (let i = 0; i < response.comments.length; i++) {

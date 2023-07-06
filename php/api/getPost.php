@@ -2,6 +2,7 @@
     require_once('../connection/Conn.php');
     require_once('../dao/PostDAO.php');
     require_once('../dao/UserDAO.php');
+    require_once('../dao/LikeDAO.php');
     require_once('../dao/CommentDAO.php');
     require_once('../models/Post.php');
     require_once('../models/User.php');
@@ -23,10 +24,14 @@
             'avatar' => $user->getAvatar()
         );
 
+        $likeDAO = new LikeDAO($conn);
+        $likeNum = $likeDAO->getLikeNumByPostId($post->getId());
+
         $response = array(
             'success' => true,
             'id' => $post->getId(),
             'text' => $post->getText(),
+            'likes' => $likeNum,
             'image' => $post->getImage(),
             'dt' => $post->getDt(),
             'user' => $userAr

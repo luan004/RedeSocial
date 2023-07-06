@@ -45,5 +45,15 @@
                 return null;
             }
         }
+
+        public function getLikeNumByPostId($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ?");
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            return $result->num_rows;
+        }
     }
 ?>
