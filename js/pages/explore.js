@@ -17,6 +17,7 @@ $.ajax({
         token: token
     },
     success: function(response) {
+        console.log(response);
         for (var i = 0; i < response.posts.length; i++) {
             const post = response.posts[i];
 
@@ -46,12 +47,12 @@ $(document).on('click', '.btnPostLike', function() {
         success: function(response) {
             if (response.success == true && response.liked == true) {
                 btn.children('span').text(parseInt(likeNum)+1);
-                btn.addClass('btn-primary');
                 btn.removeClass('btn-outline-primary');
+                btn.addClass('btn-primary');
             } else if (response.success == true && response.liked == false) {
                 btn.children('span').text(parseInt(likeNum)-1);
-                btn.addClass('btn-outline-primary');
                 btn.removeClass('btn-primary');
+                btn.addClass('btn-outline-primary');
             }
         }
     });

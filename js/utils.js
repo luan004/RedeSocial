@@ -105,20 +105,17 @@ export function genPostHTML(post) {
             </p>
         </div>
         <div class="card-footer d-flex" value="${post.id}">`;
-        if (post.iliked == true) {
+        if (post.liked == true) {
             postStr += `
-            <button class="btnPostLike btn btn-sm btn-primary" actived>
-                <i class="fa fa-thumbs-up"></i>
-                <span>${post.likes}</span>
-            </button>`;
+            <button class="btnPostLike btn btn-sm btn-primary" actived>`;
         } else {
             postStr += `
-            <button class="btnPostLike btn btn-sm btn-outline-primary" actived>
-                <i class="fa fa-thumbs-up"></i>
-                <span>${post.likes}</span>
-            </button>`;
+            <button class="btnPostLike btn btn-sm btn-outline-primary" actived>`;
         }
         postStr += `
+        <i class="fa fa-thumbs-up"></i>
+                <span>${post.likes}</span>
+            </button>
             <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
                     <i class="fa fa-comment"></i>
                     ${post.comments}

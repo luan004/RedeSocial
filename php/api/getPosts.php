@@ -27,12 +27,15 @@
         $userId = $sesstoken->getUserId();
     }
 
+    /* FEED */
     if ($type == 'feed' && $sesstoken) {
         //$response = $postDAO->getFeed($userId);
         $response = array(
             'type' => 'feed'
         );
-    } elseif ($type == 'user' && $username = $_POST['user']) {
+    }
+    /* USER POSTS */
+    elseif ($type == 'user' && $username = $_POST['user']) {
         $user = $userDAO->getUserByUsername($username);
         if ($user) {
             $posts = $postDAO->getPostsByUserId($user->getId(), $userId);
@@ -56,12 +59,29 @@
                 $commentDAO = new CommentDAO($conn);
                 $comments = $commentDAO->getCommentsNumByPostId($post->getId());
 
+                // check if user liked
+                $liked = false;
+                if ($userId) {
+                    $like = $likeDAO->getLikeByPostIdUserId($post->getId(), $userId);
+                    if ($like) {
+                        $liked = true;
+                    }
+                }
+
+                // chck if is from user
+                $ismy = false;
+                if ($userId == $post->getUserId()) {
+                    $ismy = true;
+                }
+
                 $postAr = array(
                     'id' => $post->getId(),
                     'user' => $userAr,
                     'text' => $post->getText(),
                     'image' => $post->getImage(),
                     'likes' => $likes,
+                    'liked' => $liked,
+                    'ismy' => $ismy,
                     'comments' => $comments,
                     'dt' => $post->getDt()
                 );
@@ -79,7 +99,9 @@
                 'success' => false
             );
         }
-    } elseif ($type == 'all') {
+    }
+    /* ALL POSTS */
+    elseif ($type == 'all') {
         $posts = $postDAO->getAllPosts($userId);
 
         $postsAr = array();
@@ -101,12 +123,29 @@
             $commentDAO = new CommentDAO($conn);
             $comments = $commentDAO->getCommentsNumByPostId($post->getId());
 
+            // check if user liked
+            $liked = false;
+            if ($userId) {
+                $like = $likeDAO->getLikeByPostIdUserId($post->getId(), $userId);
+                if ($like) {
+                    $liked = true;
+                }
+            }
+
+            // chck if is from user
+            $ismy = false;
+            if ($userId == $post->getUserId()) {
+                $ismy = true;
+            }
+
             $postAr = array(
                 'id' => $post->getId(),
                 'user' => $userAr,
                 'text' => $post->getText(),
                 'image' => $post->getImage(),
                 'likes' => $likes,
+                'liked' => $liked,
+                'ismy' => $ismy,
                 'comments' => $comments,
                 'dt' => $post->getDt()
             );
@@ -118,7 +157,9 @@
             'success' => true,
             'posts' => $postsAr
         );
-    } else {
+    }
+    /* ERROR */
+    else {
         $response = array(
             'success' => false
         );
