@@ -21,6 +21,8 @@
 
     $postDAO = new PostDAO($conn);
     $userDAO = new UserDAO($conn);
+    $likeDAO = new LikeDAO($conn);
+    $commentDAO = new CommentDAO($conn);
 
     $userId = null;
     if ($sesstoken) {
@@ -29,9 +31,58 @@
 
     /* FEED */
     if ($type == 'feed' && $sesstoken) {
-        //$response = $postDAO->getFeed($userId);
+        $posts = $postDAO->getFeed($userId);
+
+        $postsAr = array();
+        foreach ($posts as $post) {
+            $user = $userDAO->getUserById($post->getUserId());
+
+            // get user
+            $userAr = array(
+                'name' => $user->getName(),
+                'user' => $user->getUser(),
+                'avatar' => $user->getAvatar()
+            );
+
+            //get likes
+            $likes = $likeDAO->getLikeNumByPostId($post->getId());
+
+            //get comments num
+            $comments = $commentDAO->getCommentsNumByPostId($post->getId());
+
+            // check if user liked
+            $liked = false;
+            if ($userId) {
+                $like = $likeDAO->getLikeByPostIdUserId($post->getId(), $userId);
+                if ($like) {
+                    $liked = true;
+                }
+            }
+
+            // chck if is from user
+            $ismy = false;
+            if ($userId == $post->getUserId()) {
+                $ismy = true;
+            }
+
+            $postAr = array(
+                'id' => $post->getId(),
+                'user' => $userAr,
+                'text' => $post->getText(),
+                'image' => $post->getImage(),
+                'likes' => $likes,
+                'liked' => $liked,
+                'ismy' => $ismy,
+                'comments' => $comments,
+                'dt' => $post->getDt()
+            );
+
+            array_push($postsAr, $postAr);
+        }
+
         $response = array(
-            'type' => 'feed'
+            'success' => true,
+            'posts' => $postsAr
         );
     }
     /* USER POSTS */
@@ -52,11 +103,9 @@
                 );
 
                 //get likes
-                $likeDAO = new LikeDAO($conn);
                 $likes = $likeDAO->getLikeNumByPostId($post->getId());
 
                 //get comments num
-                $commentDAO = new CommentDAO($conn);
                 $comments = $commentDAO->getCommentsNumByPostId($post->getId());
 
                 // check if user liked
@@ -116,11 +165,9 @@
             );
 
             //get likes
-            $likeDAO = new LikeDAO($conn);
             $likes = $likeDAO->getLikeNumByPostId($post->getId());
 
             //get comments num
-            $commentDAO = new CommentDAO($conn);
             $comments = $commentDAO->getCommentsNumByPostId($post->getId());
 
             // check if user liked

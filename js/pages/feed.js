@@ -1,8 +1,8 @@
 import {
     getCookie,
-    calcularTempoDecorrido,
-    realcarHashtags,
-    genPostHTML
+    genPostHTML,
+    deletePost,
+    toggleLikePost
 } from "../utils.js";
 
 const token = getCookie('token');
@@ -61,8 +61,9 @@ $.ajax({
         token: token
     },
     success: function(response) {
-        if (response.count > 0) {
-            for (var i = 0; i < response.count; i++) {
+        console.log(response);  
+        if (response.posts.length > 0) {
+            for (var i = 0; i < response.posts.length; i++) {
                 const post = response.posts[i];
                 $("#postsFeed").append(genPostHTML(post));
             }
@@ -77,21 +78,7 @@ $.ajax({
 
 $(document).on('click', '.btnPostDelete', function() {
     const postId = $(this).parent().attr('value');
-    $.ajax({
-        type: "POST",
-        url: "php/api/deletePost.php",
-        dataType: "json",
-        data: {
-            postId: postId,
-            token: token
-        },
-        success: function(response) {
-            console.log('response')
-            if (response) {
-                window.location.reload();
-            }
-        }
-    });
+    deletePost(postId, token);
 });
 
 $(document).on('click', '.btnPostLike', function() {
@@ -99,24 +86,5 @@ $(document).on('click', '.btnPostLike', function() {
     const postId = btn.parent().attr('value');
     const likeNum = btn.children('span').text();
 
-    $.ajax({
-        type: "POST",
-        url: "php/api/toggleLike.php",
-        dataType: "json",
-        data: {
-            postId: postId,
-            token: token
-        },
-        success: function(response) {
-            if (response.success == true && response.liked == true) {
-                btn.children('span').text(parseInt(likeNum)+1);
-                btn.addClass('btn-primary');
-                btn.removeClass('btn-outline-primary');
-            } else if (response.success == true && response.liked == false) {
-                btn.children('span').text(parseInt(likeNum)-1);
-                btn.addClass('btn-outline-primary');
-                btn.removeClass('btn-primary');
-            }
-        }
-    });
+    toggleLikePost(postId, token, btn, likeNum);
 });

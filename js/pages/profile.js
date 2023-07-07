@@ -1,9 +1,8 @@
 import {
     getCookie,
-    calcularTempoDecorrido,
-    realcarHashtags,
     genPostHTML,
-    deletePost
+    deletePost,
+    toggleLikePost
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -75,4 +74,12 @@ $.ajax({
 $(document).on('click', '.btnPostDelete', function() {
     const postId = $(this).parent().attr('value');
     deletePost(postId, token);
+});
+
+$(document).on('click', '.btnPostLike', function() {
+    const btn = $(this);
+    const postId = btn.parent().attr('value');
+    const likeNum = btn.children('span').text();
+
+    toggleLikePost(postId, token, btn, likeNum);
 });

@@ -46,12 +46,7 @@
         }
 
         public function getFeed($reqUserId) {
-            $stmt = $this->conn->prepare(
-                "SELECT * FROM posts
-                WHERE user_id IN (SELECT followed_id FROM followers WHERE follower_id = ?)
-                OR user_id = ?
-                ORDER BY dt DESC;"
-            );
+            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE user_id IN (SELECT followed_id FROM followers WHERE follower_id = ?) OR user_id = ? ORDER BY dt DESC");
             $stmt->bind_param("ii", $reqUserId, $reqUserId);
             $stmt->execute();
             $result = $stmt->get_result();
