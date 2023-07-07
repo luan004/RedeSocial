@@ -24,13 +24,13 @@ $.ajax({
 
 $.ajax({
     type: "POST",
-    url: "php/getSomeUsers.php",
+    url: "php/api/getRandomUsers.php",
     dataType: "json",
     success: function(response) {
-        if (response.count > 0) {
-            var num = 1;
-            while (num < response.count+1) {
-                const user = response['u'+num];
+        if (response.success == true) {
+
+            for (let i = 0; i < response.users.length; i++) {
+                const user = response.users[i];
                 $("#whoFollow").append(`
                     <a href="profile?u=${user.user}" class="list-group-item px-2">
                         <div class="d-inline-block position-relative">
@@ -39,7 +39,6 @@ $.ajax({
                         ${user.name}
                     </a>
                 `);
-                num++;
             }
         }
     }

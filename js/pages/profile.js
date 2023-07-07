@@ -64,7 +64,7 @@ $.ajax({
         token: token
     },
     success: function(response) {
-        for (var i = 0; i < response.count; i++) {
+        for (var i = 0; i < response.posts.length; i++) {
             const post = response.posts[i];
 
             $("#profilePosts").append(genPostHTML(post));

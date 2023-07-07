@@ -33,9 +33,9 @@ $.ajax({
                     return;
                 }
                 // SEND COMMENT
-                /* $.ajax({
+                $.ajax({
                     type: "POST",
-                    url: "php/sendComment.php",
+                    url: "php/api/createComment.php",
                     dataType: "json",
                     data: {
                         postId: postId,
@@ -45,11 +45,9 @@ $.ajax({
                     success: function(response) {
                         if (response.success == true) {
                             window.location.reload();
-                        } else {
-                            alert(response.error);
                         }
                     }
-                }); */
+                });
             });
         }
     }

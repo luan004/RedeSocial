@@ -22,7 +22,7 @@
         }
 
         public function getCommentsByPostId($id) {
-            $stmt = $this->conn->prepare("SELECT * FROM comments WHERE post_id = ?");
+            $stmt = $this->conn->prepare("SELECT * FROM comments WHERE post_id = ? ORDER BY dt DESC");
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -38,7 +38,6 @@
                         $row['text'],
                         $row['dt']
                     );
-
                     array_push($comments, $comment);
                 }
             }
@@ -46,6 +45,16 @@
             $stmt->close();
 
             return $comments;
+        }
+
+        public function getCommentsNumByPostId($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM comments WHERE post_id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            return $result->num_rows;
         }
     }
 ?>

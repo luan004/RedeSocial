@@ -3,9 +3,13 @@
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/PostDAO.php');
     require_once('../dao/UserDAO.php');
+    require_once('../dao/LikeDAO.php');
+    require_once('../dao/CommentDAO.php');
     require_once('../models/User.php');
     require_once('../models/Sesstoken.php');
     require_once('../models/Post.php');
+    require_once('../models/Like.php');
+    require_once('../models/Comment.php');
 
     $conn = new Conn();
 
@@ -28,17 +32,92 @@
         $response = array(
             'type' => 'feed'
         );
-    } elseif ($type == 'user' && $_POST['user']) {
-        $user = $userDAO->getUserByUsername($_POST['user']);
+    } elseif ($type == 'user' && $username = $_POST['user']) {
+        $user = $userDAO->getUserByUsername($username);
         if ($user) {
-            $response = $postDAO->getPostsByUserId($user->getId(), $userId);
+            $posts = $postDAO->getPostsByUserId($user->getId(), $userId);
+
+            $postsAr = array();
+            foreach ($posts as $post) {
+                $user = $userDAO->getUserById($post->getUserId());
+
+                // get user
+                $userAr = array(
+                    'name' => $user->getName(),
+                    'user' => $user->getUser(),
+                    'avatar' => $user->getAvatar()
+                );
+
+                //get likes
+                $likeDAO = new LikeDAO($conn);
+                $likes = $likeDAO->getLikeNumByPostId($post->getId());
+
+                //get comments num
+                $commentDAO = new CommentDAO($conn);
+                $comments = $commentDAO->getCommentsNumByPostId($post->getId());
+
+                $postAr = array(
+                    'id' => $post->getId(),
+                    'user' => $userAr,
+                    'text' => $post->getText(),
+                    'image' => $post->getImage(),
+                    'likes' => $likes,
+                    'comments' => $comments,
+                    'dt' => $post->getDt()
+                );
+
+                array_push($postsAr, $postAr);
+            }
+
+            $response = array(
+                'success' => true,
+                'posts' => $postsAr
+            );
+
         } else {
             $response = array(
                 'success' => false
             );
         }
     } elseif ($type == 'all') {
-        $response = $postDAO->getAllPosts($userId);
+        $posts = $postDAO->getAllPosts($userId);
+
+        $postsAr = array();
+        foreach ($posts as $post) {
+            $user = $userDAO->getUserById($post->getUserId());
+
+            // get user
+            $userAr = array(
+                'name' => $user->getName(),
+                'user' => $user->getUser(),
+                'avatar' => $user->getAvatar()
+            );
+
+            //get likes
+            $likeDAO = new LikeDAO($conn);
+            $likes = $likeDAO->getLikeNumByPostId($post->getId());
+
+            //get comments num
+            $commentDAO = new CommentDAO($conn);
+            $comments = $commentDAO->getCommentsNumByPostId($post->getId());
+
+            $postAr = array(
+                'id' => $post->getId(),
+                'user' => $userAr,
+                'text' => $post->getText(),
+                'image' => $post->getImage(),
+                'likes' => $likes,
+                'comments' => $comments,
+                'dt' => $post->getDt()
+            );
+
+            array_push($postsAr, $postAr);
+        }
+
+        $response = array(
+            'success' => true,
+            'posts' => $postsAr
+        );
     } else {
         $response = array(
             'success' => false
