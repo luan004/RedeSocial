@@ -178,3 +178,28 @@ export function toggleLikePost(postId, token, btn, likeNum) {
         }
     });
 }
+
+export function toggleFollow(followedUser, token) {
+    $.ajax({
+        type: "POST",
+        url: "php/api/toggleFollow.php",
+        dataType: "json",
+        data: {
+            followedUser: followedUser,
+            token: token
+        },
+        success: function(response) {
+            if (response.success == true) {
+                if (response.followed == true) {
+                    $("#follow").html('<i class="fa fa-user-plus"></i> Seguido');
+                    $("#follow").removeClass('btn-outline-primary');
+                    $("#follow").addClass('btn-primary')
+                } else {
+                    $("#follow").html('<i class="fa fa-user-plus"></i> Seguir');
+                    $("#follow").removeClass('btn-primary');
+                    $("#follow").addClass('btn-outline-primary')
+                }
+            }
+        }
+    });
+}

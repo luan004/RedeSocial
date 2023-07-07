@@ -2,7 +2,8 @@ import {
     getCookie,
     genPostHTML,
     deletePost,
-    toggleLikePost
+    toggleLikePost,
+    toggleFollow
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -85,20 +86,5 @@ $(document).on('click', '.btnPostLike', function() {
 });
 
 $(document).on('click', '#follow', function() {
-    $.ajax({
-        type: "POST",
-        url: "php/api/createFollow.php",
-        dataType: "json",
-        data: {
-            user: user,
-            token: token
-        },
-        success: function(response) {
-            if (response.success == true) {
-                $("#follow").html('<i class="fa fa-user-plus"></i> Seguido');
-                $("#follow").removeClass('btn-outline-primary');
-                $("#follow").addClass('btn-primary');
-            }
-        }
-    });
+    toggleFollow(user, token);
 });
