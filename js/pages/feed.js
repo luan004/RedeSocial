@@ -61,10 +61,10 @@ $.ajax({
         token: token
     },
     success: function(response) {
-        console.log(response);  
         if (response.posts.length > 0) {
             for (var i = 0; i < response.posts.length; i++) {
                 const post = response.posts[i];
+                console.log(post);
                 $("#postsFeed").append(genPostHTML(post));
             }
         } else {
@@ -82,9 +82,5 @@ $(document).on('click', '.btnPostDelete', function() {
 });
 
 $(document).on('click', '.btnPostLike', function() {
-    const btn = $(this);
-    const postId = btn.parent().attr('value');
-    const likeNum = btn.children('span').text();
-
-    toggleLikePost(postId, token, btn, likeNum);
+    toggleLikePost(token, $(this));
 });

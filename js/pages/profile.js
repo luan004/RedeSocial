@@ -47,6 +47,24 @@ $.ajax({
                 }
                 $("#follow").show();
             }
+
+            /* Carregar posts */
+            $.ajax({
+                type: "POST",
+                url: "php/api/getPosts.php",
+                dataType: "json",
+                data: {
+                    type: 'user',
+                    user: user,
+                    token: token
+                },
+                success: function(response) {
+                    for (var i = 0; i < response.posts.length; i++) {
+                        const post = response.posts[i];
+                        $("#profilePosts").append(genPostHTML(post));
+                    }
+                }
+            });
         } else {
             /* Usuário não encontrado */
             $("#username").html();
@@ -59,23 +77,6 @@ $.ajax({
     }
 });
 
-$.ajax({
-    type: "POST",
-    url: "php/api/getPosts.php",
-    dataType: "json",
-    data: {
-        type: 'user',
-        user: user,
-        token: token
-    },
-    success: function(response) {
-        for (var i = 0; i < response.posts.length; i++) {
-            const post = response.posts[i];
-
-            $("#profilePosts").append(genPostHTML(post));
-        }
-    }
-});
 
 $(document).on('click', '.btnPostDelete', function() {
     const postId = $(this).parent().attr('value');
@@ -83,11 +84,7 @@ $(document).on('click', '.btnPostDelete', function() {
 });
 
 $(document).on('click', '.btnPostLike', function() {
-    const btn = $(this);
-    const postId = btn.parent().attr('value');
-    const likeNum = btn.children('span').text();
-
-    toggleLikePost(postId, token, btn, likeNum);
+    toggleLikePost(token, $(this));
 });
 
 $(document).on('click', '#follow', function() {

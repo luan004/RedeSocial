@@ -73,7 +73,7 @@
                 'likes' => $likes,
                 'liked' => $liked,
                 'ismy' => $ismy,
-                'comments' => $comments,
+                'commentsNum' => $comments,
                 'dt' => $post->getDt()
             );
 

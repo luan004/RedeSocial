@@ -1,7 +1,11 @@
 import {
     calcularTempoDecorrido,
     getCookie,
-    realcarHashtags
+    realcarHashtags,
+    genPostHTML,
+    toggleLikePost,
+    toggleFollow,
+    deletePost
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -58,17 +62,14 @@ $.ajax({
     url: "php/api/getPost.php",
     dataType: "json",
     data: {
-        id: postId
+        id: postId,
+        token: token
     },
     success: function(response) {
+        console.log(response);
         if (response.success == true) {
-            $('#postName').html(response.user.name);
-            $('#postAvatar').attr('src', response.user.avatar);
-            $('#postUser').html('@'+response.user.user);
-            $('#postDt').html(calcularTempoDecorrido(response.dt));
-            $('#postText').html(realcarHashtags(response.text));
-            $('#postLikes').html(response.likes);
-            //$('#postCommentsNum').html(response.commentsNum);
+
+            $('#testetestepost').html(genPostHTML(response));
 
             for (let i = 0; i < response.comments.length; i++) {
                 const comment = response.comments[i];
@@ -96,4 +97,17 @@ $.ajax({
             window.location.href = 'feed.html';
         }
     }
+});
+
+$(document).on('click', '.btnPostDelete', function() {
+    const postId = $(this).parent().attr('value');
+    deletePost(postId, token);
+});
+
+$(document).on('click', '.btnPostLike', function() {
+    toggleLikePost(token, $(this));
+});
+
+$(document).on('click', '#follow', function() {
+    toggleFollow(user, token);
 });

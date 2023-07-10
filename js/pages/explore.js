@@ -31,9 +31,5 @@ $(document).on('click', '.btnPostDelete', function() {
 });
 
 $(document).on('click', '.btnPostLike', function() {
-    const btn = $(this);
-    const postId = btn.parent().attr('value');
-    const likeNum = btn.children('span').text();
-
-    toggleLikePost(postId, token, btn, likeNum);
+    toggleLikePost(token, $(this));
 });

@@ -4,13 +4,26 @@
     require_once('../dao/UserDAO.php');
     require_once('../dao/LikeDAO.php');
     require_once('../dao/CommentDAO.php');
+    require_once('../dao/SesstokenDAO.php');
     require_once('../models/Post.php');
     require_once('../models/User.php');
     require_once('../models/Comment.php');
-
-    $id = $_POST['id'];
+    require_once('../models/Like.php');
+    require_once('../models/Sesstoken.php');
 
     $conn = new Conn();
+
+    $id = $_POST['id'];
+    $token = $_POST['token'];
+
+    $sesstokenDAO = new SesstokenDAO($conn);
+    $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
+
+    $userId = null;
+    if ($sesstoken) {
+        $userId = $sesstoken->getUserId();
+    }
+
     
     $postDAO = new PostDAO($conn);
     $post = $postDAO->getPostById($id);
@@ -24,20 +37,42 @@
             'avatar' => $user->getAvatar()
         );
 
+        //get likes
         $likeDAO = new LikeDAO($conn);
-        $likeNum = $likeDAO->getLikeNumByPostId($post->getId());
+        $likes = $likeDAO->getLikeNumByPostId($post->getId());
+
+        //get comments num
+        $commentDAO = new CommentDAO($conn);
+        $commentsNum = $commentDAO->getCommentsNumByPostId($post->getId());
+
+        // check if user liked
+        $liked = false;
+        if ($userId) {
+            $like = $likeDAO->getLikeByPostIdUserId($post->getId(), $userId);
+            if ($like) {
+                $liked = true;
+            }
+        }
+
+        // check if is from user
+        $ismy = false;
+        if ($userId == $post->getUserId()) {
+            $ismy = true;
+        }
 
         $response = array(
             'success' => true,
             'id' => $post->getId(),
             'text' => $post->getText(),
-            'likes' => $likeNum,
+            'likes' => $likes,
+            'commentsNum' => $commentsNum,
             'image' => $post->getImage(),
             'dt' => $post->getDt(),
+            'liked' => $liked,
+            'ismy' => $ismy,
             'user' => $userAr
         );
 
-        $commentDAO = new CommentDAO($conn);
         $comments = $commentDAO->getCommentsByPostId($post->getId());
 
         if ($comments) {

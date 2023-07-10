@@ -91,7 +91,7 @@ export function genPostHTML(post) {
     var postStr = `
         <div class="card mb-4 shadow">
             <div class="card-header">
-                <a class="d-inline-flex align-items-center" style="text-decoration: none; color: inherit" href="post?p=${post.id}">
+                <a class="d-inline-flex align-items-center" style="text-decoration: none; color: inherit" href="profile?u=${post.user.user}">
                     <img src="${post.user.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
                     <span class="align-middle h6 mb-1 me-2">${post.user.name}</span>
                     <small class="align-middle">@${post.user.user}</small>
@@ -120,7 +120,7 @@ export function genPostHTML(post) {
                 </button>
                 <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
                         <i class="fa fa-comment"></i>
-                        ${post.comments}
+                        ${post.commentsNum}
                 </a>`;
             if (post.ismy == true) {
                 postStr += `
@@ -156,7 +156,9 @@ export function deletePost(postId, token) {
     });
 }
 
-export function toggleLikePost(postId, token, btn, likeNum) {
+export function toggleLikePost(token, btn) {
+    const likeNum = btn.children('span').text();
+    const postId = btn.parent().attr('value');
     $.ajax({
         type: "POST",
         url: "php/api/toggleLike.php",
