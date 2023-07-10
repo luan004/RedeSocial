@@ -16,7 +16,6 @@ $.ajax({
         token: token
     },
     success: function(response) {
-        console.log(response);
         for (var i = 0; i < response.posts.length; i++) {
             const post = response.posts[i];
 

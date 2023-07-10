@@ -64,7 +64,6 @@ $.ajax({
         if (response.posts.length > 0) {
             for (var i = 0; i < response.posts.length; i++) {
                 const post = response.posts[i];
-                console.log(post);
                 $("#postsFeed").append(genPostHTML(post));
             }
         } else {

@@ -66,7 +66,6 @@ $.ajax({
         token: token
     },
     success: function(response) {
-        console.log(response);
         if (response.success == true) {
 
             $('#testetestepost').html(genPostHTML(response));
