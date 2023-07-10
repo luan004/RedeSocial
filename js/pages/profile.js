@@ -37,15 +37,20 @@ $.ajax({
 
             if (response.isme == true) {
                 /* Perfil do usuário autenticado */
-                $("#follow").hide();
+                $('#editProfile').show();
             } else {
                 /* Outro perfil */
-                $('#editProfile').hide();
+                if (response.ifollow == true) {
+                    $("#follow").html('<i class="fa fa-user-plus"></i> Seguido');
+                    $("#follow").removeClass('btn-outline-primary');
+                    $("#follow").addClass('btn-primary')
+                }
+                $("#follow").show();
             }
         } else {
             /* Usuário não encontrado */
             $("#username").html();
-            $("#name").html('x');
+            $("#name").html('Esse usuário não existe ou foi excluído.');
             $("#avatar").attr("src", "https://ui-avatars.com/api/background=0D8ABC&color=fff?name=@");
             $("#banner").attr("src", "./resources/images/banner.jpg");
             $('#editProfile').hide();
