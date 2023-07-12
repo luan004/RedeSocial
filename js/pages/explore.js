@@ -9,14 +9,43 @@ const token = getCookie('token');
 
 $("#hashtags").hide();
 
-$(document).on('click', '.hashtagOpt', function() {
-    const opt = $(this).val();
-    if (opt == 'today') {
-        $('hashtagsToday').show();
-        $('hashtagsAll').hide();
-    } else if (opt == 'all') {
-        $('hashtagsAll').show();
-        $('hashtagsToday').hide();
+$.ajax({
+    type: "POST",
+    url: "php/api/getHashtags.php",
+    dataType: "json",
+    data: {
+        maxNumberOfHashtags: 15,
+        opt: "today"
+    },
+    success: function(response) {
+        response.forEach(hashtag => {
+            $("#todayHashtags").append(`
+                <li class="list-group-item">
+                    <span>${hashtag.word}</span>
+                    <small class="float-end">${hashtag.count}</small>
+                </li>
+            `);
+        });
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "php/api/getHashtags.php",
+    dataType: "json",
+    data: {
+        maxNumberOfHashtags: 15,
+        opt: "all"
+    },
+    success: function(response) {
+        response.forEach(hashtag => {
+            $("#allHashtags").append(`
+                <li class="list-group-item">
+                    <span>${hashtag.word}</span>
+                    <small class="float-end">${hashtag.count}</small>
+                </li>
+            `);
+        });
     }
 });
 

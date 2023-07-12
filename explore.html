@@ -32,14 +32,20 @@
             <!-- HASHTAGS -->
 
             <div class="card">
-                <div class="card-header h6">
-                    <i class="fa fa-hashtag"></i>
-                    Hashtags mais utlizadas
+                <div class="card-header d-flex">
+                    <span>
+                        <i class="fa fa-hashtag"></i>
+                        Hashtags mais utlizadas
+                    </span>
+                    <div class="ms-auto">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="today">Hoje</option>
+                            <option value="all">Desde sempre</option>
+                        </select>
+                    </div>
                 </div>
-                <nav class="nav nav-pills nav-justified p-2">
-                    <button value="today" class="nav-link active hashtagOpt">Hoje</button>
-                    <button value="all" class="nav-link hashtagOpt">Desde sempre</button>
-                </nav>
+                <ul id="todayHashtags" class="list-group list-group-flush"></ul>
+                <ul id="allHashtags" class="list-group list-group-flush"></ul>
             </div>
             <hr>
             <!-- ÚLTIMOS POSTS -->
