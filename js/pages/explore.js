@@ -9,6 +9,10 @@ const token = getCookie('token');
 
 $("#hashtags").hide();
 
+$(document).on('click', '.hashtagOpt', function() {
+    const opt = $(this).val();
+});
+
 $.ajax({
     type: "POST",
     url: "php/api/getPosts.php",
