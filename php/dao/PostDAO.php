@@ -138,5 +138,33 @@
             $stmt->close();
             return $posts;
         }
+
+        public function getHashtags($opt) {
+            if ($opt == 'today') {
+                $stmt = $this->conn->prepare("SELECT * FROM posts WHERE text LIKE '%#%' AND DATE(dt) = CURDATE()");
+            } else {
+                $stmt = $this->conn->prepare("SELECT * FROM posts WHERE text LIKE '%#%'");
+            }
+                
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $posts = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $post = new Post(
+                        null,
+                        null,
+                        $row['text'],
+                        null,
+                        null
+                    );
+                    array_push($posts, $post);
+                }
+            }
+
+            $stmt->close();
+            return $posts;
+        }
     }
 ?>
