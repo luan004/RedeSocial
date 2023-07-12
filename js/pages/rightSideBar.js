@@ -6,7 +6,7 @@ if (!page.includes("explore")) {
         dataType: "json",
         data: {
             maxNumberOfHashtags: 5,
-            opt: "all"
+            opt: "today"
         },
         success: function(response) {
     

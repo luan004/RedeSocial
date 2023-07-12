@@ -30,6 +30,14 @@ $.ajax({
         opt: "today"
     },
     success: function(response) {
+        if (response.length == 0) {
+            $("#todayHashtags").append(`
+                <li class="list-group-item text-center">
+                    <span>Nenhuma hashtag encontrada :(</span>
+                </li>
+            `);
+            return;
+        }
         response.forEach(hashtag => {
             $("#todayHashtags").append(`
                 <li class="list-group-item">
@@ -49,6 +57,14 @@ $.ajax({
         opt: "all"
     },
     success: function(response) {
+        if (response.length == 0) {
+            $("#allHashtags").append(`
+                <li class="list-group-item text-center">
+                    <span>Nenhuma hashtag encontrada :(</span>
+                </li>
+            `);
+            return;
+        }
         response.forEach(hashtag => {
             $("#allHashtags").append(`
                 <li class="list-group-item">
