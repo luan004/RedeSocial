@@ -26,7 +26,7 @@ $.ajax({
     url: "php/api/getHashtags.php",
     dataType: "json",
     data: {
-        maxNumberOfHashtags: 15,
+        maxNumberOfHashtags: 20,
         opt: "today"
     },
     success: function(response) {
@@ -53,7 +53,7 @@ $.ajax({
     url: "php/api/getHashtags.php",
     dataType: "json",
     data: {
-        maxNumberOfHashtags: 15,
+        maxNumberOfHashtags: 20,
         opt: "all"
     },
     success: function(response) {
