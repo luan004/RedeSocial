@@ -4,12 +4,20 @@
     require_once('../models/Post.php');
 
     $maxNumberOfHashtags = 10;
-    $opt = 'today'; // 'today' ou 'all'
+    $opt = 'all'; // 'today' ou 'all'
 
     $conn = new Conn();
 
     $postDAO = new PostDAO($conn);
     $posts = $postDAO->getHashtags($opt);
+
+    // Se hashtags não forem econtradas, retorna um json vazio
+    if (!$posts) {
+        header('Content-Type: application/json');
+        echo '[]';
+        $conn->close();
+        exit;
+    }
 
     // Array de chaves numeradas (a chave é a posição do array, o valor é a hashtag)
     $hashtagsWords = array();
