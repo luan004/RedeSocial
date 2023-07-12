@@ -1,8 +1,11 @@
-var page = window.location.pathname;
+/* 
 $.ajax({
     type: "POST",
     url: "php/api/getHashtags.php",
     dataType: "json",
+    data: {
+        maxNum
+    },
     success: function(response) {
         if (response.success == true) {
 
@@ -19,6 +22,34 @@ $.ajax({
                 $("#hashtags").hide();
             }
         }
+    }
+}); */
+
+var page = window.location.pathname;
+$.ajax({
+    type: "POST",
+    url: "php/api/getHashtags.php",
+    dataType: "json",
+    data: {
+        maxNumberOfHashtags: 10,
+        opt: "all"
+    },
+    success: function(response) {
+
+        // checar se o array é vazio
+        if (response.length == 0) {
+            $("#hashtags").hide();
+            return;
+        }
+
+        response.forEach(hashtag => {
+            $("#rightHashtags").append(`
+                <li class="list-group-item">
+                    <span>${hashtag.word}</span>
+                    <small class="float-end">${hashtag.count}</small>
+                </li>
+            `);
+        });
     }
 });
 

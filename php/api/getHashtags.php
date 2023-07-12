@@ -3,8 +3,11 @@
     require_once('../dao/PostDAO.php');
     require_once('../models/Post.php');
 
-    $maxNumberOfHashtags = 10;
-    $opt = 'all'; // 'today' ou 'all'
+    /* $maxNumberOfHashtags = 10;
+    $opt = 'all'; // 'today' ou 'all' */
+
+    $maxNumberOfHashtags = $_POST['maxNumberOfHashtags'];
+    $opt = $_POST['opt'];
 
     $conn = new Conn();
 
