@@ -12,11 +12,11 @@ $("#hashtags").hide();
 // ACTION FROM HASHTAGS SELECT MENU
 $("#hashtagsOpt").change(function() {
     if (this.value == "today") {
-        $("#todayHashtags").show();
-        $("#allHashtags").hide();
+        $("#todayHashtagsDiv").show();
+        $("#allHashtagsDiv").hide();
     } else {
-        $("#todayHashtags").hide();
-        $("#allHashtags").show();
+        $("#todayHashtagsDiv").hide();
+        $("#allHashtagsDiv").show();
     }
 });
 
