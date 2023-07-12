@@ -9,6 +9,18 @@ const token = getCookie('token');
 
 $("#hashtags").hide();
 
+// when a value is selected in the select
+$("#hashtagsOpt").change(function() {
+    if (this.value == "today") {
+        $("#todayHashtags").show();
+        $("#allHashtags").hide();
+    } else {
+        $("#todayHashtags").hide();
+        $("#allHashtags").show();
+    }
+});
+
+/* LOAD HASHTAGS */
 $.ajax({
     type: "POST",
     url: "php/api/getHashtags.php",
@@ -28,7 +40,6 @@ $.ajax({
         });
     }
 });
-
 $.ajax({
     type: "POST",
     url: "php/api/getHashtags.php",

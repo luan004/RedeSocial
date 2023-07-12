@@ -33,19 +33,19 @@
 
             <div class="card">
                 <div class="card-header d-flex">
-                    <span>
+                    <span class="text-truncate">
                         <i class="fa fa-hashtag"></i>
                         Hashtags mais utlizadas
                     </span>
                     <div class="ms-auto">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <select id="hashtagsOpt" class="form-select form-select-sm" aria-label=".form-select-sm example">
                             <option value="today">Hoje</option>
                             <option value="all">Desde sempre</option>
                         </select>
                     </div>
                 </div>
                 <ul id="todayHashtags" class="list-group list-group-flush"></ul>
-                <ul id="allHashtags" class="list-group list-group-flush"></ul>
+                <ul style="display: none;" id="allHashtags" class="list-group list-group-flush"></ul>
             </div>
             <hr>
             <!-- ÚLTIMOS POSTS -->
