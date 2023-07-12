@@ -7,6 +7,8 @@ import {
 
 const token = getCookie('token');
 
+$("#hashtags").hide();
+
 $.ajax({
     type: "POST",
     url: "php/api/getPosts.php",
