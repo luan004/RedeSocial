@@ -9,7 +9,7 @@ const token = getCookie('token');
 
 $("#hashtags").hide();
 
-// when a value is selected in the select
+// ACTION FROM HASHTAGS SELECT MENU
 $("#hashtagsOpt").change(function() {
     if (this.value == "today") {
         $("#todayHashtags").show();
