@@ -11,6 +11,13 @@ $("#hashtags").hide();
 
 $(document).on('click', '.hashtagOpt', function() {
     const opt = $(this).val();
+    if (opt == 'today') {
+        $('hashtagsToday').show();
+        $('hashtagsAll').hide();
+    } else if (opt == 'all') {
+        $('hashtagsAll').show();
+        $('hashtagsToday').hide();
+    }
 });
 
 $.ajax({
