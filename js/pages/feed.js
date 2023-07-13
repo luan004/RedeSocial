@@ -33,7 +33,8 @@ $('#postImageSelectorInput').change(function() {
     if (file.type.includes('image')) {
         console.log(file.type + '-  arquivo válido');
         $('#postImageSelector').hide();
-        //$('#postImg').show();
+        $('#postImg').show();
+        $('#postImg').attr('src', URL.createObjectURL(file));
         $('#postImageDelete').show();
     } else {
         // arquivo invalido
@@ -44,7 +45,7 @@ $('#postImageSelectorInput').change(function() {
 $('#postImageDelete').click(function() {
     $('#postImageSelectorInput').val('');
     $('#postImageSelector').show();
-    //$('#postImg').hide();
+    $('#postImg').hide();
     $('#postImageDelete').hide();
 });
 
@@ -55,7 +56,8 @@ $('#sendPostForm').submit(function(e) {
     
     const img = $('#postImageSelectorInput')[0].files[0];
     if (img) {
-        console.log('img');
+        // selected image
+        
     } else {
         img = null;
     }
