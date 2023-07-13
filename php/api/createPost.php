@@ -5,9 +5,9 @@
     require_once('../models/Post.php');
     require_once('../models/Sesstoken.php');
 
-    $text = 'TESTE';
-    $image = $_FILES['image'];
-    $token = '0341e64da459639ca897f85bccfc94f842bc4e569d9d876cef4535a98087dee9';
+    $text = $_POST['text'];
+    $image = null;
+    $token = $_POST['token'];
 
     $conn = new Conn();
     $sesstokenDAO = new SesstokenDAO($conn);

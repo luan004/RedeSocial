@@ -28,6 +28,19 @@ $('#postImageSelector').click(function() {
     $('#postImageSelectorInput').click();
 });
 
+$('#postImageSelectorInput').change(function() {
+    const file = $(this)[0].files[0];
+    if (file.type.includes('image')) {
+        console.log(file.type + '-  arquivo válido');
+        $('#postImageSelector').hide();
+        //$('#postImg').show();
+        $('#postImageDelete').show();
+    } else {
+        // arquivo invalido
+        console.log('arquivo invalido');
+    }
+});
+
 $('#sendPostForm').submit(function(e) {
     e.preventDefault();
     console.log('submit');
