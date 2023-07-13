@@ -23,11 +23,16 @@ $.ajax({
     }
 });
 
+$('#postImageSelector').click(function() {
+    console.log('click');
+    $('#postImageSelectorInput').click();
+});
+
 $('#sendPostForm').submit(function(e) {
     e.preventDefault();
+    console.log('submit');
     const text = $('#postText').val();
-    const image = $('#postImage').val();
-    console.log(image);
+    const image = null;
     if (text != "") {
         $.ajax({
             type: "POST",
