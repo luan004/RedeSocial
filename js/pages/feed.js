@@ -41,11 +41,25 @@ $('#postImageSelectorInput').change(function() {
     }
 });
 
+$('#postImageDelete').click(function() {
+    $('#postImageSelectorInput').val('');
+    $('#postImageSelector').show();
+    //$('#postImg').hide();
+    $('#postImageDelete').hide();
+});
+
 $('#sendPostForm').submit(function(e) {
     e.preventDefault();
-    console.log('submit');
     const text = $('#postText').val();
     const image = null;
+    
+    const img = $('#postImageSelectorInput')[0].files[0];
+    if (img) {
+        console.log('img');
+    } else {
+        img = null;
+    }
+    console.log(img);
     if (text != "") {
         $.ajax({
             type: "POST",
