@@ -59,7 +59,7 @@
                 }
             }
 
-            // chck if is from user
+            // check if is from user
             $ismy = false;
             if ($userId == $post->getUserId()) {
                 $ismy = true;
