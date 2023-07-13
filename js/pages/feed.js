@@ -26,7 +26,8 @@ $.ajax({
 $('#sendPostForm').submit(function(e) {
     e.preventDefault();
     const text = $('#postText').val();
-    const image = null;
+    const image = $('#postImage').val();
+    console.log(image);
     if (text != "") {
         $.ajax({
             type: "POST",
