@@ -9,14 +9,27 @@
             }
         }
 
-        public function saveFile($file) {
-            $name = $file['name'];
-            $tmp = $file['tmp_name'];
-            $ext = pathinfo($name, PATHINFO_EXTENSION);
-            $newName = uniqid() . '.' . $ext;
+        public function saveB64Image($fileString) {
+            // Decodifique a string da imagem, remova o cabeçalho de codificação e salve-a em um arquivo
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileString));
+    
+            $newName = uniqid() . '.png'; // Use a extensão adequada aqui
             $dest = $this->path . $newName;
-            move_uploaded_file($tmp, $dest);
+            file_put_contents($dest, $imageData);
+    
             return $newName;
+        }
+
+        public function getB64Image($imageName) {
+            $dest = $this->path . $imageName;
+            $image = file_get_contents($dest);
+            $imageData = base64_encode($image);
+            return $imageData;
+        }
+
+        public function deleteImage($imageName) {
+            $dest = $this->path . $imageName;
+            unlink($dest);
         }
     }
 ?>

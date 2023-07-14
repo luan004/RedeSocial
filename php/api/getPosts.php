@@ -1,5 +1,6 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../connection/Files.php');
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/PostDAO.php');
     require_once('../dao/UserDAO.php');
@@ -65,11 +66,18 @@
                 $ismy = true;
             }
 
+            // send image as b64
+            $image = $post->getImage();
+            if ($image != null) {
+                $files = new Files();
+                $image  = $files->getB64Image($image);
+            }
+
             $postAr = array(
                 'id' => $post->getId(),
                 'user' => $userAr,
                 'text' => $post->getText(),
-                'image' => $post->getImage(),
+                'image' => $image,
                 'likes' => $likes,
                 'liked' => $liked,
                 'ismy' => $ismy,
@@ -117,17 +125,24 @@
                     }
                 }
 
-                // chck if is from user
+                // check if is from user
                 $ismy = false;
                 if ($userId == $post->getUserId()) {
                     $ismy = true;
+                }
+
+                // send image as b64
+                $image = $post->getImage();
+                if ($image != null) {
+                    $files = new Files();
+                    $image  = $files->getB64Image($image);
                 }
 
                 $postAr = array(
                     'id' => $post->getId(),
                     'user' => $userAr,
                     'text' => $post->getText(),
-                    'image' => $post->getImage(),
+                    'image' => $image,
                     'likes' => $likes,
                     'liked' => $liked,
                     'ismy' => $ismy,
@@ -185,11 +200,18 @@
                 $ismy = true;
             }
 
+            // send image as b64
+            $image = $post->getImage();
+            if ($image != null) {
+                $files = new Files();
+                $image  = $files->getB64Image($image);
+            }
+
             $postAr = array(
                 'id' => $post->getId(),
                 'user' => $userAr,
                 'text' => $post->getText(),
-                'image' => $post->getImage(),
+                'image' => $image,
                 'likes' => $likes,
                 'liked' => $liked,
                 'ismy' => $ismy,

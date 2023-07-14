@@ -1,5 +1,6 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../connection/Files.php');
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/PostDAO.php');
     require_once('../models/Post.php');

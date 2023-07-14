@@ -87,6 +87,10 @@ export function setCookie(name, value) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
 
+export function b64ImageToUrl(b64Image) {
+    return 'data:image/png;base64,' + b64Image;
+}
+
 export function genPostHTML(post) {
     var postStr = `
         <div class="card mb-4 shadow">
@@ -98,7 +102,9 @@ export function genPostHTML(post) {
                 </a>
             </div>`;
         if (post.image != "" && post.image != null) {
-            postStr += `<img src="${post.image}" alt="...">`;
+            postStr += `<img src="${
+                b64ImageToUrl(post.image)
+            }" alt="...">`;
         }
         postStr += `
             <a href="post?p=${post.id}" style="text-decoration:none; color: inherit" class="card-text p-3">

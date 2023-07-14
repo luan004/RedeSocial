@@ -52,40 +52,62 @@ $('#postImageDelete').click(function() {
 $('#sendPostForm').submit(function(e) {
     e.preventDefault();
     const text = $('#postText').val();
-    const image = null;
     
-    const img = $('#postImageSelectorInput')[0].files[0];
+    var img = $('#postImageSelectorInput')[0].files[0];
     if (img) {
-        // selected image
-        
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function () {
+            img = reader.result;          
+            // Enviar requisição AJAX somente após a leitura completa da imagem
+            if (text != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "php/api/createPost.php",
+                    dataType: "json",
+                    data: {
+                        text: text,
+                        image: img,
+                        token: token
+                    },
+                    success: function(response) {
+                        if (response) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        }
     } else {
         img = null;
-    }
-    console.log(img);
-    if (text != "") {
-        $.ajax({
-            type: "POST",
-            url: "php/api/createPost.php",
-            dataType: "json",
-            data: {
-                text: text,
-                image: image,
-                token: token
-            },
-            success: function(response) {
-                if (response) {
-                    window.location.reload();
+        // Enviar requisição AJAX quando não há imagem selecionada
+        if (text != "") {
+            $.ajax({
+                type: "POST",
+                url: "php/api/createPost.php",
+                dataType: "json",
+                data: {
+                    text: text,
+                    image: img,
+                    token: token
+                },
+                success: function(response) {
+                    if (response) {
+                        window.location.reload();
+                    }
                 }
-            }
-        });
-    } else {
+            });
+        }
+    }
+    
+    if (text == "") {
         $('#postText').addClass('is-invalid');
         setTimeout(() => {
             $('#postText').removeClass('is-invalid');
-        }
-        , 2000);
+        }, 2000);
     }
 });
+
 
 $.ajax({
     type: "POST",
