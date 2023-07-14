@@ -34,7 +34,7 @@ $.ajax({
                 $("#whoFollow").append(`
                     <a href="profile?u=${user.user}" class="list-group-item px-2">
                         <div class="d-inline-block position-relative">
-                            <img src="${user.avatar}" width="40" height="40" class="rounded" alt="">
+                            <img src="${user.avatar}" width="40" height="40" class="rounded-circle" alt="">
                         </div>
                         ${user.name}
                     </a>
