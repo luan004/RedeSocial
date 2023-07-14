@@ -1,5 +1,6 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../connection/Files.php');
     require_once('../dao/PostDAO.php');
     require_once('../dao/UserDAO.php');
     require_once('../dao/LikeDAO.php');
@@ -60,13 +61,20 @@
             $ismy = true;
         }
 
+        // send image as b64
+        $image = $post->getImage();
+        if ($image != null) {
+            $files = new Files();
+            $image  = $files->getB64Image($image);
+        }
+
         $response = array(
             'success' => true,
             'id' => $post->getId(),
             'text' => $post->getText(),
             'likes' => $likes,
             'commentsNum' => $commentsNum,
-            'image' => $post->getImage(),
+            'image' => $image,
             'dt' => $post->getDt(),
             'liked' => $liked,
             'ismy' => $ismy,
