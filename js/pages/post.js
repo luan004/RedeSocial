@@ -70,7 +70,7 @@ $.ajax({
 
             $('#testetestepost').html(genPostHTML(response));
 
-            for (let i = 0; i < response.comments.length; i++) {
+            for (let i = 0; response.comments && i < response.comments.length; i++) {
                 const comment = response.comments[i];
                 $('#postComments').append(
                     `
