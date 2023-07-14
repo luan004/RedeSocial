@@ -101,6 +101,29 @@
                 return null;
             }
         }
-        
+
+        function getRandomUsers($limit) {
+            $stmt = $this->conn->prepare("SELECT user, name, avatar FROM users ORDER BY RAND() LIMIT ".$limit.";");
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $users = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $user = new User(
+                        null,
+                        $row['name'],
+                        $row['user'],
+                        null,
+                        $row['avatar'],
+                        null
+                    );
+
+                    array_push($users, $user);
+                }
+            }
+            return $users;
+        }
     }
 ?>

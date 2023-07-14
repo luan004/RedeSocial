@@ -1,7 +1,11 @@
 import {
     calcularTempoDecorrido,
     getCookie,
-    realcarHashtags
+    realcarHashtags,
+    genPostHTML,
+    toggleLikePost,
+    toggleFollow,
+    deletePost
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -14,13 +18,14 @@ if (postId == null || postId == '') {
 const token = getCookie('token');
 $.ajax({
     type: "POST",
-    url: "php/getUserInfo.php",
+    url: "php/api/getUser.php",
     dataType: "json",
     data: {
-        token: token
+        opt: 'token',
+        val: token
     },
     success: function(response) {
-        if (response.auth == true) {
+        if (response.success == true) {
             $('#userComment').show();
             $('#userUser').html('@'+response.user);
             $('#userAvatar').attr('src', response.avatar);
@@ -31,9 +36,10 @@ $.ajax({
                 if (text == '') {
                     return;
                 }
+                // SEND COMMENT
                 $.ajax({
                     type: "POST",
-                    url: "php/sendComment.php",
+                    url: "php/api/createComment.php",
                     dataType: "json",
                     data: {
                         postId: postId,
@@ -43,8 +49,6 @@ $.ajax({
                     success: function(response) {
                         if (response.success == true) {
                             window.location.reload();
-                        } else {
-                            alert(response.error);
                         }
                     }
                 });
@@ -55,31 +59,26 @@ $.ajax({
 
 $.ajax({
     type: "POST",
-    url: "php/getPost.php",
+    url: "php/api/getPost.php",
     dataType: "json",
     data: {
-        postId: postId
+        id: postId,
+        token: token
     },
     success: function(response) {
         if (response.success == true) {
-            $('#postName').html(response.name);
-            $('#postAvatar').attr('src', response.avatar);
-            $('#postUser').html('@'+response.user);
-            $('#postDt').html(calcularTempoDecorrido(response.dt));
-            $('#postText').html(realcarHashtags(response.text));
-            $('#postLikes').html(response.likes);
-            $('#postCommentsNum').html(response.commentsNum);
-        
-            var num = 1;
-            while (num < response.commentsNum+1) {
-                const comment = response.comments['c'+num];
+
+            $('#testetestepost').html(genPostHTML(response));
+
+            for (let i = 0; response.comments && i < response.comments.length; i++) {
+                const comment = response.comments[i];
                 $('#postComments').append(
                     `
                     <div class="card mb-3">
                         <div class="card-header d-flex">
-                            <img src="${comment.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
-                            <span class="align-middle h6">${comment.name}</span>
-                            <small class="align-middle ms-2">@${comment.user}</small>
+                            <img src="${comment.user.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
+                            <span class="align-middle h6">${comment.user.name}</span>
+                            <small class="align-middle ms-2">@${comment.user.user}</small>
                             <small class="text-body-secondary ms-auto">
                                 ${calcularTempoDecorrido(comment.dt)}
                             </small>
@@ -92,11 +91,22 @@ $.ajax({
                     </div>
                     `
                 );
-                num++;
             }
-            
         } else {
             window.location.href = 'feed.html';
         }
     }
+});
+
+$(document).on('click', '.btnPostDelete', function() {
+    const postId = $(this).parent().attr('value');
+    deletePost(postId, token);
+});
+
+$(document).on('click', '.btnPostLike', function() {
+    toggleLikePost(token, $(this));
+});
+
+$(document).on('click', '#follow', function() {
+    toggleFollow(user, token);
 });

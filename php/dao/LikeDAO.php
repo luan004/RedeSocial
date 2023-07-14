@@ -45,5 +45,34 @@
                 return null;
             }
         }
+
+        public function getLikeNumByPostId($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ?");
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            return $result->num_rows;
+        }
+
+        public function getLikeByPostIdUserId($postId, $userId) {
+            $stmt = $this->conn->prepare("SELECT * FROM likes WHERE post_id = ? AND user_id = ?");
+            $stmt->bind_param("ss", $postId, $userId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $like = new Like(
+                    $row['user_id'],
+                    $row['post_id']
+                );
+                return $like;
+            } else {
+                return null;
+            }
+        }
     }
 ?>

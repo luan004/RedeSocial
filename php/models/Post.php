@@ -5,16 +5,14 @@
         private $userId;
         private $text;
         private $image;
-        private $likes;
         private $dt;
 
         /* CONSTRUTOR */
-        public function __construct($id, $userId, $text, $image, $likes, $dt) {
+        public function __construct($id, $userId, $text, $image, $dt) {
             $this->id = $id;
             $this->userId = $userId;
             $this->text = $text;
             $this->image = $image;
-            $this->likes = $likes;
             $this->dt = $dt;
         }
 
@@ -30,9 +28,6 @@
         }
         public function getImage() {
             return $this->image;
-        }
-        public function getLikes() {
-            return $this->likes;
         }
         public function getDt() {
             return $this->dt;
@@ -50,9 +45,6 @@
         }
         public function setImage($image) {
             $this->image = $image;
-        }
-        public function setLikes($likes) {
-            $this->likes = $likes;
         }
         public function setDt($dt) {
             $this->dt = $dt;

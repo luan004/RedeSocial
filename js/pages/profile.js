@@ -1,7 +1,9 @@
 import {
     getCookie,
-    calcularTempoDecorrido,
-    realcarHashtags
+    genPostHTML,
+    deletePost,
+    toggleLikePost,
+    toggleFollow
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -19,27 +21,55 @@ const token = getCookie('token');
 /* COMUNICAÇÃO COM BACKEND */
 $.ajax({
     type: "POST",
-    url: "php/getProfile.php",
+    url: "php/api/getProfile.php",
     dataType: "json",
     data: {
         user: user,
         token: token
     },
     success: function(response) {
-        if (response.exists == true) {
+        if (response.success == true) {
+            /* Usuário encontrado */
             $("#username").html('@'+user);
             $("#name").html(response.name);
             $("#avatar").attr("src", response.avatar);
             $("#banner").attr("src", response.banner);
 
-            if (response.isSelf == true) {
-                $("#follow").hide();
+            if (response.isme == true) {
+                /* Perfil do usuário autenticado */
+                $('#editProfile').show();
             } else {
-                $('#editProfile').hide();
+                /* Outro perfil */
+                if (response.ifollow == true) {
+                    $("#follow").html('<i class="fa fa-user-plus"></i> Seguido');
+                    $("#follow").removeClass('btn-outline-primary');
+                    $("#follow").addClass('btn-primary')
+                }
+                $("#follow").show();
             }
+
+            /* Carregar posts */
+            $.ajax({
+                type: "POST",
+                url: "php/api/getPosts.php",
+                dataType: "json",
+                data: {
+                    type: 'user',
+                    user: user,
+                    token: token
+                },
+                success: function(response) {
+                    console.log(response);
+                    for (var i = 0; i < response.posts.length; i++) {
+                        const post = response.posts[i];
+                        $("#profilePosts").append(genPostHTML(post));
+                    }
+                }
+            });
         } else {
+            /* Usuário não encontrado */
             $("#username").html();
-            $("#name").html('Essa conta não existe');
+            $("#name").html('Esse usuário não existe ou foi excluído.');
             $("#avatar").attr("src", "https://ui-avatars.com/api/background=0D8ABC&color=fff?name=@");
             $("#banner").attr("src", "./resources/images/banner.jpg");
             $('#editProfile').hide();
@@ -48,50 +78,16 @@ $.ajax({
     }
 });
 
-$.ajax({
-    type: "POST",
-    url: "php/getPostsFromUser.php",
-    dataType: "json",
-    data: {
-        user: user
-    },
-    success: function(response) {
-        if (response.count > 0) {
-            var num = 1;
-            while (num < response.count+1) {
-                const post = response['p'+num];
-                
-                var postStr = `
-                <div class="card mb-4 shadow">
-                    <div class="card-header">
-                        <img src="${post.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
-                        <span class="align-middle h6">${post.name}</span>
-                        <small class="ms-auto align-middle">@${post.user}</small>
-                    </div>`;
 
-                if (post.image != "" && post.image != null) {
-                    postStr += `<img src="${post.image}" alt="...">`;
-                }
+$(document).on('click', '.btnPostDelete', function() {
+    const postId = $(this).parent().attr('value');
+    deletePost(postId, token);
+});
 
-                postStr += `
-                    <div class="card-text p-3">
-                        <p class="card-text">
-                            ${realcarHashtags(post.text)}
-                        </p>
-                    </div>
-                    <div class="card-footer d-flex">
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="fa fa-thumbs-up"></i>
-                            ${post.likes}
-                        </button>
-                        <small class="text-body-secondary ms-auto">
-                            ${calcularTempoDecorrido(post.dt)}
-                        </small>
-                    </div>
-                </div>`;
-                $("#profilePosts").append(postStr);
-                num++;
-            }
-        }
-    }
+$(document).on('click', '.btnPostLike', function() {
+    toggleLikePost(token, $(this));
+});
+
+$(document).on('click', '#follow', function() {
+    toggleFollow(user, token);
 });

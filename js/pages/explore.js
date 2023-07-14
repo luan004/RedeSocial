@@ -1,117 +1,103 @@
 import {
-    calcularTempoDecorrido,
-    realcarHashtags,
-    getCookie
+    getCookie,
+    genPostHTML,
+    deletePost,
+    toggleLikePost
 } from "../utils.js";
 
 const token = getCookie('token');
+
+$("#hashtags").hide();
+
+// ACTION FROM HASHTAGS SELECT MENU
+$("#hashtagsOpt").change(function() {
+    if (this.value == "today") {
+        $("#todayHashtagsDiv").show();
+        $("#allHashtagsDiv").hide();
+    } else {
+        $("#todayHashtagsDiv").hide();
+        $("#allHashtagsDiv").show();
+    }
+});
+
+/* LOAD HASHTAGS */
+$.ajax({
+    type: "POST",
+    url: "php/api/getHashtags.php",
+    dataType: "json",
+    data: {
+        maxNumberOfHashtags: 20,
+        opt: "today"
+    },
+    success: function(response) {
+        if (response.length == 0) {
+            $("#todayHashtags").append(`
+                <li class="list-group-item text-center">
+                    <span>Nenhuma hashtag encontrada :(</span>
+                </li>
+            `);
+            return;
+        }
+        response.forEach(hashtag => {
+            $("#todayHashtags").append(`
+                <li class="list-group-item">
+                    <span>${hashtag.word}</span>
+                    <small class="float-end">${hashtag.count}</small>
+                </li>
+            `);
+        });
+    }
+});
+$.ajax({
+    type: "POST",
+    url: "php/api/getHashtags.php",
+    dataType: "json",
+    data: {
+        maxNumberOfHashtags: 20,
+        opt: "all"
+    },
+    success: function(response) {
+        if (response.length == 0) {
+            $("#allHashtags").append(`
+                <li class="list-group-item text-center">
+                    <span>Nenhuma hashtag encontrada :(</span>
+                </li>
+            `);
+            return;
+        }
+        response.forEach(hashtag => {
+            $("#allHashtags").append(`
+                <li class="list-group-item">
+                    <span>${hashtag.word}</span>
+                    <small class="float-end">${hashtag.count}</small>
+                </li>
+            `);
+        });
+    }
+});
 
 $.ajax({
     type: "POST",
     url: "php/api/getPosts.php",
     dataType: "json",
     data: {
-        feed: false,
+        type: 'all',
         token: token
     },
     success: function(response) {
-        for (var i = 0; i < response.count; i++) {
+        for (var i = 0; i < response.posts.length; i++) {
             const post = response.posts[i];
-            
-            var postStr = `
-            <div class="card mb-4 shadow">
-                <div class="card-header">
-                    <img src="${post.user.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
-                    <span class="align-middle h6">${post.user.name}</span>
-                    <small class="ms-auto align-middle">@${post.user.user}</small>
-                </div>`;
-            if (post.image != "" && post.image != null) {
-                postStr += `<img src="${post.image}" alt="...">`;
-            }
-            postStr += `
-                <div class="card-text p-3">
-                    <p class="card-text">
-                        ${realcarHashtags(post.text)}
-                    </p>
-                </div>
-                <div class="card-footer d-flex" value="${post.id}">`;
-                if (post.iliked == true) {
-                    postStr += `
-                    <button class="btnPostLike btn btn-sm btn-primary" actived>
-                        <i class="fa fa-thumbs-up"></i>
-                        <span>${post.likes}</span>
-                    </button>`;
-                } else {
-                    postStr += `
-                    <button class="btnPostLike btn btn-sm btn-outline-primary" actived>
-                        <i class="fa fa-thumbs-up"></i>
-                        <span>${post.likes}</span>
-                    </button>`;
-                }
-                postStr += `
-                    <a href="post?p=${post.id}" class="btn btn-sm btn-outline-secondary ms-2">
-                            <i class="fa fa-comment"></i>
-                            ${post.comments}
-                    </a>`;
-                if (post.ismy == true) {
-                    postStr += `
-                        <button class="btnPostDelete btn btn-sm btn-outline-danger ms-2">
-                            <i class="fa fa-trash"></i>
-                        </button>`; 
-                }
-                postStr += `
-                    <small class="text-body-secondary ms-auto">
-                        ${calcularTempoDecorrido(post.dt)}
-                    </small>
-                </div>
-            </div>`;
-            $("#lastPosts").append(postStr);
+
+            $("#lastPosts").append(genPostHTML(post));
         }
     }
 });
 
 $(document).on('click', '.btnPostDelete', function() {
     const postId = $(this).parent().attr('value');
-    $.ajax({
-        type: "POST",
-        url: "php/api/deletePost.php",
-        dataType: "json",
-        data: {
-            postId: postId,
-            token: token
-        },
-        success: function(response) {
-            console.log('response')
-            if (response) {
-                window.location.reload();
-            }
-        }
-    });
+    deletePost(postId, token);
 });
 
 $(document).on('click', '.btnPostLike', function() {
-    const btn = $(this);
-    const postId = btn.parent().attr('value');
-    const likeNum = btn.children('span').text();
-
-    $.ajax({
-        type: "POST",
-        url: "php/api/toggleLike.php",
-        dataType: "json",
-        data: {
-            postId: postId,
-            token: token
-        },
-        success: function(response) {
-            if (response.success == true && response.liked == true) {
-                btn.children('span').text(parseInt(likeNum)+1);
-                btn.addClass('btn-primary');
-                btn.removeClass('btn-outline-primary');
-            } else if (response.success == true && response.liked == false) {
-                btn.children('span').text(parseInt(likeNum)-1);
-                btn.addClass('btn-outline-primary');
-                btn.removeClass('btn-primary');
-            }
-        }
-    });
+    toggleLikePost(token, $(this));
 });

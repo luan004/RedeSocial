@@ -1,12 +1,13 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../connection/Files.php');
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/PostDAO.php');
     require_once('../models/Post.php');
     require_once('../models/Sesstoken.php');
 
-    $postId = $_POST['postId'];
     $token = $_POST['token'];
+    $postId = $_POST['postId'];
 
     $conn = new Conn();
     $sesstokenDAO = new SesstokenDAO($conn);

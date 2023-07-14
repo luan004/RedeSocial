@@ -1,7 +1,9 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../dao/SesstokenDAO.php');
     require_once('../dao/UserDAO.php');
     require_once('../models/User.php');
+    require_once('../models/Sesstoken.php');
 
     $opt = $_POST['opt'];
     $val = $_POST['val'];
@@ -15,6 +17,11 @@
     }
     elseif ($opt == 'user') {
         $user = $userDAO->getUserByUsername($val);
+    }
+    elseif ($opt == 'token') {
+        $sesstokenDAO = new SesstokenDAO($conn);
+        $sesstoken = $sesstokenDAO->getSesstokenByToken($val);
+        $user = $userDAO->getUserById($sesstoken->getUserId());
     }
 
     if ($user) {

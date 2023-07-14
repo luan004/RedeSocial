@@ -27,8 +27,32 @@
         <!-- NAVEGAÇÃO HORIZONTAL -->
         <div id="leftSideBar" class="col-12 col-md-3"></div>
 
-        <!-- HASHTAGS -->
         <div class="col-12 col-md-4" style="padding-top:20px">
+
+            <!-- HASHTAGS -->
+
+            <div class="card">
+                <div class="card-header d-flex">
+                    <span class="text-truncate">
+                        <i class="fa fa-hashtag"></i>
+                        Hashtags mais utlizadas
+                    </span>
+                    <div class="ms-auto">
+                        <select id="hashtagsOpt" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="today">Hoje</option>
+                            <option value="all">Desde sempre</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="todayHashtagsDiv">
+                    <ul id="todayHashtags" class="list-group list-group-flush"></ul>
+                </div>
+                <div style="display: none;" id="allHashtagsDiv">
+                    <ul id="allHashtags" class="list-group list-group-flush"></ul>
+                </div>
+            </div>
+            <hr>
+            <!-- ÚLTIMOS POSTS -->
             <div id="lastPosts"></div>
         </div>
 
