@@ -22,9 +22,13 @@
 
         public function getB64Image($imageName) {
             $dest = $this->path . $imageName;
-            $image = file_get_contents($dest);
-            $imageData = base64_encode($image);
-            return $imageData;
+            if (file_exists($dest)) {
+                $image = file_get_contents($dest);
+                $imageData = base64_encode($image);
+                return $imageData;
+            } else {
+                return null;
+            }
         }
 
         public function deleteImage($imageName) {
