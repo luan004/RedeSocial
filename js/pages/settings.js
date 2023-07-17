@@ -2,23 +2,32 @@ import {
     getCookie
 } from "../utils.js";
 
-const token = getCookie("token");
+import {
+    auth
+} from "../data.js";
 
-if (!token) {
-    window.location.href = "explore";
-}
+/* AUTH */
+const token = getCookie('token');
+auth(function(id) {
+    $('#loginBox').hide();
+    $('#userBox').show();
 
-$.ajax({
-    type: "POST",
-    url: "php/getProfileToEdit.php",
-    dataType: "json",
-    data: {
-        token: token
-    },
-    success: function(response) {
-        $("#user").html('@'+response.user);
-        $("#name").val(response.name);
-        $("#avatar").attr("src", response.avatar);
-        $("#banner").attr("src", response.banner);
-    }
-});
+    $.ajax({
+        type: "POST",
+        url: "php/api/getUser.php",
+        dataType: "json",
+        data: {
+            opt: 'id',
+            val: id
+        },
+        success: function(response) {
+            $('#editAvatar').attr('src', response.avatar);
+            $('#editBanner').attr('src', response.banner);
+            
+            $('#editName').val(response.name);
+            $('#editUser').val(response.user);
+        }
+    });
+}, function() {
+    //
+}, token);
