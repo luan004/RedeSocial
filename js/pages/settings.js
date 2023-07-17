@@ -121,3 +121,17 @@ $('#avatarSelectorInput').change(function() {
         console.log('arquivo invalido');
     }
 });
+
+$(document).on('click', '.cor', function() {
+    const cor = $(this).attr('value');
+
+    $("#editProfileCard").removeClass('bg-primary-subtle');
+    $("#editProfileCard").removeClass('bg-success-subtle');
+    $("#editProfileCard").removeClass('bg-danger-subtle');
+    $("#editProfileCard").removeClass('bg-warning-subtle');
+    $("#editProfileCard").removeClass('bg-info-subtle');
+    
+    if (cor != 'null') {
+        $("#editProfileCard").addClass('bg-' + cor + '-subtle');  
+    }
+});
