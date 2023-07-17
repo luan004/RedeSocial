@@ -107,3 +107,17 @@ $('#changePassForm').submit(function(e) {
         $('#inv2').show();
     }
 });
+
+$('#avatarSelector').click(function() {
+    $("#avatarSelectorInput").click();
+});
+
+$('#avatarSelectorInput').change(function() {
+    const file = $(this)[0].files[0];
+    if (file.type.includes('image')) {
+        $('#editAvatar').attr('src', URL.createObjectURL(file));
+    } else {
+        // arquivo invalido
+        console.log('arquivo invalido');
+    }
+});

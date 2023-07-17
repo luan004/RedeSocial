@@ -35,9 +35,18 @@
                     Edição de perfil
                 </h6>
                 <div class="d-flex position-relative">
+                    <!-- BANNER IMG -->
                     <img style="object-fit:cover;height:128px;" id="editBanner" src="https://placehold.co/512x128" class="card-img-top rounded" alt="...">
-                    <div style="width:128px;bottom:-20px;left:20px " class="position-absolute border rounded">
-                        <img id="editAvatar" src="https://placehold.co/128x128" class="card-img-top rounded" rounded alt="...">
+                    <div style="width:128px;height:128px;bottom:-20px;left:20px " class="position-absolute border rounded">
+                        <!-- AVATAR IMG -->
+                        <div class="d-flex">
+                            <img id="editAvatar" style="width:128px;height:128px;" src="https://placehold.co/128x128" class="card-img-top rounded" rounded alt="...">
+                            <button id="avatarSelector" style="bottom:0;right:0" class="btn btn-sm border btn-secondary position-absolute m-2 shadow-sm">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </div>
+                        <!-- INPUT AVATAR -->
+                        <input type="file" id="avatarSelectorInput" style="display: none;" />
                     </div>
                 </div>
                 <div class="card-body mt-2">
@@ -45,12 +54,36 @@
                         <label for="editName" class="form-label">Nome</label>
                         <input type="text" id="editName" class="form-control" name="editName" placeholder="Nome">
                     </div>
-                    <div class="">
+                    <div class="mb-4">
                         <label for="editUser" class="form-label">Usuário</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">@</span>
                             <input name="editUser" id="editUser" type="text" class="form-control" placeholder="No mínimo 4 caracteres, com apenas letras, números e _" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
+                    </div>
+                    <div>
+                        <label class="d-block mb-2" for="">Cor de perfil</label>
+                        
+                        
+                        <div class="d-flex align-items-center mt-3" style="height:20px"> 
+                            <div value="info" class="col cor btn btn-sm btn-info m-1"></div>
+                            <div value="primary" class="col cor btn btn-sm btn-primary m-1"></div>
+                            <div value="danger" class="col cor btn btn-sm btn-danger m-1"></div>
+                            <div value="warning" class="col cor btn btn-sm btn-warning m-1"></div>
+                            <div value="success" class="col cor btn btn-sm btn-success m-1"></div>
+                            <div value="secondary" class="col cor btn btn-sm btn-secondary m-1"></div>
+                        </div>
+
+                        <style>
+                            .cor{
+                                height: 20px;
+                                transition: 0.3s;
+                            }
+                            .cor:hover{
+                                height: 40px;
+                            }
+                        </style>
+
                     </div>
                     <!-- <label for="name" class="form-label">Cor de perfil</label>
                     <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color"> -->

@@ -24,14 +24,12 @@ $.ajax({
 });
 
 $('#postImageSelector').click(function() {
-    console.log('click');
     $('#postImageSelectorInput').click();
 });
 
 $('#postImageSelectorInput').change(function() {
     const file = $(this)[0].files[0];
     if (file.type.includes('image')) {
-        console.log(file.type + '-  arquivo válido');
         $('#postImageSelector').hide();
         $('#postImg').show();
         $('#postImg').attr('src', URL.createObjectURL(file));
