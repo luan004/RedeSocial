@@ -64,8 +64,8 @@ $('#changePassForm').submit(function(e) {
                         url: "php/api/changePass.php",
                         dataType: "json",
                         data: {
-                            oldpass: oldpass,
-                            newpass: newpass,
+                            oldPass: oldpass,
+                            newPass: newpass,
                             token: token
                         },
                         success: function(response) {
