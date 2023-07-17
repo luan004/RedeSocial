@@ -5,13 +5,9 @@
     require_once('../models/User.php');
     require_once('../models/sesstoken.php');
 
-    /* $token = $_POST['token'];
+    $token = $_POST['token'];
     $newPass = $_POST['newPass'];
-    $oldPass = $_POST['oldPass']; */
-
-    $token = '0341e64da459639ca897f85bccfc94f842bc4e569d9d876cef4535a98087dee9';
-    $newPass = '';
-    $oldPass = 'admin';
+    $oldPass = $_POST['oldPass'];
 
     $conn = new Conn();
 
@@ -24,6 +20,8 @@
 
         if ($user->getPass() == $oldPass) {
             if (strlen($newPass) <= 32 && strlen($newPass) >= 8 && preg_match('/^[a-zA-Z0-9_]+$/', $newPass)) {
+                $user->setPass($newPass);
+                $userDAO->updateUser($user);
                 $response = array(
                     'success' => true
                 );
@@ -39,6 +37,11 @@
                 'error' => 1 // Erro de senha incorreta
             );
         }
+    } else {
+        $response = array(
+            'success' => false,
+            'error' => 1 // Erro de token inválido
+        );
     }
 
     header('Content-Type: application/json');

@@ -3,11 +3,15 @@ import {
 } from "../utils.js";
 
 import {
-    auth
+    auth,
+    logout
 } from "../data.js";
 
 /* AUTH */
 const token = getCookie('token');
+if (!token) {
+    window.location.href = "explore";
+}
 auth(function(id) {
     $('#loginBox').hide();
     $('#userBox').show();
@@ -54,45 +58,35 @@ $('#changePassForm').submit(function(e) {
                 url: "php/api/changePass.php",
                 dataType: "json",
                 data: {
-                    oldpass: oldpass,
-                    newpass: newpass,
+                    oldPass: oldpass,
+                    newPass: newpass,
                     token: token
                 },
                 success: function(response) {
-                    $.ajax({
-                        type: "POST",
-                        url: "php/api/changePass.php",
-                        dataType: "json",
-                        data: {
-                            oldPass: oldpass,
-                            newPass: newpass,
-                            token: token
-                        },
-                        success: function(response) {
-                            if (response.success == true) {
-        
-                                $('#oldPass').val('');
-                                $('#newPass').val('');
-                                $('#newPass2').val('');
-        
-                                $('#oldPass').addClass('is-valid');
-                                $('#newPass').addClass('is-valid');
-                                $('#newPass2').addClass('is-valid');
-                            } else {
-                                switch (response.error) {
-                                    case 1: // incorrect password
-                                        $('#oldPass').addClass('is-invalid');
-                                        $('#inv1').show();
-                                        break;
-                                    case 2: // invalid new password
-                                        $('#newPass').addClass('is-invalid');
-                                        $('#newPass2').addClass('is-invalid');
-                                        $('#inv2').show();
-                                        break;
-                               }
-                            }
-                        }
-                    });
+                    if (response.success == true) {
+                        $('#oldPass').val('');
+                        $('#newPass').val('');
+                        $('#newPass2').val('');
+
+                        $('#oldPass').addClass('is-valid');
+                        $('#newPass').addClass('is-valid');
+                        $('#newPass2').addClass('is-valid');
+
+                        logout(token);
+                        
+                    } else {
+                        switch (response.error) {
+                            case 1: // incorrect password
+                                $('#oldPass').addClass('is-invalid');
+                                $('#inv1').show();
+                                break;
+                            case 2: // invalid new password
+                                $('#newPass').addClass('is-invalid');
+                                $('#newPass2').addClass('is-invalid');
+                                $('#inv3').show();
+                                break;
+                       }
+                    }
                 }
             });
         } else {
