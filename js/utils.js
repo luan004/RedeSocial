@@ -51,15 +51,15 @@ export function sidebarTabs() {
     var page = window.location.pathname;
     var tab;
     switch (true) {
-    case page.includes('/explore'):
-        tab = 'explore';
-        break;
-    case page.includes('/feed'):
-        tab = 'feed';
-        break;
-    case page.includes('/settings'):
-        tab = 'settings';
-        break;
+        case page.includes('/explore'):
+            tab = 'explore';
+            break;
+        case page.includes('/feed'):
+            tab = 'feed';
+            break;
+        case page.includes('/settings'):
+            tab = 'settings';
+            break;
     }
     if (tab) {
     document.getElementById(tab).classList.add('active');
