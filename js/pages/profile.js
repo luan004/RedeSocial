@@ -64,6 +64,14 @@ $.ajax({
                         const post = response.posts[i];
                         $("#profilePosts").append(genPostHTML(post));
                     }
+                    if (response.posts.length == 0) {
+                        $("#profilePosts").append(`
+                            <span class="text-center d-block">
+                                <span class="text-muted d-block mb-4">Nenhuma publicação encontrada...</span>
+                                <i style="font-size: 5rem; opacity:0.1" class="fa fa-search"></i>
+                            </span>
+                        `);
+                    }
                 }
             });
         } else {
