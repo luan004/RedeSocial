@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <form id="changePassForm" class="card p-4">
+            <form id="changePassForm" class="card mb-4 p-4">
                 <h6 class="mt-2 text-center">
                     <i class="fa fa-lock"></i>
                     Alterar senha
@@ -118,6 +118,45 @@
                     Mudar senha
                 </button>
             </form>
+
+            <div class="card p-4">
+                <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                    <i class="fa fa-trash"></i>
+                    Apagar completamente minha conta
+                </button>
+
+                <!-- MODAL DELETE ACCOUNT -->
+                <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteAccountModalLabel">Cuidado!</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Sua conta de usuário, todos as suas publicações, comentários e curtidas serão apagados, seu nome de usuário (o seu @) ficará disponivel para que qualquer outra pessoa utilize.
+                            </p>
+                            <p>
+                                Essa ação é irreversível. Tem certeza que deseja apagar sua conta?
+                            </p>
+
+                            <div class="my-2">
+                                <label for="deletePass" class="form-label">Senha</label>
+                                <input type="password" id="deletePass" class="form-control" placeholder="***" name="deletePass">
+                                <div id="inv4" class="invalid-feedback">
+                                    Senha incorreta.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger">Apagar minha conta</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- RIGHT SIDEBAR -->
