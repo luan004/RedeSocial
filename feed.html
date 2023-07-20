@@ -39,7 +39,12 @@
                     </div>
                     <form id="sendPostForm">
                         <div class="card-text p-3">
-                            <textarea id="postText" style="max-height:200px" class="form-control" rows="3" placeholder="Diga o que pensa..."></textarea>
+                            <div class="position-relative">
+                                <textarea id="postText" style="height: 150px;max-height:200px" class="form-control" rows="3" placeholder="Diga o que pensa..."></textarea>
+                                <span id="charCountParent" class="bottom-0 m-2 badge rounded-pill text-bg-secondary position-absolute">
+                                    <span id="charCount">0</span>/200
+                                </span>
+                            </div>
                         </div>
                         <img style="display: none;" class="w-100" id="postImg" alt="...">
                         <div class="card-footer d-flex">

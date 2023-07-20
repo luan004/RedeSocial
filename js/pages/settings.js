@@ -207,4 +207,7 @@ $('#btnSaveProfile').click(function() {
             }
         }); */
     }
+
+    // ALTERAÇÃO DE AVATAR
+    
 });

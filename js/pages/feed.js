@@ -23,6 +23,23 @@ $.ajax({
     }
 });
 
+$('#postText').keyup(function() {
+    const text = $(this).val();
+    const count = $('#charCount');
+    const parent = $('#charCountParent')
+
+    count.html(text.length);
+
+
+    if (text.length > 200) {
+        parent.removeClass('text-bg-secondary');
+        parent.addClass('text-bg-danger');
+    } else {
+        parent.addClass('text-bg-secondary');
+        parent.removeClass('text-bg-danger');
+    }
+});
+
 $('#postImageSelector').click(function() {
     $('#postImageSelectorInput').click();
 });
