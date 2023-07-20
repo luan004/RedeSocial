@@ -108,20 +108,19 @@ $('#changePassForm').submit(function(e) {
     }
 });
 
+// Edit profile avatar
 $('#avatarSelector').click(function() {
     $("#avatarSelectorInput").click();
 });
-
 $('#avatarSelectorInput').change(function() {
     const file = $(this)[0].files[0];
     if (file.type.includes('image')) {
         $('#editAvatar').attr('src', URL.createObjectURL(file));
-    } else {
-        // arquivo invalido
-        console.log('arquivo invalido');
+        changes();
     }
 });
 
+// Edit profile color
 $(document).on('click', '.cor', function() {
     const cor = $(this).attr('value');
 
@@ -134,8 +133,24 @@ $(document).on('click', '.cor', function() {
     if (cor != 'null') {
         $("#editProfileCard").addClass('bg-' + cor + '-subtle');  
     }
+
+    changes();
+});
+
+// Edit profile name
+$('#editName').keyup(function() {
+    changes();
+});
+
+// Edit profile user
+$('#editUser').keyup(function() {
+    changes();
 });
 
 function changes() {
     $('#btnSaveProfile').slideDown("fast");
 }
+
+$('#btnSaveProfile').click(function() {
+    
+});
