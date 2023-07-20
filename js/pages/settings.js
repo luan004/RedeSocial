@@ -131,7 +131,8 @@ $(document).on('click', '.cor', function() {
     $("#editProfileCard").removeClass('bg-info-subtle');
     
     if (cor != 'null') {
-        $("#editProfileCard").addClass('bg-' + cor + '-subtle');  
+        $("#editProfileCard").addClass('bg-' + cor + '-subtle');
+        $("#editProfileCard").val(cor);
     }
 
     changes();
@@ -152,5 +153,58 @@ function changes() {
 }
 
 $('#btnSaveProfile').click(function() {
-    
+    const name = $('#editName').val();
+    const user = $('#editUser').val();
+    var color = $('#editProfileCard').val();
+
+    $('#editName').removeClass('is-invalid');
+    $('#editUser').removeClass('is-invalid');
+
+    if (name.length < 1 || name.length > 64) {
+        //invalid name
+        $('#editName').addClass('is-invalid');
+        $('#nameinv').show();
+    }
+
+    if (user.length < 4 || user.length > 32) {
+        //invalid user
+        $('#editUser').addClass('is-invalid');
+        $('#userinv').show();
+    }
+
+
+    // ALTERAÇÃO DE NOME, USER E COR
+    if (user.length >= 4 && user.length <= 32 && name.length >= 1 && name.length <= 64) {
+        switch (color) {
+            case 'primary':
+                break;
+            case 'success':
+                break;
+            case 'danger':
+                break;
+            case 'warning':
+                break;
+            case 'info':
+                break;
+            case 'null':
+                color = null;
+            default:
+                color = null;
+                break;
+        }
+
+        /* $.ajax({
+            type: "POST",
+            url: "php/api/editProfile.php",
+            dataType: "json",
+            data: {
+                name: name,
+                user: user,
+                color: color,
+                token: token
+            },
+            success: function(response) {
+            }
+        }); */
+    }
 });
