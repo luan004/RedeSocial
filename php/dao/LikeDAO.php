@@ -75,4 +75,18 @@
             }
         }
     }
+
+    /* CLASS DIAGRAM */
+    /* 
+    - userId: int
+    - postId: int
+    ---
+    + create(Like)
+    + delete(Like)
+    + getLikeByUserAndPost(int, int) : Like
+    + getLikeNumByPostId(int) : int
+    + getLikeByPostIdUserId(int, int) : Like
+
+
+    */
 ?>

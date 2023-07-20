@@ -146,6 +146,7 @@
             return $posts;
         }
 
+        // mudar nome para getPostsWithHashtags
         public function getHashtags($opt) {
             if ($opt == 'today') {
                 $stmt = $this->conn->prepare("SELECT * FROM posts WHERE text LIKE '%#%' AND DATE(dt) = CURDATE()");

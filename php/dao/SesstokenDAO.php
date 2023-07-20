@@ -51,4 +51,12 @@
             }
         }
     }
+
+    /* CLASS DIAGRAM */
+    /* 
+    + create(Sesstoken)
+    + delete(Sesstoken)
+    + getSesstokenByToken(String): Sesstoken
+    
+    */
 ?>
