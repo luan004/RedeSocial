@@ -135,3 +135,7 @@ $(document).on('click', '.cor', function() {
         $("#editProfileCard").addClass('bg-' + cor + '-subtle');  
     }
 });
+
+function changes() {
+    $('#btnSaveProfile').slideDown("fast");
+}
