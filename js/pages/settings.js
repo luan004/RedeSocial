@@ -27,6 +27,11 @@ auth(function(id) {
         success: function(response) {
             $('#editAvatar').attr('src', response.avatar);
             $('#editBanner').attr('src', response.banner);
+            
+            if (response.color != null && response.color != 'default') {
+                $("#editProfileCard").addClass('bg-' + response.color + '-subtle');
+                $("#editProfileCard").val(response.color);
+            }
 
             $('#editName').val(response.name);
             $('#editUser').val(response.user);
@@ -175,25 +180,6 @@ $('#btnSaveProfile').click(function() {
 
     // ALTERAÇÃO DE NOME, USER E COR
     if (user.length >= 4 && user.length <= 32 && name.length >= 1 && name.length <= 64) {
-        switch (color) {
-            case 'primary':
-                break;
-            case 'success':
-                break;
-            case 'danger':
-                break;
-            case 'warning':
-                break;
-            case 'info':
-                break;
-            case 'null':
-                color = null;
-            default:
-                color = null;
-                break;
-        }
-
-        console.log('teste');
         $.ajax({
             type: "POST",
             url: "php/api/updateUser.php",

@@ -22,7 +22,7 @@
         }
         $userStr = null;
         if (isset($_POST['user'])) {
-            $user = $_POST['user'];
+            $userStr = $_POST['user'];
         }
         $color = null;
         if (isset($_POST['color'])) {
@@ -47,7 +47,7 @@
         }
 
         /* Update color */
-        if ($color && $color != $user->getColor() && ($color == 'danger' || $color == 'warning' || $color == 'success' || $color == 'primary' || $color == 'info' || $color == null)) {
+        if ($color && $color != $user->getColor() && ($color == 'danger' || $color == 'warning' || $color == 'success' || $color == 'primary' || $color == 'info' || $color == 'default')) {
             $user->setColor($color);
             $changedColor = true;
         }
