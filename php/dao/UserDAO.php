@@ -13,7 +13,7 @@
             $avatar = $userObj->getAvatar();
             $banner = $userObj->getBanner();
         
-            $stmt = $this->conn->prepare("INSERT INTO users (name, user, pass, avatar, banner) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare("INSERT INTO users (name, user, pass, avatar, banner, dt) VALUES (?, ?, ?, ?, ?, NOW())");
             $stmt->bind_param("sssss", $name, $user, $pass, $avatar, $banner);
             $stmt->execute();
 
@@ -66,7 +66,8 @@
                     $row['user'],
                     $row['pass'],
                     $row['avatar'],
-                    $row['banner']
+                    $row['banner'],
+                    $row['dt']
                 );
                 return $user;
             } else {
@@ -94,7 +95,8 @@
                     $row['user'],
                     $row['pass'],
                     $row['avatar'],
-                    $row['banner']
+                    $row['banner'],
+                    $row['dt']
                 );
                 return $user;
             } else {
@@ -117,6 +119,7 @@
                         $row['user'],
                         null,
                         $row['avatar'],
+                        null,
                         null
                     );
 

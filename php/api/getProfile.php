@@ -38,6 +38,7 @@
             'user' => $user->getUser(),
             'avatar' => $user->getAvatar(),
             'banner' => $user->getBanner(),
+            'dt' => $user->getDt(),
             'color' => '#ffffff'
         );
     } else {

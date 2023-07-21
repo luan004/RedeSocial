@@ -3,7 +3,8 @@ import {
     genPostHTML,
     deletePost,
     toggleLikePost,
-    toggleFollow
+    toggleFollow,
+    calcularTempoDecorrido
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -34,6 +35,7 @@ $.ajax({
             $("#name").html(response.name);
             $("#avatar").attr("src", response.avatar);
             $("#banner").attr("src", response.banner);
+            $('#createdAt').html('Membro ' + calcularTempoDecorrido(response.dt));
 
             if (response.isme == true) {
                 /* Perfil do usuário autenticado */
@@ -59,7 +61,6 @@ $.ajax({
                     token: token
                 },
                 success: function(response) {
-                    console.log(response);
                     for (var i = 0; i < response.posts.length; i++) {
                         const post = response.posts[i];
                         $("#profilePosts").append(genPostHTML(post));

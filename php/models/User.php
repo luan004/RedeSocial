@@ -7,15 +7,17 @@
         private $pass;
         private $avatar;
         private $banner;
+        private $dt;
 
         /* CONSTRUTOR */
-        public function __construct($id, $name, $user, $pass, $avatar, $banner) {
+        public function __construct($id, $name, $user, $pass, $avatar, $banner, $dt) {
             $this->id = $id;
             $this->name = $name;
             $this->user = $user;
             $this->pass = $pass;
             $this->avatar = $avatar;
             $this->banner = $banner;
+            $this->dt = $dt;
         }
 
         /* GETTERS */
@@ -37,6 +39,9 @@
         public function getBanner() {
             return $this->banner;
         }
+        public function getDt() {
+            return $this->dt;
+        }
 
         /* SETTERS */
         public function setId($id) {
@@ -56,6 +61,9 @@
         }
         public function setBanner($banner) {
             $this->banner = $banner;
+        }
+        public function setDt($dt) {
+            $this->dt = $dt;
         }
     }
 ?>
