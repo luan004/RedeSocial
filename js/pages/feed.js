@@ -31,12 +31,14 @@ $('#postText').keyup(function() {
     count.html(text.length);
 
 
-    if (text.length > 200) {
+    if (text.length > 350) {
         parent.removeClass('text-bg-secondary');
         parent.addClass('text-bg-danger');
+        $('#postText').addClass('is-invalid');
     } else {
         parent.addClass('text-bg-secondary');
         parent.removeClass('text-bg-danger');
+        $('#postText').removeClass('is-invalid');
     }
 });
 
