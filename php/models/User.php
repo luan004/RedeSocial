@@ -5,16 +5,18 @@
         private $name;
         private $user;
         private $pass;
+        private $color;
         private $avatar;
         private $banner;
         private $dt;
 
         /* CONSTRUTOR */
-        public function __construct($id, $name, $user, $pass, $avatar, $banner, $dt) {
+        public function __construct($id, $name, $user, $pass, $color, $avatar, $banner, $dt) {
             $this->id = $id;
             $this->name = $name;
             $this->user = $user;
             $this->pass = $pass;
+            $this->color = $color;
             $this->avatar = $avatar;
             $this->banner = $banner;
             $this->dt = $dt;
@@ -32,6 +34,9 @@
         }
         public function getPass() {
             return $this->pass;
+        }
+        public function getColor() {
+            return $this->color;
         }
         public function getAvatar() {
             return $this->avatar;
@@ -55,6 +60,9 @@
         }
         public function setPass($pass) {
             $this->pass = $pass;
+        }
+        public function setColor($color) {
+            $this->color = $color;
         }
         public function setAvatar($avatar) {
             $this->avatar = $avatar;

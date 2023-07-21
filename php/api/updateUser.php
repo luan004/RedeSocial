@@ -1,0 +1,75 @@
+<?php
+    require_once('../connection/Conn.php');
+    require_once('../dao/UserDAO.php');
+    require_once('../dao/SesstokenDAO.php');
+    require_once('../models/User.php');
+    require_once('../models/Sesstoken.php');
+
+    $token = '852428d835ddec2ecc5a66d35785b928b7a82c1d3e6ad4493d13738690b8a5db';
+
+    $conn = new Conn();
+
+    $sesstokenDAO = new SesstokenDAO($conn);
+    $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
+
+    if ($sesstoken) {
+        $userDAO = new UserDAO($conn);
+        $user = $userDAO->getUserById($sesstoken->getUserId());
+
+        $name = null;
+        if (isset($_POST['name'])) {
+            $name = $_POST['name'];
+        }
+        $userStr = null;
+        if (isset($_POST['user'])) {
+            $user = $_POST['user'];
+        }
+        $color = null;
+        if (isset($_POST['color'])) {
+            $color = $_POST['color'];
+        }
+
+        /* changes */
+        $changedName = false;
+        $changedUser = false;
+        $changedColor = false;
+
+        /* Update name */
+        if ($name && $name != $user->getName() && strlen($name) <= 64 && strlen($name) >= 1) {
+            $user->setName($name);
+            $changedName = true;
+        }
+
+        /* Update user */
+        if ($userStr && $userStr != $user->getUser() && strlen($userStr) <= 32 && strlen($userStr) >= 4 && preg_match('/^[a-zA-Z0-9_]+$/', $userStr)) {
+            $user->setUser($userStr);
+            $changedUser = true;
+        }
+
+        /* Update color */
+        if ($color && $color != $user->getColor() && ($color == 'danger' || $color == 'warning' || $color == 'success' || $color == 'primary' || $color == 'info' || $color == null)) {
+            $user->setColor($color);
+            $changedColor = true;
+        }
+
+        $userDAO->update($user);
+
+        $response = array(
+            'success' => true,
+            'changes' => array(
+                'name' => $changedName,
+                'user' => $changedUser,
+                'color' => $changedColor
+            )
+        );
+    } else {
+        $response = array(
+            'success' => false
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response, JSON_PRETTY_PRINT);
+    $conn->close();
+    exit;
+?>

@@ -193,19 +193,21 @@ $('#btnSaveProfile').click(function() {
                 break;
         }
 
-        /* $.ajax({
+        console.log('teste');
+        $.ajax({
             type: "POST",
-            url: "php/api/editProfile.php",
+            url: "php/api/updateUser.php",
             dataType: "json",
             data: {
+                token: token,
                 name: name,
                 user: user,
-                color: color,
-                token: token
+                color: color
             },
             success: function(response) {
+                console.log(response);
             }
-        }); */
+        });
     }
 
     // ALTERAÇÃO DE AVATAR
