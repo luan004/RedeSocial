@@ -5,7 +5,7 @@
     require_once('../models/User.php');
     require_once('../models/Sesstoken.php');
 
-    $token = '852428d835ddec2ecc5a66d35785b928b7a82c1d3e6ad4493d13738690b8a5db';
+    $token = $_POST['token'];
 
     $conn = new Conn();
 
