@@ -39,7 +39,7 @@
             'avatar' => $user->getAvatar(),
             'banner' => $user->getBanner(),
             'dt' => $user->getDt(),
-            'color' => '#ffffff'
+            'color' => $user->getColor()
         );
     } else {
         $response = array(

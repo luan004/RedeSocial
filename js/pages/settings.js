@@ -191,7 +191,9 @@ $('#btnSaveProfile').click(function() {
                 color: color
             },
             success: function(response) {
-                console.log(response);
+                if (response.success == true) {
+                    window.location.reload();
+                }
             }
         });
     }

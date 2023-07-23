@@ -35,7 +35,22 @@ $.ajax({
             $("#name").html(response.name);
             $("#avatar").attr("src", response.avatar);
             $("#banner").attr("src", response.banner);
-            $('#createdAt').html('Membro ' + calcularTempoDecorrido(response.dt));
+            if (response.dt != null) {
+                $('#createdAt').html('Membro ' + calcularTempoDecorrido(response.dt));
+            }
+
+            const c = response.color;
+            console.log(c);
+            if 
+            (
+                c == 'primary' ||
+                c == 'success' ||
+                c == 'danger' ||
+                c == 'warning' ||
+                c == 'info'
+            ){
+                $('#profileCard').addClass('bg-'+c+'-subtle');
+            }
 
             if (response.isme == true) {
                 /* Perfil do usuário autenticado */
