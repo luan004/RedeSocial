@@ -4,6 +4,7 @@
     require_once('../dao/UserDAO.php');
     require_once('../models/User.php');
     require_once('../models/Sesstoken.php');
+    require_once('../connection/Files.php');
 
     $opt = $_POST['opt'];
     $val = $_POST['val'];
@@ -25,6 +26,12 @@
     }
 
     if ($user) {
+        // get avatar
+        $avatar = $user->getAvatar();
+        if ($avatar != null) {
+            $files = new Files();
+            $avatar = $files->getB64Image($avatar);
+        }
         $response = array(
             'success' => true,
             'id' => $user->getId(),
@@ -32,7 +39,7 @@
             'user' => $user->getUser(),
             'aboutme' => $user->getAboutMe(),
             'color' => $user->getColor(),
-            'avatar' => $user->getAvatar()
+            'avatar' => $avatar
         );
     } else {
         $response = array(

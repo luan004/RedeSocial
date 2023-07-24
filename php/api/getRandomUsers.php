@@ -2,6 +2,7 @@
     require_once('../connection/Conn.php');
     require_once('../dao/UserDAO.php');
     require_once('../models/User.php');
+    require_once('../connection/Files.php');
 
     $conn = new Conn();
 
@@ -11,14 +12,17 @@
     if ($users) {
         $usersAr = array();
         foreach ($users as $user) {
-            if ($user->getAvatar() == null) {
-                $user->setAvatar('https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$user->getUser());
+            // get avatar
+            $avatar = $user->getAvatar();
+            if ($avatar != null) {
+                $files = new Files();
+                $avatar = $files->getB64Image($avatar);
             }
 
             $userAr = array(
                 'name' => $user->getName(),
                 'user' => $user->getUser(),
-                'avatar' => $user->getAvatar()
+                'avatar' => $avatar
             );
 
             array_push($usersAr, $userAr);

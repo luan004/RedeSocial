@@ -2,7 +2,8 @@ import {
     getCookie,
     setCookie,
     sidebarTabs,
-    loadTheme
+    loadTheme,
+    b64ImageToUrl
 } from "../utils.js";
 
 import {
@@ -28,7 +29,13 @@ auth(function(id) {
             val: id
         },
         success: function(response) {
-            $('#userBoxAvatar').attr('src', response.avatar);
+            var avatar = null;
+            if (response.avatar != null) {
+                avatar = b64ImageToUrl(response.avatar);
+            } else {
+                avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.name;
+            }
+            $('#userBoxAvatar').attr('src', avatar);
             $('#userBoxName').html(response.name);
             $('#userBoxUsername').html('@'+response.user);
             $('#userBoxAvatarLink').attr('href', 'profile?u='+response.user);
@@ -38,7 +45,7 @@ auth(function(id) {
             $('#feed').show();
     
             $('#postBoxUser').html('@'+response.user);
-            $('#postBoxAvatar').attr('src', response.avatar);
+            $('#postBoxAvatar').attr('src', avatar);
         }
     });
 }, function() {

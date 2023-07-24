@@ -1,3 +1,7 @@
+import {
+    b64ImageToUrl
+} from "../utils.js";
+
 var page = window.location.pathname;
 if (!page.includes("explore")) {
     $.ajax({
@@ -39,10 +43,20 @@ $.ajax({
 
             for (let i = 0; i < response.users.length; i++) {
                 const user = response.users[i];
+
+                var avatar = null;
+                if (user.avatar != null) {
+                    avatar = b64ImageToUrl(user.avatar);
+                } else {
+                    avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + user.name;
+                }
+
+                console.log(user);
+
                 $("#whoFollow").append(`
                     <a href="profile?u=${user.user}" class="list-group-item px-2">
                         <div class="d-inline-block position-relative">
-                            <img src="${user.avatar}" width="40" height="40" class="rounded-circle" alt="">
+                            <img src="${avatar}" width="40" height="40" class="rounded-circle" alt="">
                         </div>
                         ${user.name} <small class="text-muted">@${user.user}</small>
                     </a>

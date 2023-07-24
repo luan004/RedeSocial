@@ -4,7 +4,8 @@ import {
     deletePost,
     toggleLikePost,
     toggleFollow,
-    calcularTempoDecorrido
+    calcularTempoDecorrido,
+    b64ImageToUrl
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -31,13 +32,21 @@ $.ajax({
     success: function(response) {
         if (response.success == true) {
             /* Usuário encontrado */
+            var avatar = null;
+            if (response.avatar != null) {
+                avatar = b64ImageToUrl(response.avatar);
+            } else {
+                avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.name;
+            }
             $("#username").html(user);
             $("#name").html(response.name);
-            $("#avatar").attr("src", response.avatar);
+            $("#avatar").attr("src", avatar);
             $("#banner").attr("src", response.banner);
             if (response.dt != null) {
                 $('#createdAt').html('Conta criada há ' + calcularTempoDecorrido(response.dt));
             }
+
+            console.log(response.avatar);
 
             console.log(response.aboutme);
             if (response.aboutme != null && response.aboutme != '') {

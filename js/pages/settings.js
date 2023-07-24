@@ -122,6 +122,7 @@ $('#avatarSelectorInput').change(function() {
     const file = $(this)[0].files[0];
     if (file.type.includes('image')) {
         $('#editAvatar').attr('src', URL.createObjectURL(file));
+        $('#avatarSelector').val(1);
         changes();
     }
 });
@@ -180,6 +181,29 @@ $('#btnSaveProfile').click(function() {
     const aboutme = $('#editAboutMe').val();
     var color = $('#editProfileCard').val();
 
+    if ($('#avatarSelector').val() == 1) {
+        var avatar = $('#avatarSelectorInput')[0].files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(avatar);
+        reader.onload = function () {
+            avatar = reader.result;          
+            // Enviar requisição AJAX somente após a leitura completa da imagem
+            $.ajax({
+                type: "POST",
+                url: "php/api/updateAvatarOrBanner.php",
+                dataType: "json",
+                data: {
+                    type: 'avatar',
+                    file: avatar,
+                    token: token
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+    }
+
     $('#editName').removeClass('is-invalid');
 
     if (name.length < 1 || name.length > 64) {
@@ -202,7 +226,7 @@ $('#btnSaveProfile').click(function() {
             },
             success: function(response) {
                 if (response.success == true) {
-                    window.location.reload();
+                    //window.location.reload();
                 }
             }
         });

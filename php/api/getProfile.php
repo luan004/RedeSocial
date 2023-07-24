@@ -1,5 +1,6 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../connection/Files.php');
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/PostDAO.php');
     require_once('../dao/UserDAO.php');
@@ -29,6 +30,12 @@
     }
 
     if ($user) {
+        // get avatar
+        $avatar = $user->getAvatar();
+        if ($avatar != null) {
+            $files = new Files();
+            $avatar = $files->getB64Image($avatar);
+        }
         $response = array(
             'success' => true,
             'isme' => $user->getId() == $userId,
@@ -37,7 +44,7 @@
             'name' => $user->getName(),
             'user' => $user->getUser(),
             'aboutme' => $user->getAboutme(),
-            'avatar' => $user->getAvatar(),
+            'avatar' => $avatar,
             'banner' => $user->getBanner(),
             'dt' => $user->getDt(),
             'color' => $user->getColor()
