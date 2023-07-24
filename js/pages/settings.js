@@ -138,8 +138,16 @@ $('#avatarSelectorInput').change(function() {
     if (file.type.includes('image')) {
         $('#editAvatar').attr('src', URL.createObjectURL(file));
         $('#avatarSelector').val(1);
+        $('#avatarDelete').hide();
         changes();
     }
+});
+
+// Delete avatar
+$('#avatarDelete').click(function() {
+    $('#avatarDelete').val(1);
+    $('#editAvatar').attr('src', 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + $('#editName').val());
+    changes();
 });
 
 // Edit about me
@@ -217,7 +225,23 @@ $('#btnSaveProfile').click(function() {
                 }
             });
         }
+    } else {
+        if ($('#avatarDelete').val() == 1) {
+            $.ajax({
+                type: "POST",
+                url: "php/api/deleteAvatarOrBanner.php",
+                dataType: "json",
+                data: {
+                    type: 'avatar',
+                    token: token
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
     }
+    
 
     $('#editName').removeClass('is-invalid');
 

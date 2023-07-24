@@ -7,7 +7,6 @@
     require_once('../connection/Files.php');
 
     $type = 'avatar';
-    $file = $_POST['file']; // Imagem como string
     $token = $_POST['token'];
 
     $conn = new Conn();
@@ -16,16 +15,16 @@
 
     if ($sesstoken) {
         $files = new Files();
-        $imageName = ($file != null) ? $files->saveB64Image($file) : null;
 
         $userDAO = new UserDAO($conn);
         $user = $userDAO->getUserById($sesstoken->getUserId());
 
         if ($type == 'avatar') {
             $files->deleteImage($user->getAvatar());
-            $user->setAvatar($imageName);
+            $user->setAvatar(null);
         } else if ($type == 'banner') {
-            $user->setBanner($imageName);
+            $files->deleteImage($user->getBanner());
+            $user->setBanner(null);
         }
 
         $userDAO->update($user);
