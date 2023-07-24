@@ -36,6 +36,12 @@
             $files = new Files();
             $avatar = $files->getB64Image($avatar);
         }
+        // get banner
+        $banner = $user->getBanner();
+        if ($banner != null) {
+            $files = new Files();
+            $banner = $files->getB64Image($banner);
+        }
         $response = array(
             'success' => true,
             'isme' => $user->getId() == $userId,
@@ -45,7 +51,7 @@
             'user' => $user->getUser(),
             'aboutme' => $user->getAboutme(),
             'avatar' => $avatar,
-            'banner' => $user->getBanner(),
+            'banner' => $banner,
             'dt' => $user->getDt(),
             'color' => $user->getColor()
         );

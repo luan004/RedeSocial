@@ -38,24 +38,26 @@ $.ajax({
             } else {
                 avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.name;
             }
+
+            var banner = null;
+            if (response.banner != null) {
+                banner = b64ImageToUrl(response.banner);
+            } else {
+                banner = 'https://placehold.it/512x128';
+            }
             $("#username").html(user);
             $("#name").html(response.name);
             $("#avatar").attr("src", avatar);
-            $("#banner").attr("src", response.banner);
+            $("#banner").attr("src", banner);
             if (response.dt != null) {
                 $('#createdAt').html('Conta criada há ' + calcularTempoDecorrido(response.dt));
             }
-
-            console.log(response.avatar);
-
-            console.log(response.aboutme);
             if (response.aboutme != null && response.aboutme != '') {
                 $('#aboutMe').show();
                 $('#aboutMeText').html(response.aboutme);
             }
 
             const c = response.color;
-            console.log(c);
             if 
             (
                 c == 'primary' ||

@@ -38,11 +38,18 @@
         foreach ($posts as $post) {
             $user = $userDAO->getUserById($post->getUserId());
 
+            // get avatar
+            $avatar = $user->getAvatar();
+            if ($avatar != null) {
+                $files = new Files();
+                $avatar = $files->getB64Image($avatar);
+            }
+
             // get user
             $userAr = array(
                 'name' => $user->getName(),
                 'user' => $user->getUser(),
-                'avatar' => $user->getAvatar()
+                'avatar' => $avatar
             );
 
             //get likes
@@ -178,12 +185,18 @@
         $postsAr = array();
         foreach ($posts as $post) {
             $user = $userDAO->getUserById($post->getUserId());
+            // get avatar
+            $avatar = $user->getAvatar();
+            if ($avatar != null) {
+                $files = new Files();
+                $avatar = $files->getB64Image($avatar);
+            }
 
             // get user
             $userAr = array(
                 'name' => $user->getName(),
                 'user' => $user->getUser(),
-                'avatar' => $user->getAvatar()
+                'avatar' => $avatar
             );
 
             //get likes

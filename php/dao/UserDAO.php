@@ -58,12 +58,12 @@
         
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                if ($row['avatar'] == null) {
+/*                 if ($row['avatar'] == null) {
                     $row['avatar'] = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name='.$row['user'];
                 }
                 if ($row['banner'] == null) {
                     $row['banner'] = 'https://placehold.it/1500x500';
-                }
+                } */
                 $user = new User(
                     $row['id'],
                     $row['name'],

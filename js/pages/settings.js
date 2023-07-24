@@ -1,5 +1,6 @@
 import {
-    getCookie
+    getCookie,
+    b64ImageToUrl
 } from "../utils.js";
 
 import {
@@ -25,8 +26,22 @@ auth(function(id) {
             val: id
         },
         success: function(response) {
-            $('#editAvatar').attr('src', response.avatar);
-            $('#editBanner').attr('src', response.banner);
+            var avatar = null;
+            if (response.avatar != null) {
+                avatar = b64ImageToUrl(response.avatar);
+            } else {
+                avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.name;
+            }
+
+            var banner = null;
+            if (response.banner != null) {
+                banner = b64ImageToUrl(response.banner);
+            } else {
+                banner = 'https://placehold.it/512x128';
+            }
+
+            $('#editAvatar').attr('src', avatar);
+            $('#editBanner').attr('src', banner);
             $('#editAboutMe').val(response.aboutme);
             
             if (response.color != null && response.color != 'default') {
@@ -226,7 +241,7 @@ $('#btnSaveProfile').click(function() {
             },
             success: function(response) {
                 if (response.success == true) {
-                    //window.location.reload();
+                    window.location.reload();
                 }
             }
         });

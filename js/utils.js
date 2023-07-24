@@ -92,11 +92,17 @@ export function b64ImageToUrl(b64Image) {
 }
 
 export function genPostHTML(post) {
+    var avatar = null;
+    if (post.user.avatar != null) {
+        avatar = b64ImageToUrl(post.user.avatar);
+    } else {
+        avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + post.user.name;
+    }
     var postStr = `
         <div class="card mb-4 shadow">
             <div class="card-header">
                 <a class="d-inline-flex align-items-center" style="text-decoration: none; color: inherit" href="profile?u=${post.user.user}">
-                    <img src="${post.user.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
+                    <img src="${avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
                     <span class="align-middle h6 mb-1 me-2">${post.user.name}</span>
                     <small class="align-middle">@${post.user.user}</small>
                 </a>

@@ -51,8 +51,6 @@ $.ajax({
                     avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + user.name;
                 }
 
-                console.log(user);
-
                 $("#whoFollow").append(`
                     <a href="profile?u=${user.user}" class="list-group-item px-2">
                         <div class="d-inline-block position-relative">
