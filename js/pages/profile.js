@@ -31,12 +31,18 @@ $.ajax({
     success: function(response) {
         if (response.success == true) {
             /* Usuário encontrado */
-            $("#username").html('@'+user);
+            $("#username").html(user);
             $("#name").html(response.name);
             $("#avatar").attr("src", response.avatar);
             $("#banner").attr("src", response.banner);
             if (response.dt != null) {
-                $('#createdAt').html('Membro ' + calcularTempoDecorrido(response.dt));
+                $('#createdAt').html('Conta criada há ' + calcularTempoDecorrido(response.dt));
+            }
+
+            console.log(response.aboutme);
+            if (response.aboutme != null && response.aboutme != '') {
+                $('#aboutMe').show();
+                $('#aboutMeText').html(response.aboutme);
             }
 
             const c = response.color;

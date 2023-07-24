@@ -30,6 +30,7 @@
             'id' => $user->getId(),
             'name' => $user->getName(),
             'user' => $user->getUser(),
+            'aboutme' => $user->getAboutMe(),
             'color' => $user->getColor(),
             'avatar' => $user->getAvatar()
         );

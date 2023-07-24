@@ -10,12 +10,13 @@
             $name = $userObj->getName();
             $user = $userObj->getUser();
             $pass = $userObj->getPass();
+            $aboutme = $userObj->getAboutMe();
             $color = $userObj->getColor();
             $avatar = $userObj->getAvatar();
             $banner = $userObj->getBanner();
         
-            $stmt = $this->conn->prepare("INSERT INTO users (name, user, pass, color, avatar, banner, dt) VALUES (?, ?, ?, ?, ?, ?, NOW())");
-            $stmt->bind_param("ssssss", $name, $user, $pass, $color, $avatar, $banner);
+            $stmt = $this->conn->prepare("INSERT INTO users (name, user, pass, aboutme, color, avatar, banner, dt) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+            $stmt->bind_param("sssssss", $name, $user, $pass, $aboutme, $color, $avatar, $banner);
             $stmt->execute();
 
             $id = $stmt->insert_id;
@@ -29,12 +30,13 @@
             $name = $user->getName();
             $username = $user->getUser();
             $password = $user->getPass();
+            $aboutme = $user->getAboutMe();
             $color = $user->getColor();
             $avatar = $user->getAvatar();
             $banner = $user->getBanner();
 
-            $stmt = $this->conn->prepare("UPDATE users SET name=?, user=?, pass=?, color=?, avatar=?, banner=? WHERE id=?");
-            $stmt->bind_param("ssssssi", $name, $username, $password, $color, $avatar, $banner, $id);
+            $stmt = $this->conn->prepare("UPDATE users SET name=?, user=?, pass=?, aboutme=?, color=?, avatar=?, banner=? WHERE id=?");
+            $stmt->bind_param("sssssssi", $name, $username, $password, $aboutme, $color, $avatar, $banner, $id);
             $stmt->execute();
             $stmt->close();
         }
@@ -67,6 +69,7 @@
                     $row['name'],
                     $row['user'],
                     $row['pass'],
+                    $row['aboutme'],
                     $row['color'],
                     $row['avatar'],
                     $row['banner'],
@@ -97,6 +100,7 @@
                     $row['name'],
                     $row['user'],
                     $row['pass'],
+                    $row['aboutme'],
                     $row['color'],
                     $row['avatar'],
                     $row['banner'],
@@ -121,6 +125,7 @@
                         null,
                         $row['name'],
                         $row['user'],
+                        null,
                         null,
                         null,
                         $row['avatar'],

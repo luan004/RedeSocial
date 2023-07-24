@@ -27,6 +27,7 @@ auth(function(id) {
         success: function(response) {
             $('#editAvatar').attr('src', response.avatar);
             $('#editBanner').attr('src', response.banner);
+            $('#editAboutMe').val(response.aboutme);
             
             if (response.color != null && response.color != 'default') {
                 $("#editProfileCard").addClass('bg-' + response.color + '-subtle');

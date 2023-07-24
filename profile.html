@@ -37,9 +37,8 @@
                     </div>
                 </div>
                 <div class="card-body mt-2">
-                    <h4 id="name"></h4>
                     <div class="d-flex">
-                        <small class="text-body-secondary me-auto" id="username"></small>
+                        <h4 class="me-auto m-0" id="name"></h4>
                         <button id="follow" class="btn btn-outline-primary btn-sm" style="display: none;">
                             <i class="fa fa-user-plus"></i>
                             Seguir
@@ -49,7 +48,28 @@
                             Editar Perfil
                         </a>
                     </div>
-                    <small id="createdAt" class="text-body-secondary"></small>
+
+                    <!-- user -->
+                    <small class="text-body-secondary d-block py-2">
+                        <i class="fa fa-at"></i>
+                        <span id="username">adas</span>
+                    </small>
+
+                    <!-- about me fieldset -->
+                    <fieldset id="aboutMe" class="border border-1 rounded p-2" style="display: none;">
+                        <legend class="float-none px-2 w-auto h6">
+                            Sobre mim
+                        </legend>
+                        <small id="aboutMeText" class="p-0 p-0">x</small>
+                    </fieldset>
+
+                    <!-- Created at -->
+                    <div class="d-flex">
+                        <small class="text-body-secondary d-block py-2 me-auto">
+                            <i class="fa fa-clock"></i>
+                            <span id="createdAt"></span>
+                        </small>
+                    </div>
                 </div>
             </div>
 

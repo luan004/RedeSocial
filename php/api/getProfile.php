@@ -36,6 +36,7 @@
             'id' => $user->getId(),
             'name' => $user->getName(),
             'user' => $user->getUser(),
+            'aboutme' => $user->getAboutme(),
             'avatar' => $user->getAvatar(),
             'banner' => $user->getBanner(),
             'dt' => $user->getDt(),
