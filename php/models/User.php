@@ -5,17 +5,19 @@
         private $name;
         private $user;
         private $pass;
+        private $aboutme;
         private $color;
         private $avatar;
         private $banner;
         private $dt;
 
         /* CONSTRUTOR */
-        public function __construct($id, $name, $user, $pass, $color, $avatar, $banner, $dt) {
+        public function __construct($id, $name, $user, $pass, $aboutme, $color, $avatar, $banner, $dt) {
             $this->id = $id;
             $this->name = $name;
             $this->user = $user;
             $this->pass = $pass;
+            $this->aboutme = $aboutme;
             $this->color = $color;
             $this->avatar = $avatar;
             $this->banner = $banner;
@@ -34,6 +36,9 @@
         }
         public function getPass() {
             return $this->pass;
+        }
+        public function getAboutMe() {
+            return $this->aboutme;
         }
         public function getColor() {
             return $this->color;
@@ -60,6 +65,9 @@
         }
         public function setPass($pass) {
             $this->pass = $pass;
+        }
+        public function setAboutMe($aboutme) {
+            $this->aboutme = $aboutme;
         }
         public function setColor($color) {
             $this->color = $color;
