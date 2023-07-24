@@ -125,6 +125,28 @@ $('#avatarSelectorInput').change(function() {
     }
 });
 
+// Edit about me
+$('#editAboutMe').keyup(function() {
+    const text = $(this).val();
+    const count = $('#charCount');
+    const parent = $('#charCountParent')
+
+    count.html(text.length);
+
+
+    if (text.length > 150) {
+        parent.removeClass('text-bg-secondary');
+        parent.addClass('text-bg-danger');
+        $('#postText').addClass('is-invalid');
+    } else {
+        parent.addClass('text-bg-secondary');
+        parent.removeClass('text-bg-danger');
+        $('#postText').removeClass('is-invalid');
+    }
+
+    changes();
+});
+
 // Edit profile color
 $(document).on('click', '.cor', function() {
     const cor = $(this).attr('value');
@@ -148,22 +170,16 @@ $('#editName').keyup(function() {
     changes();
 });
 
-// Edit profile user
-$('#editUser').keyup(function() {
-    changes();
-});
-
 function changes() {
     $('#btnSaveProfile').slideDown("fast");
 }
 
 $('#btnSaveProfile').click(function() {
     const name = $('#editName').val();
-    const user = $('#editUser').val();
+    const aboutme = $('#editAboutMe').val();
     var color = $('#editProfileCard').val();
 
     $('#editName').removeClass('is-invalid');
-    $('#editUser').removeClass('is-invalid');
 
     if (name.length < 1 || name.length > 64) {
         //invalid name
@@ -171,15 +187,8 @@ $('#btnSaveProfile').click(function() {
         $('#nameinv').show();
     }
 
-    if (user.length < 4 || user.length > 32) {
-        //invalid user
-        $('#editUser').addClass('is-invalid');
-        $('#userinv').show();
-    }
-
-
     // ALTERAÇÃO DE NOME, USER E COR
-    if (user.length >= 4 && user.length <= 32 && name.length >= 1 && name.length <= 64) {
+    if (name.length >= 1 && name.length <= 64 && aboutme.length <= 150) {
         $.ajax({
             type: "POST",
             url: "php/api/updateUser.php",
@@ -187,7 +196,7 @@ $('#btnSaveProfile').click(function() {
             data: {
                 token: token,
                 name: name,
-                user: user,
+                aboutme: aboutme,
                 color: color
             },
             success: function(response) {

@@ -20,9 +20,9 @@
         if (isset($_POST['name'])) {
             $name = $_POST['name'];
         }
-        $userStr = null;
-        if (isset($_POST['user'])) {
-            $userStr = $_POST['user'];
+        $aboutme = null;
+        if (isset($_POST['aboutme'])) {
+            $aboutme = $_POST['aboutme'];
         }
         $color = null;
         if (isset($_POST['color'])) {
@@ -31,7 +31,7 @@
 
         /* changes */
         $changedName = false;
-        $changedUser = false;
+        $changedAboutme = false;
         $changedColor = false;
 
         /* Update name */
@@ -40,10 +40,10 @@
             $changedName = true;
         }
 
-        /* Update user */
-        if ($userStr && $userStr != $user->getUser() && strlen($userStr) <= 32 && strlen($userStr) >= 4 && preg_match('/^[a-zA-Z0-9_]+$/', $userStr)) {
-            $user->setUser($userStr);
-            $changedUser = true;
+        /* Update about me */
+        if ($aboutme && $aboutme != $user->getAboutMe() && strlen($aboutme) <= 150) {
+            $user->setAboutMe($aboutme);
+            $changedAboutme = true;
         }
 
         /* Update color */
@@ -58,7 +58,7 @@
             'success' => true,
             'changes' => array(
                 'name' => $changedName,
-                'user' => $changedUser,
+                'aboutme' => $changedAboutme,
                 'color' => $changedColor
             )
         );
