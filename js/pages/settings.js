@@ -146,7 +146,7 @@ $('#avatarSelectorInput').change(function() {
 // Delete avatar
 $('#avatarDelete').click(function() {
     $('#avatarDelete').val(1);
-    $('#editAvatar').attr('src', 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + $('#editName').val());
+    $('#editAvatar').attr('src', 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + $('#editUser').val());
     changes();
 });
 
