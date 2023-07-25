@@ -272,6 +272,44 @@ $('#btnSaveProfile').click(function() {
     }
     
 
+    if ($('#bannerSelector').val() == 1) {
+        var banner = $('#bannerSelectorInput')[0].files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(banner);
+        reader.onload = function () {
+            banner = reader.result;          
+            // Enviar requisição AJAX somente após a leitura completa da imagem
+            $.ajax({
+                type: "POST",
+                url: "php/api/updateAvatarOrBanner.php",
+                dataType: "json",
+                data: {
+                    type: 'banner',
+                    file: banner,
+                    token: token
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+    } else {
+        if ($('#bannerDelete').val() == 1) {
+            $.ajax({
+                type: "POST",
+                url: "php/api/deleteAvatarOrBanner.php",
+                dataType: "json",
+                data: {
+                    type: 'banner',
+                    token: token
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+    }
+
     $('#editName').removeClass('is-invalid');
 
     if (name.length < 1 || name.length > 64) {

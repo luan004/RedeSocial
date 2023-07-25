@@ -9,11 +9,11 @@
             }
         }
 
-        public function saveB64Image($fileString) {
+        public function saveB64Image($fileString, $type) {
             // Decodifique a string da imagem, remova o cabeçalho de codificação e salve-a em um arquivo
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileString));
     
-            $newName = uniqid() . '.png'; // Use a extensão adequada aqui
+            $newName = $type . '-' . uniqid() . '.png'; // Use a extensão adequada aqui
             $dest = $this->path . $newName;
             file_put_contents($dest, $imageData);
     

@@ -6,7 +6,7 @@
     require_once('../models/User.php');
     require_once('../connection/Files.php');
 
-    $type = 'avatar';
+    $type = $_POST['type'];
     $file = $_POST['file']; // Imagem como string
     $token = $_POST['token'];
 
@@ -14,9 +14,9 @@
     $sesstokenDAO = new SesstokenDAO($conn);
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
 
-    if ($sesstoken) {
+    if ($sesstoken && ($type == 'avatar' || $type == 'banner')) {
         $files = new Files();
-        $imageName = ($file != null) ? $files->saveB64Image($file) : null;
+        $imageName = ($file != null) ? $files->saveB64Image($file, $type) : null;
 
         $userDAO = new UserDAO($conn);
         $user = $userDAO->getUserById($sesstoken->getUserId());
@@ -25,7 +25,16 @@
             $files->deleteImage($user->getAvatar());
             $user->setAvatar($imageName);
         } else if ($type == 'banner') {
+            $files->deleteImage($user->getBanner());
             $user->setBanner($imageName);
+        } else {
+            $response = array(
+                'success' => false
+            );
+            header('Content-Type: application/json');
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            $conn->close();
+            exit;
         }
 
         $userDAO->update($user);

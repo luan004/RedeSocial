@@ -6,7 +6,7 @@
     require_once('../models/User.php');
     require_once('../connection/Files.php');
 
-    $type = 'avatar';
+    $type = $_POST['type'];
     $token = $_POST['token'];
 
     $conn = new Conn();
