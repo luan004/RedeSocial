@@ -13,6 +13,8 @@ const token = getCookie('token');
 if (!token) {
     window.location.href = "explore";
 }
+
+/* LOAD USER INFO */
 auth(function(id) {
     $('#loginBox').hide();
     $('#userBox').show();
@@ -57,6 +59,7 @@ auth(function(id) {
     //
 }, token);
 
+/* CHANGE PASS */
 $('#changePassForm').submit(function(e) {
     e.preventDefault();
 
@@ -129,24 +132,49 @@ $('#changePassForm').submit(function(e) {
     }
 });
 
-// Edit profile avatar
+// CHANGE AVATAR
 $('#avatarSelector').click(function() {
     $("#avatarSelectorInput").click();
 });
 $('#avatarSelectorInput').change(function() {
     const file = $(this)[0].files[0];
-    if (file.type.includes('image')) {
+    if (file.type.includes('image') && file.size <= 2097152) {
         $('#editAvatar').attr('src', URL.createObjectURL(file));
         $('#avatarSelector').val(1);
         $('#avatarDelete').hide();
         changes();
+    } else {
+        $("#toast").toast("show");
     }
 });
 
-// Delete avatar
+// DELETE AVATAR
 $('#avatarDelete').click(function() {
     $('#avatarDelete').val(1);
     $('#editAvatar').attr('src', 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + $('#editUser').val());
+    changes();
+});
+
+// CHANGE BANNER
+$('#bannerSelector').click(function() {
+    $("#bannerSelectorInput").click();
+});
+$('#bannerSelectorInput').change(function() {
+    const file = $(this)[0].files[0];
+    if (file.type.includes('image') && file.size <= 2097152) {
+        $('#editBanner').attr('src', URL.createObjectURL(file));
+        $('#bannerSelector').val(1);
+        $('#bannerDelete').hide();
+        changes();
+    } else {
+        $("#toast").toast("show");
+    }
+});
+
+// DELETE BANNER
+$('#bannerDelete').click(function() {
+    $('#bannerDelete').val(1);
+    $('#editBanner').attr('src', 'https://placehold.it/512x128');
     changes();
 });
 
@@ -199,6 +227,7 @@ function changes() {
     $('#btnSaveProfile').slideDown("fast");
 }
 
+/* SAVE CHANGES */
 $('#btnSaveProfile').click(function() {
     const name = $('#editName').val();
     const aboutme = $('#editAboutMe').val();

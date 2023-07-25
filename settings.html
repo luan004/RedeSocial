@@ -23,6 +23,23 @@
     </script>
 </head>
 <body>
+
+    <!-- TOAST -->
+    <div class="toast-container start-50 translate-middle-x" style="position: absolute;top:30px">
+        <div class="toast bg-danger-subtle" id="toast">
+            <div class="toast-header bg-danger-subtle">
+                <strong class="me-auto">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    Arquivo inválido
+                </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                O arquivo deve ter no máximo 2MB e deve ser uma imagem do tipo png ou jpg.
+            </div>
+        </div>
+    </div>
+
     <div class="row mx-4 justify-content-center">
         <!-- NAVEGAÇÃO HORIZONTAL -->
         <div id="leftSideBar" class="col-12 col-md-3"></div>
@@ -36,11 +53,22 @@
                 </h6>
                 <div class="d-flex position-relative">
                     <!-- BANNER IMG -->
-                    <img style="object-fit:cover;height:128px;" id="editBanner" src="https://placehold.co/512x128" class="card-img-top rounded" alt="...">
+                    <div class="d-flex w-100">
+                        <img id="editBanner" style="object-fit:cover;height:128px;" class="card-img-top rounded" alt="...">
+                        <button id="bannerSelector" style="top:0;right:0" class="btn btn-sm border btn-secondary position-absolute m-2 shadow-sm">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button id="bannerDelete" style="bottom:0;right:0" class="btn btn-sm border btn-secondary position-absolute m-2 shadow-sm">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <!-- INPUT AVATAR IMAGE FILE -->
+                        <input type="file" id="bannerSelectorInput" style="display: none;" accept=".png,.jpg">
+                    </div>
+                    
                     <div style="width:128px;height:128px;bottom:-20px;left:20px " class="position-absolute border rounded">
                         <!-- AVATAR IMG -->
                         <div class="d-flex">
-                            <img id="editAvatar" style="width:128px;height:128px;" src="https://placehold.co/128x128" class="card-img-top rounded" rounded alt="...">
+                            <img id="editAvatar" style="width:128px;height:128px;" class="card-img-top rounded" rounded alt="...">
                             <button id="avatarSelector" style="top:0;right:0" class="btn btn-sm border btn-secondary position-absolute m-2 shadow-sm">
                                 <i class="fa fa-pencil"></i>
                             </button>
