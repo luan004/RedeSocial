@@ -109,12 +109,10 @@ $.ajax({
             });
         } else {
             /* Usuário não encontrado */
-            $("#username").html();
-            $("#name").html('Esse usuário não existe ou foi excluído.');
             $("#avatar").attr("src", "https://ui-avatars.com/api/background=0D8ABC&color=fff?name=@");
             $("#banner").attr("src", "./resources/images/banner.jpg");
-            $('#editProfile').hide();
-            $("#follow").hide();
+            $('#userInfoBoxProfile').hide();
+            $("#unknowUser").show();
         }
     }
 });

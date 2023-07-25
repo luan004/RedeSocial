@@ -334,7 +334,7 @@ $('#btnSaveProfile').click(function() {
             },
             success: function(response) {
                 if (response.success == true) {
-                    window.location.reload();
+                    window.location.href = "profile?u=" + $('#editUser').val();
                 }
             }
         });
