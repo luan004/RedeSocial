@@ -31,7 +31,7 @@
             $userDAO = new UserDAO($conn);
             
             // Cria um novo usuário
-            $userObj = new User(null, $name, $user, $pass, 'default', null, null, null);
+            $userObj = new User(null, $name, $user, $pass, null, null, null, null, null);
             $userDAO->createUser($userObj);
 
             $response = array(

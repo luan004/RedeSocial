@@ -31,7 +31,7 @@ auth(function(id) {
         success: function(response) {
             var avatar = null;
             if (response.avatar != null) {
-                avatar = b64ImageToUrl(response.user);
+                avatar = b64ImageToUrl(response.avatar);
             } else {
                 avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.user;
             }
@@ -86,44 +86,47 @@ $('#registerForm').submit(function() {
     const pass1 = $('#registerPass1');
     const pass2 = $('#registerPass2');
 
-    $.ajax({
-        type: "POST",
-        url: "php/api/register.php",
-        dataType: "json",
-        data: {
-            name: name.val(),
-            user: user.val(),
-            pass: pass1.val()
-        },
-        success: function(response) {
-            if (response.register == true) {
-                $.ajax({
-                    type: "POST",
-                    url: "php/api/login.php",
-                    dataType: "json",
-                    data: {
-                        user: user.val(),
-                        pass: pass1.val()
-                    },
-                    success: function(response) {
-                        if (response.auth == true) {
-                            setCookie('token', response.token);
-                            //document.cookie = "token="+response.token + ";expires=" + cookieExpire() + ";path=/";
-                            window.location.reload();
+    $('#nameInvalid').hide();
+    $('#userInvalid').hide();
+    $('#passInvalid').hide();
+    $('#passIsNotTheSame').hide();
+    $('#userAlreadyExists').hide();
+    
+    if (pass1.val() == pass2.val()) {
+        $.ajax({
+            type: "POST",
+            url: "php/api/register.php",
+            dataType: "json",
+            data: {
+                name: name.val(),
+                user: user.val(),
+                pass: pass1.val()
+            },
+            success: function(response) {
+                if (response.register == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: "php/api/login.php",
+                        dataType: "json",
+                        data: {
+                            user: user.val(),
+                            pass: pass1.val()
+                        },
+                        success: function(response) {
+                            if (response.auth == true) {
+                                setCookie('token', response.token);
+                                window.location.href = 'explore';
+                            }
                         }
-                    }
-                });
-            } else {
-                $('#nameInvalid').hide();
-                $('#userInvalid').hide();
-                $('#passInvalid').hide();
-                $('#passIsNotTheSame').hide();
-                $('#userAlreadyExists').hide();
-
-                $('#'+response.error).show();
+                    });
+                } else {
+                    $('#'+response.error).show();
+                }
             }
-        }
-    });
+        });
+    } else {
+        $('#passIsNotTheSame').show();
+    }
     return false;
 });
 

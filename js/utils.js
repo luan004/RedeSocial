@@ -96,7 +96,7 @@ export function genPostHTML(post) {
     if (post.user.avatar != null) {
         avatar = b64ImageToUrl(post.user.avatar);
     } else {
-        avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + post.user.name;
+        avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + post.user.user;
     }
     var postStr = `
         <div class="card mb-4 shadow">

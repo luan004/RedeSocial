@@ -30,7 +30,7 @@ auth(function(id) {
         success: function(response) {
             var avatar = null;
             if (response.avatar != null) {
-                avatar = b64ImageToUrl(response.user);
+                avatar = b64ImageToUrl(response.avatar);
             } else {
                 avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.user;
             }
@@ -41,6 +41,8 @@ auth(function(id) {
             } else {
                 banner = 'https://placehold.it/512x128';
             }
+
+            console.log(response);
 
             $('#editAvatar').attr('src', avatar);
             $('#editBanner').attr('src', banner);
