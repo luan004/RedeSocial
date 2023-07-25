@@ -23,6 +23,9 @@
         $aboutme = null;
         if (isset($_POST['aboutme'])) {
             $aboutme = $_POST['aboutme'];
+            if ($aboutme == '') {
+                $aboutme = null;
+            }
         }
         $color = null;
         if (isset($_POST['color'])) {
