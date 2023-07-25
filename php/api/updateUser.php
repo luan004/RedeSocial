@@ -41,7 +41,7 @@
         }
 
         /* Update about me */
-        if ($aboutme && $aboutme != $user->getAboutMe() && strlen($aboutme) <= 150) {
+        if ($aboutme != $user->getAboutMe() && strlen($aboutme) <= 150) {
             $user->setAboutMe($aboutme);
             $changedAboutme = true;
         }
