@@ -46,9 +46,9 @@ $.ajax({
 
                 var avatar = null;
                 if (user.avatar != null) {
-                    avatar = b64ImageToUrl(user.avatar);
+                    avatar = b64ImageToUrl(user.user);
                 } else {
-                    avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + user.name;
+                    avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + user.user;
                 }
 
                 $("#whoFollow").append(`

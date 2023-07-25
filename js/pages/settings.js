@@ -30,9 +30,9 @@ auth(function(id) {
         success: function(response) {
             var avatar = null;
             if (response.avatar != null) {
-                avatar = b64ImageToUrl(response.avatar);
+                avatar = b64ImageToUrl(response.user);
             } else {
-                avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.name;
+                avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.user;
             }
 
             var banner = null;
