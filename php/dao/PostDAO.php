@@ -36,14 +36,7 @@
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("i", $id);
             $stmt->execute();
-
-            /* CHECK IF POST HAS IMAGE, IF TRUE, DELETE */
-            $image = $post->getImage();
-            if ($image) {
-                $files = new Files();
-                $files->deleteImage($image);
-            }
-
+            
             $sql = "DELETE FROM posts WHERE id = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("i", $id);

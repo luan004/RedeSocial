@@ -17,6 +17,14 @@
     $post = $postDAO->getPostById($postId);
 
     if ($sesstoken && $post && $sesstoken->getUserId() == $post->getUserId()) {
+
+        /* CHECK IF POST HAS IMAGE, IF TRUE, DELETE */
+        $image = $post->getImage();
+        if ($image) {
+            $files = new Files();
+            $files->deleteImage($image);
+        }
+        
         $postDAO->delete($post);
         $response = array(
             'success' => true
