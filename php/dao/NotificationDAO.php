@@ -35,7 +35,6 @@
                     $row['user_id'],
                     $row['author_id'],
                     $row['post_id'],
-                    $row['viewed'],
                     $row['dt']
                 );
             } else {
@@ -46,7 +45,7 @@
             return $notification;
         }
     
-        public function getLastNotificationsFromUser($limit, $userId) {
+        public function getNotificationsByUserId($userId, $limit) {
             $stmt = $this->conn->prepare("SELECT * FROM notifications WHERE user_id = ? ORDER BY dt DESC LIMIT ?");
             $stmt->bind_param("ii", $userId, $limit);
             $stmt->execute();
@@ -61,7 +60,6 @@
                         $row['user_id'],
                         $row['author_id'],
                         $row['post_id'],
-                        $row['viewed'],
                         $row['dt']
                     );
                     array_push($notifications, $notification);
