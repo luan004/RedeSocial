@@ -5,16 +5,14 @@
         private $useId;
         private $authorId;
         private $postId;
-        private $viewed;
         private $dt;
 
-        public function __construct($id, $type, $userId, $authorId, $postId, $viewed, $dt) {
+        public function __construct($id, $type, $userId, $authorId, $postId, $dt) {
             $this->id = $id;
             $this->type = $type;
             $this->userId = $userId;
             $this->authorId = $authorId;
             $this->postId = $postId;
-            $this->viewed = $viewed;
             $this->dt = $dt;
         }
 
@@ -33,9 +31,6 @@
         }
         public function getPostId() {
             return $this->postId;
-        }
-        public function getViewed() {
-            return $this->viewed;
         }
         public function getDt() {
             return $this->dt;
@@ -56,9 +51,6 @@
         }
         public function setPostId($postId) {
             $this->postId = $postId;
-        }
-        public function setViewed($viewed) {
-            $this->viewed = $viewed;
         }
         public function setDt($dt) {
             $this->dt = $dt;

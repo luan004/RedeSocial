@@ -2,8 +2,10 @@
     require_once('../connection/Conn.php');
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/UserDAO.php');
+    require_once('../dao/NotificationDAO.php');
     require_once('../dao/FollowDAO.php');
     require_once('../models/Sesstoken.php');
+    require_once('../models/Notification.php');
     require_once('../models/User.php');
     require_once('../models/Follow.php');
 
@@ -32,6 +34,19 @@
                 'success' => true,
                 'followed' => true
             );
+
+            //notification
+            $notificationDAO = new NotificationDAO($conn);
+            $notification = new Notification(
+                null,
+                1,
+                $user->getId(),
+                $sesstoken->getUserId(),
+                null,
+                null,
+                null
+            );
+            $notificationDAO->create($notification);
         } else {
             //delete follow
             $followDAO->delete($follow);
