@@ -1,8 +1,10 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../dao/NotificationDAO.php');
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/CommentDAO.php');
     require_once('../dao/PostDAO.php');
+    require_once('../models/Notification.php');
     require_once('../models/Sesstoken.php');
     require_once('../models/Comment.php');
     require_once('../models/Post.php');
@@ -32,6 +34,18 @@
         $response = array(
             'success' => true
         );
+
+        //notification
+        $notificationDAO = new NotificationDAO($conn);
+        $notification = new Notification(
+            null,
+            3,
+            $post->getUserId(),
+            $sesstoken->getUserId(),
+            $post->getId(),
+            null
+        );
+        $notificationDAO->create($notification);
     } else {
         $response = array(
             'success' => false

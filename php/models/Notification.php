@@ -7,6 +7,11 @@
         private $postId;
         private $dt;
 
+        // TYPES
+        // 1 - follow
+        // 2 - like
+        // 3 - comment
+
         public function __construct($id, $type, $userId, $authorId, $postId, $dt) {
             $this->id = $id;
             $this->type = $type;
