@@ -237,6 +237,8 @@ $('#btnSaveProfile').click(function() {
     const aboutme = $('#editAboutMe').val();
     var color = $('#editProfileCard').val();
 
+    console.log(aboutme);
+
     if ($('#avatarSelector').val() == 1) {
         var avatar = $('#avatarSelectorInput')[0].files[0];
         var reader = new FileReader();

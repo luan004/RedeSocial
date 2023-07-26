@@ -39,13 +39,13 @@
 
         /* Update name */
         if ($name && $name != $user->getName() && strlen($name) <= 64 && strlen($name) >= 1) {
-            $user->setName(filter_var($name, FILTER_SANITIZE_STRING));
+            $user->setName(strip_tags($name));
             $changedName = true;
         }
 
         /* Update about me */
         if ($aboutme != $user->getAboutMe() && strlen($aboutme) <= 150) {
-            $user->setAboutMe(filter_var($aboutme, FILTER_SANITIZE_STRING));
+            $user->setAboutMe(strip_tags($aboutme));
             $changedAboutme = true;
         }
 
