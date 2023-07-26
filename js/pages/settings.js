@@ -53,6 +53,8 @@ auth(function(id) {
                 $("#editProfileCard").val(response.color);
             }
 
+            console.log(response.aboutme);
+
             $('#editName').val(response.name);
             $('#editUser').val(response.user);
         }

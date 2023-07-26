@@ -29,6 +29,9 @@
         default:
             $conn = new Conn();
             $userDAO = new UserDAO($conn);
+
+            // sanitizacao
+            $name = filter_var($name, FILTER_SANITIZE_STRING);
             
             // Cria um novo usuário
             $userObj = new User(null, $name, $user, $pass, null, null, null, null, null);
