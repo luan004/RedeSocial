@@ -52,6 +52,19 @@ CREATE TABLE likes (
     PRIMARY KEY (user_id, post_id)
 );
 
+CREATE TABLE notifications (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    type int NOT NULL,
+    user_id int NOT NULL,
+    author_id int NULL,
+    post_id int NULL,
+    viewed bit NOT NULL,
+    dt datetime,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (author_id) REFERENCES users(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+);
+
 /* INSERT --------------------- */
 INSERT INTO `users`(
     `id`,
