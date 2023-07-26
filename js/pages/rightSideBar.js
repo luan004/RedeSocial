@@ -109,7 +109,7 @@ $.ajax({
                                 <img id="userBoxAvatar" width="42" height="42" src="${avatar}" class="rounded-circle me-2" alt="...">
                             </a>
                             <span class="d-grid">
-                                <span class="text-truncate">@${notification.author.user}${typeStr}</span>
+                                <span class="text-truncate"><a style="text-decoration:none" href="profile?u=${notification.author.user}">@${notification.author.user}</a>${typeStr}</span>
                                 <small id="userBoxUsername" class="text-body-secondary text-truncate">${calcularTempoDecorrido(notification.dt)}</small>
                             </span>
                         </div>
