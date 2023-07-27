@@ -57,6 +57,11 @@ $.ajax({
                 $('#aboutMeText').html(response.aboutme);
             }
 
+            console.log(response);
+
+            $('#followersCount').html(response.followersCount);
+            $('#followingCount').html(response.followingCount);
+
             const c = response.color;
             if 
             (
@@ -97,6 +102,7 @@ $.ajax({
                         const post = response.posts[i];
                         $("#profilePosts").append(genPostHTML(post));
                     }
+                    $('#postsCount').html(response.posts.length);
                     if (response.posts.length == 0) {
                         $("#profilePosts").append(`
                             <span class="text-center d-block">

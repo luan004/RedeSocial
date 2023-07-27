@@ -42,6 +42,13 @@
             $files = new Files();
             $banner = $files->getB64Image($banner);
         }
+
+        // get followersCount
+        $followersCount = $followDAO->getFollowersCount($user->getId());
+
+        // get followingCount
+        $followingCount = $followDAO->getFollowingCount($user->getId());
+
         $response = array(
             'success' => true,
             'isme' => $user->getId() == $userId,
@@ -49,6 +56,8 @@
             'id' => $user->getId(),
             'name' => $user->getName(),
             'user' => $user->getUser(),
+            'followersCount' => $followersCount,
+            'followingCount' => $followingCount,
             'aboutme' => $user->getAboutme(),
             'avatar' => $avatar,
             'banner' => $banner,
