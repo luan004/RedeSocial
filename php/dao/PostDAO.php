@@ -24,18 +24,6 @@
 
         public function delete(Post $post) {
             $id = $post->getId();
-
-            /* DELETE ALL LIKES */
-            $sql = "DELETE FROM likes WHERE post_id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-
-            /* DELETE ALL COMMENTS */
-            $sql = "DELETE FROM comments WHERE post_id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
             
             $sql = "DELETE FROM posts WHERE id = ?";
             $stmt = $this->conn->prepare($sql);
