@@ -41,7 +41,7 @@
             $stmt->close();
         }
     
-        public function deleteUser(User $user) {
+        public function delete(User $user) {
             $id = $user->getId();
     
             $stmt = $this->conn->prepare("DELETE FROM users WHERE id=?");

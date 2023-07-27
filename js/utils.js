@@ -1,3 +1,10 @@
+export function setCookie(name, value) {
+    var expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1); // Adiciona 1 ano à data atual
+    var expires = "expires=" + expirationDate.toUTCString();
+
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
 export function getCookie(name) {
     const cookies = document.cookie.split(';');
         for(let i = 0; i < cookies.length; i++) {
@@ -7,6 +14,9 @@ export function getCookie(name) {
             }
         }
     return null;
+}
+export function deleteCookie(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
 }
 export function realcarHashtags(texto) {
     // Expressão regular para encontrar hashtags
@@ -65,7 +75,6 @@ export function sidebarTabs() {
     document.getElementById(tab).classList.add('active');
     }
 }
-
 export function loadTheme() {
     const theme = getCookie('theme');
     if (theme == 'light') {
@@ -78,15 +87,6 @@ export function loadTheme() {
         $('#switchThemeText').html('Tema Claro');
     }
 }
-
-export function setCookie(name, value) {
-    var expirationDate = new Date();
-    expirationDate.setFullYear(expirationDate.getFullYear() + 1); // Adiciona 1 ano à data atual
-    var expires = "expires=" + expirationDate.toUTCString();
-
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
 export function b64ImageToUrl(b64Image) {
     return 'data:image/png;base64,' + b64Image;
 }

@@ -16,7 +16,7 @@
 
     if ($sesstoken && ($text != null || $image != null)) {
         $files = new Files();
-        $imageName = ($image != null) ? $files->saveB64Image($image, 'post') : null;
+        $imageName = ($image != null) ? $files->saveB64Image($image, 'post', $sesstoken->getUserId()) : null;
 
         $post = new Post(
             null,

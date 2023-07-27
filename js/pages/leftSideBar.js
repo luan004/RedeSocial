@@ -1,6 +1,7 @@
 import {
     getCookie,
     setCookie,
+    deleteCookie,
     sidebarTabs,
     loadTheme,
     b64ImageToUrl
@@ -49,7 +50,7 @@ auth(function(id) {
         }
     });
 }, function() {
-    //
+    deleteCookie('token');
 }, token);
 /* LOGIN ACCOUNT FORM */
 $('#loginForm').submit(function() {
