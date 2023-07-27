@@ -51,13 +51,21 @@
                     </div>
 
                     <!-- user -->
-                    <small class="text-body-secondary d-block py-2">
+                    <small class="text-body-secondary d-block py-1">
                         <i class="fa fa-at"></i>
                         <span id="username">adas</span>
                     </small>
 
+                    <!-- Created at -->
+                    <div class="d-flex">
+                        <small class="text-body-secondary d-block py-1 me-auto">
+                            <i class="fa fa-clock"></i>
+                            <span id="createdAt"></span>
+                        </small>
+                    </div>
+
                     <!-- about me fieldset -->
-                    <fieldset id="aboutMe" class="border border-1 rounded p-2" style="display: none;">
+                    <fieldset id="aboutMe" class="border border-1 rounded p-2 mb-2" style="display: none;">
                         <legend class="float-none px-2 w-auto h6">
                             Sobre mim
                         </legend>
@@ -66,12 +74,40 @@
                         </small>
                     </fieldset>
 
-                    <!-- Created at -->
+                    <!-- followers, following and posts -->
                     <div class="d-flex">
-                        <small class="text-body-secondary d-block py-2 me-auto">
-                            <i class="fa fa-clock"></i>
-                            <span id="createdAt"></span>
-                        </small>
+                        <div class="col btn btn-outline-secondary card me-2" data-bs-toggle="modal" data-bs-target="#followersModal">
+                            <h6 class="mb-0">10</h6>
+                            <small>Seguidores</small>
+                        </div>
+                        <div class="col btn btn-outline-secondary card me-2">
+                            <h6 class="mb-0">10</h6>
+                            <small>Seguindo</small>
+                        </div>
+                        <div class="col btn btn-outline-secondary card">
+                            <h6 class="mb-0">10</h6>
+                            <small>Publicações</small>
+                        </div>
+                    </div>
+
+                    <!-- followers modal -->
+                    <div class="modal fade" style="backdrop-filter: blur(5px);" id="followersModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-center w-100">
+                                        Seguidores
+                                    </h1>
+                                    <button type="button" class="btn-close end-0 m-2 position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-0">
+                                    <!-- list -->
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">An item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -79,6 +79,11 @@ if (!page.includes('notifications')) {
         },
         success: function(response) {
             if (response.success == true) {
+                if (response.notifications.length == 0) {
+                    $("#lastNotificationsList").append(`
+                        <small class="text-truncate text-center d-block">Nenhuma notificação</small>
+                    `);
+                }
                 response.notifications.forEach(notification => {
                     var notificationStr = '';
     
