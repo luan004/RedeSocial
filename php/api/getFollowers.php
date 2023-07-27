@@ -5,7 +5,7 @@
     require_once('../models/Follow.php');
     require_once('../models/User.php');
 
-    $username = 'admin';
+    $username = $_POST['user'];
 
     $conn = new Conn();
 
