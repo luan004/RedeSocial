@@ -171,37 +171,52 @@
                 <!-- MODAL DELETE ACCOUNT -->
                 <div class="modal fade" style="backdrop-filter: blur(5px);" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-danger text-center w-100" id="deleteAccountModalLabel">Cuidado!</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>
-                                Sua conta de usuário, seus dados, todos as suas publicações, comentários e curtidas serão apagados, seu nome de usuário (o seu @) ficará disponivel para que qualquer outra pessoa utilize.
-                            </p>
-                            <p>
-                                Essa ação é irreversível. Tem certeza que deseja apagar sua conta?
-                            </p>
-
-                            <div class="my-2">
-                                <label for="deletePass" class="form-label">Senha</label>
-                                <input type="password" id="deletePass" class="form-control" placeholder="***" name="deletePass">
-                                <div id="inv4" class="invalid-feedback">
-                                    Senha incorreta.
+                        <div class="modal-content">
+                            <form id="formDeleteMyAccount">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-danger text-center w-100" id="deleteAccountModalLabel">Cuidado!</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        Sua conta de usuário, seus dados, todos as suas publicações, comentários e curtidas serão apagados, seu nome de usuário (o seu @) ficará disponivel para que qualquer outra pessoa utilize.
+                                    </p>
+                                    <p>
+                                        Essa ação é irreversível. Tem certeza que deseja apagar sua conta?
+                                    </p>
+        
+                                    <div class="my-2">
+                                        <label for="deletePass" class="form-label">Senha</label>
+                                        <input type="password" id="deleteAccountPass" class="form-control" placeholder="" name="deletePass">
+                                        <div id="inv4" class="invalid-feedback">
+                                            Senha incorreta.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                    Apagar minha conta
+                                </button>
+                                </div>
+                            </form>
+                            <div id="deleteAccountSuccess" style="display: none;">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-danger text-center w-100">Sua conta foi apagada...</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        Sua conta, todos as suas publicações, comentários, curtidas e etc foram apagadas completamente do banco de dados.
+                                    </p>
+                                    <p>
+                                        Você será redirecionado em alguns segundos...
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Cancelar
-                        </button>
-                        <button type="button" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                            Apagar minha conta
-                        </button>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import {
     getCookie,
+    deleteCookie,
     b64ImageToUrl
 } from "../utils.js";
 
@@ -42,8 +43,6 @@ auth(function(id) {
                 banner = 'https://placehold.it/512x128';
             }
 
-            console.log(response);
-
             $('#editAvatar').attr('src', avatar);
             $('#editBanner').attr('src', banner);
             $('#editAboutMe').val(response.aboutme);
@@ -52,8 +51,6 @@ auth(function(id) {
                 $("#editProfileCard").addClass('bg-' + response.color + '-subtle');
                 $("#editProfileCard").val(response.color);
             }
-
-            console.log(response.aboutme);
 
             $('#editName').val(response.name);
             $('#editUser').val(response.user);
@@ -343,4 +340,39 @@ $('#btnSaveProfile').click(function() {
             }
         });
     }
+});
+
+$('#formDeleteMyAccount').submit(function(e) {
+    e.preventDefault();
+    const pass = $('#deleteAccountPass').val();
+
+    $('#deleteAccountPass').removeClass('is-invalid');
+    $('#inv4').hide();
+    
+    $.ajax({
+        type: "POST",
+        url: "php/api/deleteAccount.php",
+        dataType: "json",
+        data: {
+            token: token,
+            pass: pass
+        },
+        success: function(response) {
+            console.log(response);
+            if (response.success == true) {
+                $('#formDeleteMyAccount').hide();
+                $('#deleteAccountSuccess').show();
+                deleteCookie('token');
+
+                // redirecionar em 5 segundos
+                setTimeout(function() {
+                    window.location.href = "explore";
+                }, 5000);
+            } else {
+                $('#inv4').show();
+                $('#deleteAccountPass').addClass('is-invalid');
+                $('#deleteAccountPass').val('');
+            }
+        }
+    });
 });
