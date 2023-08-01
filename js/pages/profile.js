@@ -182,33 +182,34 @@ $("#inputSearchFollowers").on("keyup", function() {
 
 $.ajax({
     type: "POST",
-    url: "php/api/getFollowings.php",
+    url: "php/api/getFolloweds.php",
     dataType: "json",
     data: {
         user: user
     },
     success: function(response) {
+        console.log(response);
         if (response.success == true) {
-            if (response.followings.length == 0) {
-                $('#followingList').append(`
+            if (response.followeds.length == 0) {
+                $('#followedsList').append(`
                     <small class="text-truncate p-5 text-center d-block">Nenhum seguidor encontrado</small>    
                 `);
             }
-            response.followings.forEach(following => {
+            response.followeds.forEach(followed => {
                 var avatar = null;
-                if (following.avatar != null) {
-                    avatar = b64ImageToUrl(following.avatar);
+                if (followed.avatar != null) {
+                    avatar = b64ImageToUrl(followed.avatar);
                 } else {
-                    avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + following.user;
+                    avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + followed.user;
                 }
-                $("#followingList").append(`
+                $("#followedsList").append(`
                     <li class="list-group-item px-2">
-                        <a href="profile?u=${following.user}" class="d-flex align-items-center" style="text-decoration: none;">
+                        <a href="profile?u=${followed.user}" class="d-flex align-items-center" style="text-decoration: none;">
                             <div class="d-inline-block position-relative me-2">
                                 <img src="${avatar}" width="40" height="40" class="rounded-circle" alt="">
                             </div>
-                            ${following.name}
-                            <small class="ms-2 text-muted">@${following.user}</small>
+                            ${followed.name}
+                            <small class="ms-2 text-muted">@${followed.user}</small>
                         </a>
                     </li>
                 `);
@@ -216,9 +217,9 @@ $.ajax({
         }
     }
 });
-$("#inputSearchFollowing").on("keyup", function() {
+$("#inputSearchFolloweds").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#followingList li").filter(function() {
+    $("#followedsList li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
 });
