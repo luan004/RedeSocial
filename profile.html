@@ -80,7 +80,7 @@
                             <h6 id="followersCount" class="mb-0"></h6>
                             <small>Seguidores</small>
                         </div>
-                        <div class="col btn btn-outline-secondary card me-2">
+                        <div id="btnFollowing" class="col btn btn-outline-secondary card me-2" data-bs-toggle="modal" data-bs-target="#followingModal">
                             <h6 id="followingCount" class="mb-0"></h6>
                             <small>Seguindo</small>
                         </div>
@@ -95,9 +95,9 @@
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-center w-100">
-                                        x
-                                    </h1>
+                                    <h6 class="modal-title text-center w-100">
+                                        Seguidores
+                                    </h6>
                                     <button type="button" class="btn-close end-0 m-2 position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 
@@ -107,6 +107,29 @@
                                 <hr class="m-0">
 
                                 <ul class="list-group list-group-flush" id="followersList">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- following modal -->
+                    <div class="modal fade" style="backdrop-filter: blur(5px);" id="followingModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title text-center w-100">
+                                        Seguindo
+                                    </h6>
+                                    <button type="button" class="btn-close end-0 m-2 position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                
+                                <div class="modal-body p-3">
+                                    <input id="inputSearchFollowing" type="text" class="form-control p-2" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon1">
+                                </div>
+                                <hr class="m-0">
+
+                                <ul class="list-group list-group-flush" id="followingList">
 
                                 </ul>
                             </div>

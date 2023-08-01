@@ -92,5 +92,26 @@
 
             return $followers;
         }
+
+        public function getFolloweds($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM followers WHERE follower_id = ?");
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $followings = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $following = new Follow(
+                        $row['follower_id'],
+                        $row['followed_id']
+                    );
+                    $followings[] = $following;
+                }
+            }
+
+            return $followings;
+        }
     }
 ?>
