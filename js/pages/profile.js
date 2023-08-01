@@ -57,8 +57,6 @@ $.ajax({
                 $('#aboutMeText').html(response.aboutme);
             }
 
-            console.log(response);
-
             $('#followersCount').html(response.followersCount);
             $('#followingCount').html(response.followingCount);
 
@@ -135,4 +133,51 @@ $(document).on('click', '.btnPostLike', function() {
 
 $(document).on('click', '#follow', function() {
     toggleFollow(user, token);
+});
+
+$.ajax({
+    type: "POST",
+    url: "php/api/getFollowers.php",
+    dataType: "json",
+    data: {
+        user: user
+    },
+    success: function(response) {
+        if (response.success == true) {
+            if (response.followers.length == 0) {
+                $('#followersList').append(`
+                    <small class="text-truncate p-5 text-center d-block">Nenhum seguidor encontrado</small>    
+                `);
+            }
+            console.log(response);
+
+            response.followers.forEach(follower => {
+                var avatar = null;
+                if (follower.avatar != null) {
+                    avatar = b64ImageToUrl(follower.avatar);
+                } else {
+                    avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + follower.user;
+                }
+
+                $("#followersList").append(`
+                    <li class="list-group-item px-2">
+                        <a href="profile?u=${follower.user}" class="d-flex align-items-center" style="text-decoration: none;">
+                            <div class="d-inline-block position-relative me-2">
+                                <img src="${avatar}" width="40" height="40" class="rounded-circle" alt="">
+                            </div>
+                            ${follower.name}
+                            <small class="ms-2 text-muted">@${follower.user}</small>
+                        </a>
+                    </li>
+                `);
+            });
+        }
+    }
+}); 
+
+$("#inputSearchFollowers").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#followersList li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
 });

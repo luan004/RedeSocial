@@ -76,7 +76,7 @@
 
                     <!-- followers, following and posts -->
                     <div class="d-flex">
-                        <div class="col btn btn-outline-secondary card me-2" data-bs-toggle="modal" data-bs-target="#followersModal">
+                        <div id="btnFollowers" class="col btn btn-outline-secondary card me-2" data-bs-toggle="modal" data-bs-target="#followersModal">
                             <h6 id="followersCount" class="mb-0"></h6>
                             <small>Seguidores</small>
                         </div>
@@ -96,16 +96,19 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5 text-center w-100">
-                                        Seguidores
+                                        x
                                     </h1>
                                     <button type="button" class="btn-close end-0 m-2 position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body p-0">
-                                    <!-- list -->
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">An item</li>
-                                    </ul>
+                                
+                                <div class="modal-body p-3">
+                                    <input id="inputSearchFollowers" type="text" class="form-control p-2" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon1">
                                 </div>
+                                <hr class="m-0">
+
+                                <ul class="list-group list-group-flush" id="followersList">
+
+                                </ul>
                             </div>
                         </div>
                     </div>
