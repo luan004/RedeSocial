@@ -153,10 +153,6 @@ $('#userBoxLogout').click(function(e) {
     logout(token);
 });
 
-
-
-
-
 // Client side validations
 $('#registerUser').keyup(function() {
     this.value = this.value.replace(/[^a-zA-Z0-9_]/g, ''); ///^[a-zA-Z0-9_]+$/
@@ -164,3 +160,4 @@ $('#registerUser').keyup(function() {
 $('#loginUser').keyup(function() {
     this.value = this.value.replace(/[^a-zA-Z0-9_]/g, ''); ///^[a-zA-Z0-9_]+$/
 });
+
