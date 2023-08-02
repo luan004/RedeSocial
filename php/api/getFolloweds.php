@@ -1,24 +1,36 @@
 <?php
     require_once('../connection/Conn.php');
     require_once('../dao/FollowDAO.php');
+    require_once('../dao/SesstokenDAO.php');
     require_once('../dao/UserDAO.php');
     require_once('../models/Follow.php');
+    require_once('../models/Sesstoken.php');
     require_once('../models/User.php');
 
-    $username = 'admin';
+    $username = $_POST['user'];
+    $token = $_POST['token'];
 
     $conn = new Conn();
 
     $userDAO = new UserDAO($conn);
     $user = $userDAO->getUserByUserName($username);
 
+    $sesstokenDAO = new SesstokenDAO($conn);
+    $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
+
     if ($user) {
         $followDAO = new FollowDAO($conn);
         $followeds = $followDAO->getFolloweds($user->getId());
         $response = array(
             'success' => true,
+            'isme' => false,
             'followeds' => array()
         );
+        
+        if ($sesstoken && $sesstoken->getUserId() == $user->getId()) {
+            $response['isme'] = true;
+        }
+
         foreach ($followeds as $followed) {
             $followedUser = $userDAO->getUserById($followed->getFollowedId());
             $followedAvatar = $followedUser->getAvatar();

@@ -185,14 +185,15 @@ $.ajax({
     url: "php/api/getFolloweds.php",
     dataType: "json",
     data: {
-        user: user
+        user: user,
+        token: token
     },
     success: function(response) {
         console.log(response);
         if (response.success == true) {
             if (response.followeds.length == 0) {
                 $('#followedsList').append(`
-                    <small class="text-truncate p-5 text-center d-block">Nenhum seguidor encontrado</small>    
+                    <small class="text-truncate p-5 text-center d-block">Nenhum seguido encontrado</small>    
                 `);
             }
             response.followeds.forEach(followed => {
@@ -202,8 +203,8 @@ $.ajax({
                 } else {
                     avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + followed.user;
                 }
-                $("#followedsList").append(`
-                    <li class="list-group-item px-2">
+                var str = `
+                    <li class="list-group-item px-2 d-flex">
                         <a href="profile?u=${followed.user}" class="d-flex align-items-center" style="text-decoration: none;">
                             <div class="d-inline-block position-relative me-2">
                                 <img src="${avatar}" width="40" height="40" class="rounded-circle" alt="">
@@ -211,8 +212,22 @@ $.ajax({
                             ${followed.name}
                             <small class="ms-2 text-muted">@${followed.user}</small>
                         </a>
+                `;
+
+                if (response.isme == true) {
+                    str += `
+                        <button class="btn btn-sm btn-outline-danger ms-auto btnUnfollow m-1" value="${followed.user}">
+                            <i class="fa fa-user-times"></i>
+                            Deixar de seguir
+                        </button>
+                    `;
+                }
+
+                str += `
                     </li>
-                `);
+                `;
+
+                $('#followedsList').append(str);
             });
         }
     }
@@ -222,4 +237,9 @@ $("#inputSearchFolloweds").on("keyup", function() {
     $("#followedsList li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
+});
+$(document).on('click', '.btnUnfollow', function() {
+    const u = $(this).attr('value');
+    toggleFollow(u, token);
+    $(this).parent().remove();
 });
