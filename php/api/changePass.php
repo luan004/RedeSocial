@@ -19,7 +19,7 @@
         $user = $userDAO->getUserById($sesstoken->getUserId());
 
         if ($user->getPass() == $oldPass) {
-            if (strlen($newPass) <= 32 && strlen($newPass) >= 8 && preg_match('/^[a-zA-Z0-9_]+$/', $newPass)) {
+            if (strlen($newPass) <= 32 && strlen($newPass) >= 8) {
                 $user->setPass($newPass);
                 $userDAO->updateUser($user);
                 $response = array(
