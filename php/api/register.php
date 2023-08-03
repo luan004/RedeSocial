@@ -14,7 +14,7 @@
                 'error' => 'nameInvalid'
             );
             break;
-        case (strlen($pass) > 32 || strlen($pass) < 8 || !preg_match('/^[a-zA-Z0-9_]+$/', $pass)):
+        case (strlen($pass) > 32 || strlen($pass) < 8):
             $response = array(
                 'register' => false,
                 'error' => 'passInvalid'
