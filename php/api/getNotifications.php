@@ -39,7 +39,7 @@
 
             $authorStr = array(
                 'user' => $author->getUser(),
-                'avatar' => $author->getAvatar()
+                'avatar' => $avatar
             );
 
             $notificationsStr[] = array(

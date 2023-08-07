@@ -5,7 +5,8 @@ import {
     genPostHTML,
     toggleLikePost,
     toggleFollow,
-    deletePost
+    deletePost,
+    b64ImageToUrl
 } from "../utils.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -28,7 +29,16 @@ $.ajax({
         if (response.success == true) {
             $('#userComment').show();
             $('#userUser').html('@'+response.user);
-            $('#userAvatar').attr('src', response.avatar);
+
+            var avatar = null;
+            if (response.avatar != null) {
+                avatar = b64ImageToUrl(response.avatar);
+            } else {
+                avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + response.user;
+            }
+
+
+            $('#userAvatar').attr('src', avatar);
 
             $('#sendPostForm').submit(function(e) {
                 e.preventDefault();
@@ -67,16 +77,23 @@ $.ajax({
     },
     success: function(response) {
         if (response.success == true) {
-
-            $('#testetestepost').html(genPostHTML(response));
+            $('#postBox').html(genPostHTML(response));
 
             for (let i = 0; response.comments && i < response.comments.length; i++) {
                 const comment = response.comments[i];
+
+                var avatar = null;
+                if (comment.user.avatar != null) {
+                    avatar = b64ImageToUrl(comment.user.avatar);
+                } else {
+                    avatar = 'https://ui-avatars.com/api/background=0D8ABC&color=fff?name=' + comment.user.user;
+                }
+
                 $('#postComments').append(
                     `
                     <div class="card mb-3">
                         <div class="card-header d-flex">
-                            <img src="${comment.user.avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
+                            <img src="${avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
                             <span class="align-middle h6">${comment.user.name}</span>
                             <small class="align-middle ms-2">@${comment.user.user}</small>
                             <small class="text-body-secondary ms-auto">

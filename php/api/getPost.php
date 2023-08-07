@@ -32,10 +32,18 @@
     if ($post) {
         $userDAO = new UserDAO($conn);
         $user = $userDAO->getUserById($post->getUserId());
+
+        // get avatar
+        $avatar = $user->getAvatar();
+        if ($avatar != null) {
+            $files = new Files();
+            $avatar = $files->getB64Image($avatar);
+        }
+
         $userAr = array(
             'name' => $user->getName(),
             'user' => $user->getUser(),
-            'avatar' => $user->getAvatar()
+            'avatar' => $avatar
         );
 
         //get likes
@@ -87,10 +95,18 @@
             $commentsAr = array();
             foreach ($comments as $comment) {
                 $user = $userDAO->getUserById($comment->getUserId());
+                
+                // get avatar
+                $avatar = $user->getAvatar();
+                if ($avatar != null) {
+                    $files = new Files();
+                    $avatar = $files->getB64Image($avatar);
+                }
+
                 $userAr = array(
                     'name' => $user->getName(),
                     'user' => $user->getUser(),
-                    'avatar' => $user->getAvatar()
+                    'avatar' => $avatar
                 );
 
                 $commentAr = array(

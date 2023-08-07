@@ -89,8 +89,6 @@ if (!page.includes('notifications')) {
                     `);
                 }
                 response.notifications.forEach(notification => {
-                    var notificationStr = '';
-    
                     var typeStr = '';
                     switch (notification.type) {
                         case 1: //follow
