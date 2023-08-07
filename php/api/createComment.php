@@ -35,17 +35,19 @@
             'success' => true
         );
 
-        //notification
-        $notificationDAO = new NotificationDAO($conn);
-        $notification = new Notification(
-            null,
-            3,
-            $post->getUserId(),
-            $sesstoken->getUserId(),
-            $post->getId(),
-            null
-        );
-        $notificationDAO->create($notification);
+        if ($sesstoken->getUserId() != $post->getUserId()) {
+            //notification
+            $notificationDAO = new NotificationDAO($conn);
+            $notification = new Notification(
+                null,
+                3,
+                $post->getUserId(),
+                $sesstoken->getUserId(),
+                $post->getId(),
+                null
+            );
+            $notificationDAO->create($notification);
+        }
     } else {
         $response = array(
             'success' => false
