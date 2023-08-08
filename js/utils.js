@@ -28,7 +28,27 @@ export function realcarHashtags(texto) {
     });
   
     return textoFormatado;
-}  
+}
+
+export function brDate(dt) {
+    //2023-08-27 16:00:00 para 27 de agosto de 2023 às 16:00
+    
+    var data = dt.split(' ')[0].split('-');
+    var hor = dt.split(' ')[1].split(':');
+
+    var dia = data[2];
+    var mes = data[1];
+    var ano = data[0];
+
+    var hora = hor[0];
+    var minuto = hor[1];
+
+    var meses = [
+        'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho','julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
+    ];
+
+    return dia + ' de ' + meses[mes - 1] + ' de ' + ano + ' às ' + hora + ':' + minuto;
+}
 
 export function calcularTempoDecorrido(dataPostagem) {
     const dataAtual = new Date();
@@ -42,7 +62,9 @@ export function calcularTempoDecorrido(dataPostagem) {
     const meses = Math.floor(dias / 30);
     const anos = Math.floor(meses / 12);
 
-    if (segundos < 60) {
+    if (segundos < 5) {
+        return (`agora mesmo`);
+    } else if (segundos < 60) {
         return `há ${segundos} segundos`;
     } else if (minutos == 1) {
         return `há ${minutos} minuto`;
@@ -151,7 +173,7 @@ export function genPostHTML(post) {
                     </button>`; 
             }
             postStr += `
-                <small class="text-body-secondary ms-auto">
+                <small class="text-body-secondary ms-auto" data-toggle="tooltip" data-placement="top" title="${brDate(post.dt)}">
                     ${calcularTempoDecorrido(post.dt)}
                 </small>
             </div>
