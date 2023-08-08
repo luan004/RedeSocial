@@ -44,14 +44,24 @@ export function calcularTempoDecorrido(dataPostagem) {
 
     if (segundos < 60) {
         return `há ${segundos} segundos`;
+    } else if (minutos == 1) {
+        return `há ${minutos} minuto`;
     } else if (minutos < 60) {
         return `há ${minutos} minutos`;
+    } else if (horas == 1) {
+        return `há ${horas} hora`;
     } else if (horas < 24) {
         return `há ${horas} horas`;
+    } else if (dias == 1) {
+        return `há ${dias} dia`;
     } else if (dias < 30) {
         return `há ${dias} dias`;
+    } else if (meses == 1) {
+        return `há ${meses} mês`;
     } else if (meses < 12) {
         return `há ${meses} meses`;
+    } else if (anos == 1) {
+        return `há ${anos} ano`;
     } else {
         return `há ${anos} anos`;
     }
