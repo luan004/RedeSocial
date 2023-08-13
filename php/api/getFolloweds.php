@@ -1,5 +1,6 @@
 <?php
     require_once('../connection/Conn.php');
+    require_once('../connection/Files.php');    
     require_once('../dao/FollowDAO.php');
     require_once('../dao/SesstokenDAO.php');
     require_once('../dao/UserDAO.php');
@@ -7,8 +8,8 @@
     require_once('../models/Sesstoken.php');
     require_once('../models/User.php');
 
-    $username = $_POST['user'];
-    $token = $_POST['token'];
+    $username = 'jsfandom';
+    $token = 'xxx';
 
     $conn = new Conn();
 
