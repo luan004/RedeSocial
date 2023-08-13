@@ -34,7 +34,7 @@
             $name = strip_tags($name);
             
             // Cria um novo usuário
-            $userObj = new User(null, $name, $user, $pass, null, null, null, null, null);
+            $userObj = new User(null, $name, $user, $pass, null, 'default', null, null, null);
             $userDAO->createUser($userObj);
 
             $response = array(

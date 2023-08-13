@@ -189,7 +189,6 @@ $.ajax({
         token: token
     },
     success: function(response) {
-        console.log(response);
         if (response.success == true) {
             if (response.followeds.length == 0) {
                 $('#followedsList').append(`
