@@ -22,10 +22,10 @@
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
     $userId = null;
 
+    $followDAO = new FollowDAO($conn);
     $follow = null;
     if ($sesstoken && $user) {
         $userId = $sesstoken->getUserId();
-        $followDAO = new FollowDAO($conn);
         $follow = $followDAO->getFollowByUserAndFollowed($userId, $user->getId());
     }
 
