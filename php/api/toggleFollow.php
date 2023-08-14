@@ -9,11 +9,8 @@
     require_once('../models/User.php');
     require_once('../models/Follow.php');
 
-    /* $followedUser = $_POST['followedUser'];
-    $token = $_POST['token']; */
-
-    $followedUser = 'usuarioteste';
-    $token = 'f31efde4f0ec4863a65cfd783fce9a4d09d8ed69499473d490d2e695e85e1cdb';
+    $followedUser = $_POST['followedUser'];
+    $token = $_POST['token'];
 
     $conn = new Conn();
 
