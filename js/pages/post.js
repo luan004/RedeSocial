@@ -94,7 +94,7 @@ $.ajax({
                     <div class="card mb-3">
                         <div class="card-header d-flex">
                             <img src="${avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
-                            <a id="userBoxLink" href="profile?u=luan004" style="text-decoration: none;" class="d-grid">
+                            <a href="profile?u=${comment.user.user}" style="text-decoration: none;" class="d-grid">
                                 <span id="userBoxName" class="h6 mb-0 text-truncate">${comment.user.name}</span>
                                 <small id="userBoxUsername" class="text-body-secondary text-truncate">@${comment.user.user}</small>
                             </a>
