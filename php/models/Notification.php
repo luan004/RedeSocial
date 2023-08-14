@@ -2,7 +2,7 @@
     class Notification {
         private $id;
         private $type;
-        private $useId;
+        private $userId;
         private $authorId;
         private $postId;
         private $dt;
