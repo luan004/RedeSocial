@@ -116,10 +116,10 @@ if (!page.includes('notifications')) {
                                     <img id="userBoxAvatar" width="42" height="42" src="${avatar}" class="rounded-circle me-2" alt="...">
                                 </a>
                                 <span class="d-block w-100">
-                                    <a style="text-decoration:none" href="profile?u=${notification.author.user}">@${notification.author.user}</a>
+                                    <a style="text-decoration:none" class="text-truncate" href="profile?u=${notification.author.user}">@${notification.author.user}</a>
                                     <div class='d-flex'>
                                         <span class="text-truncate small">${typeStr}</span>
-                                        <small id="userBoxUsername" class="ms-auto text-body-secondary text-truncate">${calcularTempoDecorrido(notification.dt)}</small>
+                                        <small style="font-size:11px" class="end-0 m-2 position-absolute ms-auto text-body-secondary text-truncate">${calcularTempoDecorrido(notification.dt)}</small>
                                     </div>
                                 </span>
                             </div>

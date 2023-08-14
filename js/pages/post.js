@@ -94,8 +94,10 @@ $.ajax({
                     <div class="card mb-3">
                         <div class="card-header d-flex">
                             <img src="${avatar}" width="32" height="32" class="rounded-circle me-2" alt="...">
-                            <span class="align-middle h6">${comment.user.name}</span>
-                            <small class="align-middle ms-2">@${comment.user.user}</small>
+                            <a id="userBoxLink" href="profile?u=luan004" style="text-decoration: none;" class="d-grid">
+                                <span id="userBoxName" class="h6 mb-0 text-truncate">${comment.user.name}</span>
+                                <small id="userBoxUsername" class="text-body-secondary text-truncate">@${comment.user.user}</small>
+                            </a>
                             <small class="text-body-secondary ms-auto">
                                 ${calcularTempoDecorrido(comment.dt)}
                             </small>
