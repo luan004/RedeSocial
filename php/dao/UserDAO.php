@@ -15,7 +15,7 @@
             $avatar = $userObj->getAvatar();
             $banner = $userObj->getBanner();
         
-            $stmt = $this->conn->prepare("INSERT INTO users (name, user, pass, aboutme, color, avatar, banner, dt) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+            $stmt = $this->conn->prepare("INSERT INTO users (name, user, pass, aboutme, color, avatar, banner, dt) VALUES (?, ?, ?, ?, ?, ?, ?, CONVERT_TZ(NOW(), '+00:00', '-03:00'))");
             $stmt->bind_param("sssssss", $name, $user, $pass, $aboutme, $color, $avatar, $banner);
             $stmt->execute();
 

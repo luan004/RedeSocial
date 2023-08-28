@@ -11,7 +11,7 @@
             $userId = $comment->getUserId();
             $text = $comment->getText();
 
-            $stmt = $this->conn->prepare("INSERT INTO comments (post_id, user_id, text, dt) VALUES (?, ?, ?, NOW())");
+            $stmt = $this->conn->prepare("INSERT INTO comments (post_id, user_id, text, dt) VALUES (?, ?, ?, CONVERT_TZ(NOW(), '+00:00', '-03:00'))");
             $stmt->bind_param("iis", $postId, $userId, $text);
             $stmt->execute();
 

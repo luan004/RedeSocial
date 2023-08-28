@@ -26,7 +26,7 @@
             null,
             $post->getId(),
             $sesstoken->getUserId(),
-            $text,
+            strip_tags($text),
             null
         );
         $commentDAO = new CommentDAO($conn);

@@ -12,7 +12,7 @@
             $authorId = $notification->getAuthorId();
             $postId = $notification->getPostId();
         
-            $stmt = $this->conn->prepare("INSERT INTO notifications (type, user_id, author_id, post_id, dt) VALUES (?, ?, ?, ?, NOW())");
+            $stmt = $this->conn->prepare("INSERT INTO notifications (type, user_id, author_id, post_id, dt) VALUES (?, ?, ?, ?, CONVERT_TZ(NOW(), '+00:00', '-03:00'))");
             $stmt->bind_param("iiii", $type, $userId, $authorId, $postId);
             $stmt->execute();
     

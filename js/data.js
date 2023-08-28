@@ -1,7 +1,7 @@
 export function auth(ifTrue, ifFalse, token) {
     $.ajax({
         type: "POST",
-        url: "php/api/auth.php",
+        url: "php/api/r.php",
         dataType: "json",
         data: {
             token: token

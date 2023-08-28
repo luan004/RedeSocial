@@ -1,6 +1,6 @@
 <?php
     require_once('../connection/Conn.php');
-    require_once('../dao/SessTokenDAO.php');
+    require_once('../dao/SesstokenDAO.php');
     require_once('../models/Sesstoken.php');
 
     $token = $_POST['token'];

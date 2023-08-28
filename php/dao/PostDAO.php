@@ -11,7 +11,7 @@
             $text = $post->getText();
             $image = $post->getImage();
 
-            $sql = "INSERT INTO posts (user_id, text, image, dt) VALUES (?, ?, ?, NOW())";
+            $sql = "INSERT INTO posts (user_id, text, image, dt) VALUES (?, ?, ?, CONVERT_TZ(NOW(), '+00:00', '-03:00'))";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("sss", $user, $text, $image);
             $stmt->execute();

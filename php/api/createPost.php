@@ -21,7 +21,7 @@
         $post = new Post(
             null,
             $sesstokenDAO->getSesstokenByToken($token)->getUserId(),
-            $text,
+            strip_tags($text),
             $imageName,
             null
         );
