@@ -63,7 +63,7 @@
             $result = $stmt->get_result();
             $posts = array(); */
 
-            $page = ($page-1) * $limit;
+            $page = $page * $limit;
             
             $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC LIMIT ?, ?");
             $stmt->bind_param("ii", $page, $limit);

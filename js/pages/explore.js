@@ -76,7 +76,7 @@ $.ajax({
     }
 });
 
-var page = 1;
+var page = 0;
 $.ajax({
     type: "POST",
     url: "php/api/getPosts.php",
@@ -106,7 +106,6 @@ $(document).on('click', '.btnPostLike', function() {
 //user scrolled to bottom of the page, load more posts
 $(window).scroll(function() {
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        console.log("bottom!"); 
         page++;
         $.ajax({
             type: "POST",
@@ -117,7 +116,17 @@ $(window).scroll(function() {
                 token: token,
                 page: page
             },
+            beforeSend: function() {
+                $("#lastPosts").append(`
+                    <div class="text-center loadingSpin">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                `);
+            },
             success: function(response) {
+                $(".loadingSpin").remove();
                 for (var i = 0; i < response.posts.length; i++) {
                     const post = response.posts[i];
                     $("#lastPosts").append(genPostHTML(post));
