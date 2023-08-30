@@ -76,18 +76,19 @@ $.ajax({
     }
 });
 
+var page = 1;
 $.ajax({
     type: "POST",
     url: "php/api/getPosts.php",
     dataType: "json",
     data: {
         type: 'all',
-        token: token
+        token: token,
+        page: page
     },
     success: function(response) {
         for (var i = 0; i < response.posts.length; i++) {
             const post = response.posts[i];
-
             $("#lastPosts").append(genPostHTML(post));
         }
     }
@@ -100,4 +101,28 @@ $(document).on('click', '.btnPostDelete', function() {
 
 $(document).on('click', '.btnPostLike', function() {
     toggleLikePost(token, $(this));
+});
+
+//user scrolled to bottom of the page, load more posts
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        console.log("bottom!"); 
+        page++;
+        $.ajax({
+            type: "POST",
+            url: "php/api/getPosts.php",
+            dataType: "json",
+            data: {
+                type: 'all',
+                token: token,
+                page: page
+            },
+            success: function(response) {
+                for (var i = 0; i < response.posts.length; i++) {
+                    const post = response.posts[i];
+                    $("#lastPosts").append(genPostHTML(post));
+                }
+            }
+        });
+    }
 });

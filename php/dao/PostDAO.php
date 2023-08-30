@@ -57,8 +57,16 @@
             return $posts;
         }
         
-        public function getAllPosts($reqUserId) {
-            $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC");
+        public function getAllPosts($reqUserId, $page, $limit) {
+            /* $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $posts = array(); */
+
+            $page = ($page-1) * $limit;
+            
+            $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC LIMIT ?, ?");
+            $stmt->bind_param("ii", $page, $limit);
             $stmt->execute();
             $result = $stmt->get_result();
             $posts = array();
