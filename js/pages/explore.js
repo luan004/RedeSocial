@@ -107,6 +107,7 @@ $(document).on('click', '.btnPostLike', function() {
 $(window).scroll(function() {
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
         page++;
+        console.log(page);
         $.ajax({
             type: "POST",
             url: "php/api/getPosts.php",

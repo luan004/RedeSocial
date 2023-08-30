@@ -17,7 +17,7 @@
     $type = $_POST['type'];
     $token = $_POST['token'];
     $page = $_POST['page']; // página atual
-    $limit = 1; // limite maximo de posts por pagina
+    $limit = 6; // limite maximo de posts por pagina
 
     $sesstokenDAO = new SesstokenDAO($conn);
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
