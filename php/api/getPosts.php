@@ -16,6 +16,8 @@
 
     $type = $_POST['type'];
     $token = $_POST['token'];
+    $page = $_POST['page']; // página atual
+    $limit = 6; // limite maximo de posts por pagina
 
     $sesstokenDAO = new SesstokenDAO($conn);
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
@@ -180,7 +182,7 @@
     }
     /* ALL POSTS */
     elseif ($type == 'all') {
-        $posts = $postDAO->getAllPosts($userId);
+        $posts = $postDAO->getAllPosts($userId, $page, $limit);
 
         $postsAr = array();
         foreach ($posts as $post) {
