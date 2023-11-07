@@ -100,6 +100,34 @@
             }
         }
 
+        functions getUsersBySearch($search, $limit) {
+            $stmt = $this->conn->prepare("SELECT * FROM users WHERE name LIKE ? OR user LIKE ? LIMIT ?");
+            $stmt->bind_param("ssi", $search, $search, $limit);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $users = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $user = new User(
+                        $row['id'],
+                        $row['name'],
+                        $row['user'],
+                        $row['pass'],
+                        $row['aboutme'],
+                        $row['color'],
+                        $row['avatar'],
+                        $row['banner'],
+                        $row['dt']
+                    );
+
+                    array_push($users, $user);
+                }
+            }
+            return $users;
+        }
+
         function getRandomUsers($limit) {
             $stmt = $this->conn->prepare("SELECT user, name, avatar FROM users ORDER BY RAND() LIMIT ".$limit.";");
             $stmt->execute();
