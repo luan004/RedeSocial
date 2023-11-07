@@ -3,14 +3,9 @@
     require_once('../dao/UserDAO.php');
     require_once('../models/User.php');
 
-    /* $name = $_POST['name'];
+    $name = $_POST['name'];
     $user = $_POST['user'];
-    $pass = $_POST['pass']; */
-   
-
-    $name = 'Teste';
-    $user = 'testanxdosenha';
-    $pass = '12345678';
+    $pass = $_POST['pass'];
 
     $conn = new Conn();
     $userDAO = new UserDAO($conn);
