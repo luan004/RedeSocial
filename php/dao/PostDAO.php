@@ -58,15 +58,37 @@
         }
         
         public function getAllPosts($reqUserId, $page, $limit) {
-            /* $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC");
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $posts = array(); */
-
             $page = $page * $limit;
             
             $stmt = $this->conn->prepare("SELECT * FROM posts ORDER BY dt DESC LIMIT ?, ?");
             $stmt->bind_param("ii", $page, $limit);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $posts = array();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $post = new Post(
+                        $row['id'],
+                        $row['user_id'],
+                        $row['text'],
+                        $row['image'],
+                        $row['dt']
+                    );
+                    array_push($posts, $post);
+                }
+            }
+
+            $stmt->close();
+            return $posts;
+        }
+
+        public function getPostsBySearch($search, $reqUserId, $page, $limit) {
+            $page = $page * $limit;
+            
+            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE text LIKE ? ORDER BY dt DESC LIMIT ?, ?");
+            $search = '%'.$search.'%';
+            $stmt->bind_param("sii", $search, $page, $limit);
             $stmt->execute();
             $result = $stmt->get_result();
             $posts = array();

@@ -180,6 +180,76 @@
             );
         }
     }
+    elseif ($type == 'search') {
+        $search = $_POST['search'];
+        $posts = $postDAO->getPostsBySearch($search, $userId, $page, $limit);
+
+        $postsAr = array();
+        foreach ($posts as $post) {
+            $user = $userDAO->getUserById($post->getUserId());
+
+            // get avatar
+            $avatar = $user->getAvatar();
+            if ($avatar != null) {
+                $files = new Files();
+                $avatar = $files->getB64Image($avatar);
+            }
+
+            // get user
+            $userAr = array(
+                'name' => $user->getName(),
+                'user' => $user->getUser(),
+                'avatar' => $avatar
+            );
+
+            //get likes
+            $likes = $likeDAO->getLikeNumByPostId($post->getId());
+
+            //get comments num
+            $comments = $commentDAO->getCommentsNumByPostId($post->getId());
+
+            // check if user liked
+            $liked = false;
+            if ($userId) {
+                $like = $likeDAO->getLikeByPostIdUserId($post->getId(), $userId);
+                if ($like) {
+                    $liked = true;
+                }
+            }
+
+            // check if is from user
+            $ismy = false;
+            if ($userId == $post->getUserId()) {
+                $ismy = true;
+            }
+
+            // send image as b64
+            $image = $post->getImage();
+            if ($image != null) {
+                $files = new Files();
+                $image  = $files->getB64Image($image);
+            }
+            
+            $postAr = array(
+                'id' => $post->getId(),
+                'user' => $userAr,
+                'text' => $post->getText(),
+                'image' => $image,
+                'likes' => $likes,
+                'liked' => $liked,
+                'ismy' => $ismy,
+                'commentsNum' => $comments,
+                'dt' => $post->getDt()
+            );
+
+            array_push($postsAr, $postAr);
+        }
+
+        $response = array(
+            'success' => true,
+            'posts' => $postsAr
+        );
+    }
     /* ALL POSTS */
     elseif ($type == 'all') {
         $posts = $postDAO->getAllPosts($userId, $page, $limit);
