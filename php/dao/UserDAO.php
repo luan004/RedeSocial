@@ -6,7 +6,7 @@
             $this->conn = $conn;
         }
     
-        public function createUser(User $userObj) {
+        public function create(User $userObj) {
             $name = $userObj->getName();
             $user = $userObj->getUser();
             $pass = $userObj->getPass();
@@ -100,7 +100,7 @@
             }
         }
 
-        functions getUsersBySearch($search, $limit) {
+        function getUsersBySearch($search, $limit) {
             $stmt = $this->conn->prepare("SELECT * FROM users WHERE name LIKE ? OR user LIKE ? LIMIT ?");
             $stmt->bind_param("ssi", $search, $search, $limit);
             $stmt->execute();

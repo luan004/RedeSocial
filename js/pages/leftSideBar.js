@@ -104,6 +104,7 @@ $('#registerForm').submit(function() {
                 pass: pass1.val()
             },
             success: function(response) {
+                console.log(response);
                 if (response.register == true) {
                     $.ajax({
                         type: "POST",
