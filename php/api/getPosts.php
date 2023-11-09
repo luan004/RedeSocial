@@ -34,7 +34,7 @@
 
     /* FEED */
     if ($type == 'feed' && $sesstoken) {
-        $posts = $postDAO->getFeed($userId);
+        $posts = $postDAO->getFeed($userId, $page, $limit);
 
         $postsAr = array();
         foreach ($posts as $post) {

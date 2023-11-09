@@ -127,14 +127,15 @@ $('#sendPostForm').submit(function(e) {
     }
 });
 
-
+var page = 0;
 $.ajax({
     type: "POST",
     url: "php/api/getPosts.php",
     dataType: "json",
     data: {
         type: 'feed',
-        token: token
+        token: token,
+        page: page
     },
     success: function(response) {
         if (response.posts.length > 0) {
@@ -148,6 +149,40 @@ $.ajax({
                 <p class="text-center">Siga pessoas e você verá o que elas publicam aqui, ou navegue pelo <a href="explore">explorar</a> e veja o que desconhecidos estão publicando!</p>
             `);
         }
+    }
+});
+
+//user scrolled to bottom of the page, load more posts
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        page++;
+        $(window).scrollTop($(window).scrollTop() - 20);
+        $.ajax({
+            type: "POST",
+            url: "php/api/getPosts.php",
+            dataType: "json",
+            data: {
+                type: 'feed',
+                token: token,
+                page: page
+            },
+            beforeSend: function() {
+                $("#postsFeed").append(`
+                    <div class="text-center loadingSpin">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                `);
+            },
+            success: function(response) {
+                $(".loadingSpin").remove();
+                for (var i = 0; i < response.posts.length; i++) {
+                    const post = response.posts[i];
+                    $("#postsFeed").append(genPostHTML(post));
+                }
+            }
+        });
     }
 });
 
