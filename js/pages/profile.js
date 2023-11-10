@@ -277,4 +277,5 @@ $(document).on('click', '.btnUnfollow', function() {
     const u = $(this).attr('value');
     toggleFollow(u, token);
     $(this).parent().remove();
+    window.location.reload();
 });
