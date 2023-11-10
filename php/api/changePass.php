@@ -5,9 +5,13 @@
     require_once('../models/User.php');
     require_once('../models/sesstoken.php');
 
-    $token = $_POST['token'];
+    /* $token = $_POST['token'];
     $newPass = $_POST['newPass'];
-    $oldPass = $_POST['oldPass'];
+    $oldPass = $_POST['oldPass']; */
+
+    $token = '33c9bcfd1bc0d74d84cb8925fa47e4e6434f930d302fbe371a5cdd65a5344aa4';
+    $newPass = '87654321';
+    $oldPass = '12345678';
 
     $conn = new Conn();
 
@@ -18,10 +22,10 @@
         $userDAO = new UserDAO($conn);
         $user = $userDAO->getUserById($sesstoken->getUserId());
 
-        if ($user->getPass() == $oldPass) {
-            if (strlen($newPass) <= 32 && strlen($newPass) >= 8) {
-                $user->setPass($newPass);
-                $userDAO->updateUser($user);
+        if ($user->getPass() == md5($oldPass)) {
+            if (strlen($newPass) <= 32 && strlen($newPass) >= 8 && preg_match('/^[a-zA-Z0-9_]+$/', $newPass)) {
+                $user->setPass(md5($newPass));
+                $userDAO->update($user);
                 $response = array(
                     'success' => true
                 );
