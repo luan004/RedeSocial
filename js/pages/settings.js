@@ -40,7 +40,7 @@ auth(function(id) {
             if (response.banner != null) {
                 banner = b64ImageToUrl(response.banner);
             } else {
-                banner = 'https://placehold.it/512x128';
+                banner = 'resources/images/banner.jpg';
             }
 
             $('#editAvatar').attr('src', avatar);
@@ -175,7 +175,7 @@ $('#bannerSelectorInput').change(function() {
 // DELETE BANNER
 $('#bannerDelete').click(function() {
     $('#bannerDelete').val(1);
-    $('#editBanner').attr('src', 'https://placehold.it/512x128');
+    $('#editBanner').attr('src', 'resources/images/banner.jpg');
     changes();
 });
 
