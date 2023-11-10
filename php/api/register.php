@@ -6,6 +6,12 @@
     $name = $_POST['name'];
     $user = $_POST['user'];
     $pass = $_POST['pass'];
+    
+
+
+/*     $name = 'testeteste';
+    $user = 'testeteste';
+    $pass = 'testeteste'; */
 
     $conn = new Conn();
     $userDAO = new UserDAO($conn);
@@ -41,7 +47,7 @@
             
             // Cria um novo usuário
             $userObj = new User(null, $name, $user, $pass, null, 'default', null, null, null);
-            $userDAO->createUser($userObj);
+            $userDAO->create($userObj);
 
             $response = array(
                 'register' => true
