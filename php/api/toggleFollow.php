@@ -43,7 +43,6 @@
                 $user->getId(),
                 $sesstoken->getUserId(),
                 null,
-                null,
                 null
             );
             $notificationDAO->create($notification);

@@ -235,11 +235,13 @@ export function toggleFollow(followedUser, token) {
             token: token
         },
         success: function(response) {
+            console.log(response);
             if (response.success == true) {
                 if (response.followed == true) {
                     $("#follow").html('<i class="fa fa-user-plus"></i> Seguido');
                     $("#follow").removeClass('btn-outline-primary');
                     $("#follow").addClass('btn-primary')
+                    console.log('Seguindo');
                 } else {
                     $("#follow").html('<i class="fa fa-user-plus"></i> Seguir');
                     $("#follow").removeClass('btn-primary');
