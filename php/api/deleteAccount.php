@@ -18,7 +18,7 @@
         $userDAO = new UserDAO($conn);
         $user = $userDAO->getUserById($sesstoken->getUserId());
 
-        if ($user && $user->getPass() == $pass) {
+        if ($user && $user->getPass() == md5($pass)) {
             $files = new Files();
             $files->deleteAllUserFiles($user->getId());
 

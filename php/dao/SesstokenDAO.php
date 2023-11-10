@@ -6,7 +6,7 @@
             $this->conn = $conn;
         }
 
-        public function createSesstoken(Sesstoken $sesstoken) {
+        public function create(Sesstoken $sesstoken) {
             $userId = $sesstoken->getUserId();
             $token = $sesstoken->getToken();
 
@@ -21,7 +21,7 @@
             $stmt->close();
         }
 
-        public function deleteSesstoken(Sesstoken $sesstoken) {
+        public function delete(Sesstoken $sesstoken) {
             $id = $sesstoken->getId();
 
             $stmt = $this->conn->prepare("DELETE FROM sesstokens WHERE id = ?");

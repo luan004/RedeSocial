@@ -10,7 +10,7 @@
     $sesstoken = $sesstokenDAO->getSesstokenByToken($token);
 
     if ($sesstoken) {
-        $sesstokenDAO->deleteSesstoken($sesstoken);
+        $sesstokenDAO->delete($sesstoken);
         $response = array(
             'success' => true
         );

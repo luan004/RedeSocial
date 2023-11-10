@@ -19,7 +19,7 @@
         
         $sesstokenDAO = new SesstokenDAO($conn);
         $sesstoken = new Sesstoken(null, $userObj->getId(), $token);
-        $sesstokenDAO->createSesstoken($sesstoken);
+        $sesstokenDAO->create($sesstoken);
 
         $response = array(
             'auth' => true,
