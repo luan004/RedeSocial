@@ -106,7 +106,7 @@
     elseif ($type == 'user' && $username = $_POST['user']) {
         $user = $userDAO->getUserByUsername($username);
         if ($user) {
-            $posts = $postDAO->getPostsByUserId($user->getId(), $userId);
+            $posts = $postDAO->getPostsByUserId($user->getId(), $userId, $page, $limit);
 
             $postsAr = array();
             foreach ($posts as $post) {

@@ -135,9 +135,11 @@
             }
         }
 
-        public function getPostsByUserId($id, $reqUserId) {
-            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY dt DESC");
-            $stmt->bind_param("i", $id);
+        public function getPostsByUserId($id, $reqUserId, $page, $limit) {
+            $page = $page * $limit;
+
+            $stmt = $this->conn->prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY dt DESC LIMIT ?, ?");
+            $stmt->bind_param("iii", $id, $page, $limit);
             $stmt->execute();
             $result = $stmt->get_result();
             $posts = array();
@@ -186,6 +188,23 @@
 
             $stmt->close();
             return $posts;
+        }
+
+        public function getPostsCount($id) {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) AS count FROM posts WHERE user_id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $count = $row['count'];
+                $stmt->close();
+                return $count;
+            } else {
+                $stmt->close();
+                return false;
+            }
         }
     }
 ?>

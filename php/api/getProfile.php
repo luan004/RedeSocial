@@ -49,6 +49,10 @@
         // get followingCount
         $followingCount = $followDAO->getFollowingCount($user->getId());
 
+        // get postsCount
+        $postDAO = new PostDAO($conn);
+        $postsCount = $postDAO->getPostsCount($user->getId());
+
         $response = array(
             'success' => true,
             'isme' => $user->getId() == $userId,
@@ -58,6 +62,7 @@
             'user' => $user->getUser(),
             'followersCount' => $followersCount,
             'followingCount' => $followingCount,
+            'postsCount' => $postsCount,
             'aboutme' => $user->getAboutme(),
             'avatar' => $avatar,
             'banner' => $banner,

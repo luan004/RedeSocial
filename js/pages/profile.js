@@ -43,7 +43,7 @@ $.ajax({
             if (response.banner != null) {
                 banner = b64ImageToUrl(response.banner);
             } else {
-                banner = 'https://placehold.it/512x128';
+                banner = 'resources/images/banner.jpg';
             }
             $("#username").html(user);
             $("#name").html(response.name);
@@ -59,6 +59,7 @@ $.ajax({
 
             $('#followersCount').html(response.followersCount);
             $('#followingCount').html(response.followingCount);
+            $('#postsCount').html(response.postsCount);
 
             const c = response.color;
             if 
@@ -86,6 +87,7 @@ $.ajax({
             }
 
             /* Carregar posts */
+            var page = 0;
             $.ajax({
                 type: "POST",
                 url: "php/api/getPosts.php",
@@ -93,6 +95,7 @@ $.ajax({
                 data: {
                     type: 'user',
                     user: user,
+                    page: page,
                     token: token
                 },
                 success: function(response) {
@@ -100,7 +103,6 @@ $.ajax({
                         const post = response.posts[i];
                         $("#profilePosts").append(genPostHTML(post));
                     }
-                    $('#postsCount').html(response.posts.length);
                     if (response.posts.length == 0) {
                         $("#profilePosts").append(`
                             <span class="text-center d-block">
@@ -109,6 +111,40 @@ $.ajax({
                             </span>
                         `);
                     }
+                }
+            });
+            //user scrolled to bottom of the page, load more posts
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                    page++;
+                    $(window).scrollTop($(window).scrollTop() - 20);
+                    $.ajax({
+                        type: "POST",
+                        url: "php/api/getPosts.php",
+                        dataType: "json",
+                        data: {
+                            type: 'user',
+                            user: user,
+                            page: page,
+                            token: token
+                        },
+                        beforeSend: function() {
+                            $("#profilePosts").append(`
+                                <div class="text-center loadingSpin">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            `);
+                        },
+                        success: function(response) {
+                            $(".loadingSpin").remove();
+                            for (var i = 0; i < response.posts.length; i++) {
+                                const post = response.posts[i];
+                                $("#profilePosts").append(genPostHTML(post));
+                            }
+                        }
+                    });
                 }
             });
         } else {
