@@ -54,6 +54,9 @@ export function calcularTempoDecorrido(dataPostagem) {
     const dataAtual = new Date();
     const dataPost = new Date(dataPostagem);
 
+    //convert to UTC -3
+    dataAtual.setHours(dataAtual.getHours() - 3);
+
     const diffEmMilissegundos = Math.abs(dataAtual - dataPost);
     const segundos = Math.floor(diffEmMilissegundos / 1000);
     const minutos = Math.floor(segundos / 60);
